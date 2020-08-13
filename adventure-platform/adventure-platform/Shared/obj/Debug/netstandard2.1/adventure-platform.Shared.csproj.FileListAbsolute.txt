@@ -1,0 +1,9 @@
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\bin\Debug\netstandard2.1\adventure-platform.Shared.deps.json
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\bin\Debug\netstandard2.1\adventure-platform.Shared.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\bin\Debug\netstandard2.1\adventure-platform.Shared.pdb
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\obj\Debug\netstandard2.1\adventure-platform.Shared.csprojAssemblyReference.cache
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\obj\Debug\netstandard2.1\adventure-platform.Shared.AssemblyInfoInputs.cache
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\obj\Debug\netstandard2.1\adventure-platform.Shared.AssemblyInfo.cs
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\obj\Debug\netstandard2.1\adventure-platform.Shared.csproj.CoreCompileInputs.cache
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\obj\Debug\netstandard2.1\adventure-platform.Shared.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Shared\obj\Debug\netstandard2.1\adventure-platform.Shared.pdb
