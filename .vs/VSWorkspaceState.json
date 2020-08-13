@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\adventure-platform",
+    "\\adventure-platform\\adventure-platform",
+    "\\adventure-platform\\adventure-platform\\Client"
   ],
+  "SelectedNode": "\\adventure-platform\\adventure-platform.sln",
   "PreviewInSolutionExplorer": false
 }
