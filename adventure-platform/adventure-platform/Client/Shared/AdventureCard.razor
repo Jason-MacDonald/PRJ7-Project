@@ -1,16 +1,17 @@
 ﻿<div>
     <h4>Title: @Adventure.Title</h4>
     <p>Description: @Adventure.Description</p>
-    <div>
-        <button @onclick="DeleteAdventure">Delete</button>
-    </div>
+    @if(IsOwner)
+    {
+        <div>
+            <button @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">Delete</button>
+        </div>
+    }
+
 </div>
 
 @code {
     [Parameter] public Adventure Adventure { get; set; }
-
-    void DeleteAdventure()
-    {
-
-    }
+    [Parameter] public bool IsOwner { get; set; } = true;
+    [Parameter] public EventCallback<Adventure> DeleteAdventure { get; set; }
 }

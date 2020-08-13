@@ -1,10 +1,21 @@
-﻿@foreach (var adventure in Adventures)
-{
-    <div>
-        <AdventureCard Adventure="adventure"/>
-    </div>
-}
+﻿<input type="checkbox" @bind="@isOwner" />
+
+<GenericList List="Adventures">
+    <EmptyTemplate>
+        <p>There are no adventures to show.</p>
+    </EmptyTemplate>
+    <ElementTemplate>
+        <AdventureCard Adventure="context" IsOwner="isOwner" DeleteAdventure="DeleteAdventure" />
+    </ElementTemplate>
+</GenericList>
 
 @code {
     [Parameter] public List<Adventure> Adventures { get; set; }
+
+    bool isOwner = false;
+
+    void DeleteAdventure(Adventure adventure)
+    {
+        Adventures.Remove(adventure);
+    }
 }
