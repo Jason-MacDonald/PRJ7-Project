@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 
-namespace adventure_platform.Server
+namespace adventureplatform.Server
 {
     public class Startup
     {

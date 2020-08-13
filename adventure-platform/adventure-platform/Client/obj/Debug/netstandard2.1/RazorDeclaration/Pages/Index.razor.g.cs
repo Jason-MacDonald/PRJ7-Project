@@ -5,7 +5,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace adventure_platform.Client.Pages
+namespace adventureplatform.Client.Pages
 {
     #line hidden
     using System;
@@ -64,14 +64,21 @@ using Microsoft.JSInterop;
 #nullable disable
 #nullable restore
 #line 8 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
-using adventure_platform.Client;
+using adventureplatform.Client;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 9 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
-using adventure_platform.Client.Shared;
+using adventureplatform.Client.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
+using adventureplatform.Shared.Entities;
 
 #line default
 #line hidden

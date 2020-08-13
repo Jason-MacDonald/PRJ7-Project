@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace adventure_platform.Server
+namespace adventureplatform.Server
 {
     public class Program
     {

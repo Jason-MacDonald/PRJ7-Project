@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventure-platform.Server", "adventure-platform\Server\adventure-platform.Server.csproj", "{F7445C31-229C-4890-8BBA-21AC91F55609}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventureplatform.Server", "adventure-platform\Server\adventureplatform.Server.csproj", "{F7445C31-229C-4890-8BBA-21AC91F55609}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventure-platform.Client", "adventure-platform\Client\adventure-platform.Client.csproj", "{3068A67A-8A23-4239-B4C2-5D53398260C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventureplatform.Client", "adventure-platform\Client\adventureplatform.Client.csproj", "{3068A67A-8A23-4239-B4C2-5D53398260C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventure-platform.Shared", "adventure-platform\Shared\adventure-platform.Shared.csproj", "{80A91B80-5BCE-4D10-AE71-3795C59EBAA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventureplatform.Shared", "adventure-platform\Shared\adventureplatform.Shared.csproj", "{80A91B80-5BCE-4D10-AE71-3795C59EBAA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

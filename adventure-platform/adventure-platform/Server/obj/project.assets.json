@@ -317,29 +317,29 @@
           "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       },
-      "adventure-platform.Client/1.0.0": {
+      "adventureplatform.Client/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "Microsoft.AspNetCore.Components.WebAssembly": "3.2.0",
           "System.Net.Http.Json": "3.2.0",
-          "adventure-platform.Shared": "1.0.0"
+          "adventureplatform.Shared": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/adventure-platform.Client.dll": {}
+          "bin/placeholder/adventureplatform.Client.dll": {}
         },
         "runtime": {
-          "bin/placeholder/adventure-platform.Client.dll": {}
+          "bin/placeholder/adventureplatform.Client.dll": {}
         }
       },
-      "adventure-platform.Shared/1.0.0": {
+      "adventureplatform.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "compile": {
-          "bin/placeholder/adventure-platform.Shared.dll": {}
+          "bin/placeholder/adventureplatform.Shared.dll": {}
         },
         "runtime": {
-          "bin/placeholder/adventure-platform.Shared.dll": {}
+          "bin/placeholder/adventureplatform.Shared.dll": {}
         }
       }
     }
@@ -823,22 +823,22 @@
         "version.txt"
       ]
     },
-    "adventure-platform.Client/1.0.0": {
+    "adventureplatform.Client/1.0.0": {
       "type": "project",
-      "path": "../Client/adventure-platform.Client.csproj",
-      "msbuildProject": "../Client/adventure-platform.Client.csproj"
+      "path": "../Client/adventureplatform.Client.csproj",
+      "msbuildProject": "../Client/adventureplatform.Client.csproj"
     },
-    "adventure-platform.Shared/1.0.0": {
+    "adventureplatform.Shared/1.0.0": {
       "type": "project",
-      "path": "../Shared/adventure-platform.Shared.csproj",
-      "msbuildProject": "../Shared/adventure-platform.Shared.csproj"
+      "path": "../Shared/adventureplatform.Shared.csproj",
+      "msbuildProject": "../Shared/adventureplatform.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.AspNetCore.Components.WebAssembly.Server >= 3.2.0",
-      "adventure-platform.Client >= 1.0.0",
-      "adventure-platform.Shared >= 1.0.0"
+      "adventureplatform.Client >= 1.0.0",
+      "adventureplatform.Shared >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -849,9 +849,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\adventure-platform.Server.csproj",
-      "projectName": "adventure-platform.Server",
-      "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\adventure-platform.Server.csproj",
+      "projectUniqueName": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\adventureplatform.Server.csproj",
+      "projectName": "adventureplatform.Server",
+      "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\adventureplatform.Server.csproj",
       "packagesPath": "C:\\Users\\64221\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\obj\\",
       "projectStyle": "PackageReference",
@@ -874,11 +874,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventure-platform.Client.csproj": {
-              "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventure-platform.Client.csproj"
+            "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventureplatform.Client.csproj": {
+              "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventureplatform.Client.csproj"
             },
-            "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj": {
-              "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj"
+            "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj": {
+              "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj"
             }
           }
         }

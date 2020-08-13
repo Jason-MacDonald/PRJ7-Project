@@ -1,0 +1,10 @@
+﻿@foreach (var adventure in Adventures)
+{
+    <div>
+        <AdventureCard Adventure="adventure"/>
+    </div>
+}
+
+@code {
+    [Parameter] public List<Adventure> Adventures { get; set; }
+}

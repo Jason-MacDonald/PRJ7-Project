@@ -32,8 +32,8 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj": {
-                "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj"
+              "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj": {
+                "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj"
               }
             }
           }
@@ -116,8 +116,8 @@
               "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventure-platform.Client.csproj": {
                 "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventure-platform.Client.csproj"
               },
-              "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj": {
-                "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj"
+              "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj": {
+                "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj"
               }
             }
           }
@@ -158,12 +158,12 @@
         }
       }
     },
-    "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj": {
+    "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj",
-        "projectName": "adventure-platform.Shared",
-        "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventure-platform.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj",
+        "projectName": "adventureplatform.Shared",
+        "projectPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\adventureplatform.Shared.csproj",
         "packagesPath": "C:\\Users\\64221\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Shared\\obj\\",
         "projectStyle": "PackageReference",

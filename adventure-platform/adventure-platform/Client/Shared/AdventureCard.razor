@@ -1,0 +1,16 @@
+﻿<div>
+    <h4>Title: @Adventure.Title</h4>
+    <p>Description: @Adventure.Description</p>
+    <div>
+        <button @onclick="DeleteAdventure">Delete</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Adventure Adventure { get; set; }
+
+    void DeleteAdventure()
+    {
+
+    }
+}
