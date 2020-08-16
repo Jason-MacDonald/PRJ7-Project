@@ -11,6 +11,7 @@ namespace adventureplatform.Shared.Entities
         public string Author { get; set; }
         [Required]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
         public string Image { get; set; }
         public DateTime ReleaseDate { get; set; }       

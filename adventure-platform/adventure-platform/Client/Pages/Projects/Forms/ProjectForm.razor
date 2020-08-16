@@ -1,11 +1,21 @@
 ﻿<EditForm Model="Project" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
 
+    @* PROJECT TITLE *@
     <div class="form-group">
         <label>Title:</label>
         <div>
             <InputText class="form-control" @bind-Value="@Project.Title" />
             <ValidationMessage For="@(() => Project.Title)" />
+        </div>
+    </div>
+
+    @* PROJECT DESCRIPTION *@
+    <div class="form-group">
+        <label>Description:</label>
+        <div>
+            <InputTextArea class="form-control" @bind-Value="@Project.Description" />
+            <ValidationMessage For="@(() => Project.Description)" />
         </div>
     </div>
 

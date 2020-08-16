@@ -1,11 +1,39 @@
 ﻿<EditForm Model="Chapter" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
 
+    @* CHAPTER TITLE *@
     <div class="form-group">
         <label>Title:</label>
         <div>
             <InputText class="form-control" @bind-Value="@Chapter.Title" />
             <ValidationMessage For="@(() => Chapter.Title)" />
+        </div>
+    </div>
+
+    @* CHAPTER DESCRIPTION *@
+    <div class="form-group">
+        <label>Description:</label>
+        <div>
+            <InputTextArea class="form-control" @bind-Value="@Chapter.Description" />
+            <ValidationMessage For="@(() => Chapter.Description)" />
+        </div>
+    </div>
+
+    @* CHAPTER EVENT *@
+    <div class="form-group">
+        <label>Event Details:</label>
+        <div>
+            <InputTextArea class="form-control" @bind-Value="@Chapter.Event" />
+            <ValidationMessage For="@(() => Chapter.Event)" />
+        </div>
+    </div>
+
+    @* CHAPTER HELP *@
+    <div class="form-group">
+        <label>Help Details:</label>
+        <div>
+            <InputTextArea class="form-control" @bind-Value="@Chapter.Help" />
+            <ValidationMessage For="@(() => Chapter.Help)" />
         </div>
     </div>
 
