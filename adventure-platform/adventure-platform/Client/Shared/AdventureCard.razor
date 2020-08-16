@@ -1,26 +1,28 @@
 ﻿@inject NavigationManager navigationManager 
 
-<div class="individual-adventure-container">
-    <p>@Adventure.Title</p>
+    <div class="individual-adventure-container">
+        <h4>@Adventure.Title</h4>
 
-    <a>
-        <img src="@Adventure.Image"
-             alt="Main Image"
-             class="adventure-image" />
-    </a>
+        <a>
+            <img src="@Adventure.Image"
+                 alt="Main Image"
+                 class="adventure-image" />
+        </a>
 
-    @if (IsOwner)
-    {
-        <div>
-            <a class="btn btn-info" @onclick="NavEditProject">Edit</a>
-            <button type="button"
-                    class="btn btn-danger"
-                    @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
-                Delete
-            </button>
-        </div>
-    }
-</div>
+        <p>@Adventure.Description</p>
+
+        @if (IsOwner)
+        {
+            <div>
+                <a class="btn btn-info" @onclick="NavEditProject">Edit</a>
+                <button type="button"
+                        class="btn btn-danger"
+                        @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
+                    Delete
+                </button>
+            </div>
+        }
+    </div>
 
 @code {
     [Parameter] public Adventure Adventure { get; set; }

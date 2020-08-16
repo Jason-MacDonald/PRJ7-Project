@@ -4,12 +4,17 @@
     text-align: left;
 }
 
-.individual-adventure-container p {
-    max-width: 255px;
-    /*height: 44px;*/
-    font-size: 15px;
-    font-weight: bold;
-}
+    .individual-adventure-container p {
+        max-width: 255px;
+        /*height: 44px;*/
+        font-size: 15px;
+    }
+
+    .individual-adventure-container h4 {
+        max-width: 255px;
+        /*height: 44px;*/
+        font-size: 25px;
+    }
 
 .adventure-image {
     width: 300px;
