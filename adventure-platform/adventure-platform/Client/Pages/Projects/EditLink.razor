@@ -1,0 +1,24 @@
+﻿@page "/editlink/{LinkID:int}"
+
+<h3>EditLink</h3>
+
+<LinkForm Link="link" OnValidSubmit="SaveLink" />
+
+@code {
+    [Parameter] public int LinkID { get; set; }
+    public Link link;
+
+    protected override void OnInitialized()
+    {
+        link = new Link()
+        {
+            ID = LinkID,
+            Description = "Continue"
+        };
+    }
+
+    private void SaveLink()
+    {
+        Console.WriteLine("Link edited");
+    }
+}

@@ -1,0 +1,25 @@
+﻿@page "/myprojects"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+
+<h3>MyProjects</h3>
+
+<button class="btn btn-primary" @onclick="NavEditProject">Create New Project</button>
+
+<div>
+    <AdventureList Adventures="adventures" />
+</div>
+
+@code {
+    private List<Adventure> adventures;
+
+    protected override void OnInitialized()
+    {
+        adventures = repository.GetAdventures();
+    }
+
+    private void NavEditProject()
+    {
+        navigationManager.NavigateTo($"createproject");
+    }
+}

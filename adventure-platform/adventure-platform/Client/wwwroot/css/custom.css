@@ -1,0 +1,24 @@
+﻿.individual-adventure-container {
+    margin-right: 2%;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.individual-adventure-container p {
+    max-width: 255px;
+    /*height: 44px;*/
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.adventure-image {
+    width: 300px;
+    height: 225px;
+    margin-bottom: 10px;
+}
+
+.adventures-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}

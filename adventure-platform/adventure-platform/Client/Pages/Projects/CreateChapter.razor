@@ -1,0 +1,19 @@
+﻿@page "/createchapter"
+
+<h3>Create Chapter</h3>
+
+<ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter"/>
+
+<div class="form-group">
+    <a class="btn btn-info" href="createlink">Create New Link</a>
+</div>
+
+
+@code {
+    private Chapter chapter = new Chapter();
+
+    private void SaveChapter()
+    {
+        Console.WriteLine("Chapter created");
+    }
+}

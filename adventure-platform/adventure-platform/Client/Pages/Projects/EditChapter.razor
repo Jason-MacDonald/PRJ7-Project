@@ -1,0 +1,32 @@
+﻿@page "/editchapter/{ChapterID:int}"
+
+<h3>Edit Chapter</h3>
+
+@if (chapter != null)
+{
+    <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
+
+    <div class="form-group">
+        <a class="btn btn-info" href="createlink">Create New Link</a>
+    </div>
+}
+
+@code {
+    [Parameter] public int ChapterID { get; set; }
+    public Chapter chapter;
+
+    protected override void OnInitialized()
+    {
+        chapter = new Chapter()
+        {
+            ID = ChapterID,
+            Title = "Chapter One",
+            Description = "This is the description for The Cloud Dungeon - Chapter One"
+        };
+    }
+
+    private void SaveChapter()
+    {
+        Console.WriteLine("Chapter edited");
+    }
+}

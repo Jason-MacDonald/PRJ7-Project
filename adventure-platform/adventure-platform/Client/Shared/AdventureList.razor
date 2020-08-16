@@ -1,13 +1,15 @@
 ﻿<input type="checkbox" @bind="@isOwner" />
 
-<GenericList List="Adventures">
-    <EmptyTemplate>
-        <p>There are no adventures to show.</p>
-    </EmptyTemplate>
-    <ElementTemplate>
-        <AdventureCard Adventure="context" IsOwner="isOwner" DeleteAdventure="DeleteAdventure" />
-    </ElementTemplate>
-</GenericList>
+<div class="adventures-container">
+    <GenericList List="Adventures">
+        <EmptyTemplate>
+            <p>There are no adventures to show.</p>
+        </EmptyTemplate>
+        <ElementTemplate>
+            <AdventureCard Adventure="context" IsOwner="isOwner" DeleteAdventure="DeleteAdventure" />
+        </ElementTemplate>
+    </GenericList>
+</div>
 
 @code {
     [Parameter] public List<Adventure> Adventures { get; set; }

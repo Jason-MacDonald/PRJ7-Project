@@ -1,0 +1,14 @@
+﻿@page "/createlink"
+
+<h3>CreateLink</h3>
+
+<LinkForm Link="link" OnValidSubmit="SaveLink" />
+
+@code {
+    private Link link = new Link();
+
+    private void SaveLink()
+    {
+        Console.WriteLine("Link Created");
+    }
+}

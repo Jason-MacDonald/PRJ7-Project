@@ -1,0 +1,30 @@
+﻿@page "/editproject/{ProjectID:int}"
+
+<h3>Edit Project</h3>
+
+<ProjectForm Project="project" OnValidSubmit="SaveProject" />
+
+<div class="form-group">
+    <a class="btn btn-info" href="createchapter">Create New Chapter</a>
+</div>
+
+@code {
+    [Parameter] public int ProjectID { get; set; }
+    public Adventure project;
+
+    protected override void OnInitialized()
+    {
+        project = new Adventure()
+        {
+            ID = ProjectID,
+            Author = "Jason MacDonald",
+            Title = "The Cloud Dungeon",
+            Description = "This is the description for The Cloud Dungeon."
+        };
+    }
+
+    private void SaveProject()
+    {
+        Console.WriteLine("Project edited");
+    }
+}

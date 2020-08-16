@@ -1,17 +1,36 @@
-﻿<div>
-    <h4>Title: @Adventure.Title</h4>
-    <p>Description: @Adventure.Description</p>
-    @if(IsOwner)
+﻿@inject NavigationManager navigationManager 
+
+<div class="individual-adventure-container">
+    <p>@Adventure.Title</p>
+
+    <a>
+        <img src="@Adventure.Image"
+             alt="Main Image"
+             class="adventure-image" />
+    </a>
+
+    @if (IsOwner)
     {
         <div>
-            <button @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">Delete</button>
+            <a class="btn btn-info" @onclick="NavEditProject">Edit</a>
+            <button type="button"
+                    class="btn btn-danger"
+                    @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
+                Delete
+            </button>
         </div>
     }
-
 </div>
 
 @code {
     [Parameter] public Adventure Adventure { get; set; }
-    [Parameter] public bool IsOwner { get; set; } = true;
     [Parameter] public EventCallback<Adventure> DeleteAdventure { get; set; }
+    [Parameter] public bool IsOwner { get; set; }
+
+    private void NavEditProject()
+    {
+        navigationManager.NavigateTo($"editproject/{Adventure.ID}");
+    }
+
+
 }
