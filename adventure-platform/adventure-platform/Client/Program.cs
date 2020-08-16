@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using adventureplatform.Client.Helpers;
+using Blazor.FileReader;
 
 namespace adventureplatform.Client
 {
@@ -22,6 +23,7 @@ namespace adventureplatform.Client
 
             builder.Services.AddOptions();
             builder.Services.AddTransient<IRepository, RepositoryInMemory>();
+            builder.Services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
 
             await builder.Build().RunAsync();
         }

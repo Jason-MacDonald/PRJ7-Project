@@ -10,6 +10,9 @@
         </div>
     </div>
 
+    @* PROJECT IMAGE *@
+    <UploadImage Label="Main Image:" OnSelectedImage="OnSelectedImage" ImageURL="imageURL"/>
+
     @* PROJECT DESCRIPTION *@
     <div class="form-group">
         <label>Description:</label>
@@ -25,4 +28,19 @@
 @code {
     [Parameter] public Adventure Project { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    string imageURL;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(Project.Image))
+        {
+            imageURL = Project.Image;
+            Project.Image = null; /*Stops the image from being sent if hasn't been changed*/
+        }
+    }
+
+    private void OnSelectedImage(string imageBase64)
+    {
+        Project.Image = imageBase64;
+    }
 }

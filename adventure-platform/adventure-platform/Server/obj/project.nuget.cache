@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5h+v8D0X/OYq2T987JfWetWMZIJpRO3x7iDzpNGVs50Ad4P0JPipaLKo8wVwf3MwLm5KxMofz9Lx5NtXvhnlmA==",
+  "dgSpecHash": "r4z21fqgfvzH8oEcrJYI9vmrulxfWrOypA5bq3pqtVrern9NYwamZP0lv9RqvTMbfyaiyQNSvgFiFBL7hg+a7w==",
   "success": true,
   "projectFilePath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\adventureplatform.Server.csproj",
   "expectedPackageFiles": [
@@ -31,7 +31,8 @@
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.jsinterop.webassembly\\3.2.0\\microsoft.jsinterop.webassembly.3.2.0.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\system.net.http.json\\3.2.0\\system.net.http.json.3.2.0.nupkg.sha512",
-    "C:\\Users\\64221\\.nuget\\packages\\system.text.json\\4.7.1\\system.text.json.4.7.1.nupkg.sha512"
+    "C:\\Users\\64221\\.nuget\\packages\\system.text.json\\4.7.1\\system.text.json.4.7.1.nupkg.sha512",
+    "C:\\Users\\64221\\.nuget\\packages\\tewr.blazor.filereader\\1.1.0.19274\\tewr.blazor.filereader.1.1.0.19274.nupkg.sha512"
   ],
   "logs": []
 }

@@ -431,6 +431,24 @@
           "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         }
       },
+      "Tewr.Blazor.FileReader/1.1.0.19274": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazor.FileReader.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazor.FileReader.dll": {}
+        },
+        "build": {
+          "buildTransitive/Tewr.Blazor.FileReader.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Tewr.Blazor.FileReader.props": {}
+        }
+      },
       "adventureplatform.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
@@ -1454,6 +1472,26 @@
         "version.txt"
       ]
     },
+    "Tewr.Blazor.FileReader/1.1.0.19274": {
+      "sha512": "kbRbos3GQbTqhSZu00FeyyDAn+VhqQs7efWPoOP9u6PGS+qq35qTLW44pFnxuKgorIv8p/MDIFMGuS0sbvA7uQ==",
+      "type": "package",
+      "path": "tewr.blazor.filereader/1.1.0.19274",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "build/Tewr.Blazor.FileReader.props",
+        "buildMultiTargeting/Tewr.Blazor.FileReader.props",
+        "buildTransitive/Tewr.Blazor.FileReader.props",
+        "icon.png",
+        "lib/netstandard2.0/Blazor.FileReader.dll",
+        "lib/netstandard2.0/Blazor.FileReader.xml",
+        "staticwebassets/FileReaderComponent.js",
+        "staticwebassets/FileReaderComponent.js.map",
+        "tewr.blazor.filereader.1.1.0.19274.nupkg.sha512",
+        "tewr.blazor.filereader.nuspec"
+      ]
+    },
     "adventureplatform.Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/adventureplatform.Shared.csproj",
@@ -1466,6 +1504,7 @@
       "Microsoft.AspNetCore.Components.WebAssembly.Build >= 3.2.0",
       "Microsoft.AspNetCore.Components.WebAssembly.DevServer >= 3.2.0",
       "System.Net.Http.Json >= 3.2.0",
+      "Tewr.Blazor.FileReader >= 1.1.0.19274",
       "adventureplatform.Shared >= 1.0.0"
     ]
   },
@@ -1534,6 +1573,10 @@
           "System.Net.Http.Json": {
             "target": "Package",
             "version": "[3.2.0, )"
+          },
+          "Tewr.Blazor.FileReader": {
+            "target": "Package",
+            "version": "[1.1.0.19274, )"
           }
         },
         "imports": [

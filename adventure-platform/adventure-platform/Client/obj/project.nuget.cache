@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WX2o+Y7l6RiJ538JPvuHbdUPRMnFUMLTDkcM/7xQ1NHWS6XC+D9lloul7xcTSVps8ZnuLJv9psqrK0AVj7grkA==",
+  "dgSpecHash": "f6L7eatlOstyRcj6ZoXrc328/CCCvOk73vqevyF3jyZ1sg+8VBDFrxsjLwocnId+Q/55j8DJxb1kPN2JAGPxRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventureplatform.Client.csproj",
   "expectedPackageFiles": [
@@ -40,7 +40,8 @@
     "C:\\Users\\64221\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\system.text.encodings.web\\4.7.0\\system.text.encodings.web.4.7.0.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\system.text.json\\4.7.1\\system.text.json.4.7.1.nupkg.sha512",
-    "C:\\Users\\64221\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512"
+    "C:\\Users\\64221\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512",
+    "C:\\Users\\64221\\.nuget\\packages\\tewr.blazor.filereader\\1.1.0.19274\\tewr.blazor.filereader.1.1.0.19274.nupkg.sha512"
   ],
   "logs": []
 }
