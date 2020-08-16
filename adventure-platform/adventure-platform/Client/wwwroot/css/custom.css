@@ -5,19 +5,18 @@
 }
 
     .individual-adventure-container p {
-        max-width: 255px;
+        width: 350px;
         /*height: 44px;*/
         font-size: 15px;
     }
 
     .individual-adventure-container h4 {
-        max-width: 255px;
+        width: 350px;
         /*height: 44px;*/
-        font-size: 25px;
     }
 
 .adventure-image {
-    width: 300px;
+    width: 350px;
     height: 225px;
     margin-bottom: 10px;
 }
@@ -60,4 +59,8 @@
 
 .form-group {
     width: 100%;
+}
+
+a {
+    cursor: pointer;
 }

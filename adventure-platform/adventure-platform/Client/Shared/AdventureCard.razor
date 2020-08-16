@@ -1,7 +1,8 @@
 ﻿@inject NavigationManager navigationManager 
 
-    <div class="individual-adventure-container">
-        <h4>@Adventure.Title</h4>
+    <div class="individual-adventure-container shadow mb-4 bg-white">
+        <h5 class="pt-4 px-3">@Adventure.Title</h5>
+        <p class="pb-3 px-3">@Adventure.Author</p>
 
         <a>
             <img src="@Adventure.Image"
@@ -9,25 +10,40 @@
                  class="adventure-image" />
         </a>
 
-        <p>@Adventure.Description</p>
+        <p class="px-3">@Adventure.Description</p>
 
-        @if (IsOwner)
-        {
-            <div>
-                <a class="btn btn-info" @onclick="NavEditProject">Edit</a>
-                <button type="button"
-                        class="btn btn-danger"
-                        @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
-                    Delete
-                </button>
-            </div>
-        }
+        <div class="p-3">
+            <a class="btn btn-success" @onclick="NavPlay"><span class="oi oi-media-play" aria-hidden="true"></span></a>
+            <a class="btn btn-info" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>
+            <spacer />
+            @if (IsOwner)
+            {
+                <div class="float-right">
+                    <a class="btn btn-warning" @onclick="NavEditProject"><span class="oi oi-pencil" aria-hidden="true" /></a>
+                    <button type="button"
+                            class="btn btn-danger"
+                            @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
+                        <span class="oi oi-trash" aria-hidden="true" />
+                    </button>
+                </div>
+            }
+        </div>
     </div>
 
 @code {
     [Parameter] public Adventure Adventure { get; set; }
     [Parameter] public EventCallback<Adventure> DeleteAdventure { get; set; }
     [Parameter] public bool IsOwner { get; set; }
+
+    private void AddToLibrary()
+    {
+
+    }
+
+    private void NavPlay()
+    {
+        navigationManager.NavigateTo($"play/{Adventure.ID}");
+    }
 
     private void NavEditProject()
     {
