@@ -2,10 +2,16 @@
 
 <h3>Edit Project</h3>
 
-<ProjectForm Project="project" OnValidSubmit="SaveProject" />
+<div class="row">
+    <div class="left-column">
+        <ProjectForm Project="project" OnValidSubmit="SaveProject" />
+    </div>
 
-<div class="form-group">
-    <a class="btn btn-info" href="createchapter">Create New Chapter</a>
+    <div class="right-column">
+        <div class="form-group">
+            <a class="btn btn-info btn-block" href="createchapter">Create New Chapter</a>
+        </div>
+    </div>
 </div>
 
 @code {

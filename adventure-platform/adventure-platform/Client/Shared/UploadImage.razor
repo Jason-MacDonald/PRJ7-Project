@@ -4,32 +4,35 @@
 @inject IFileReaderService fileReaderService 
 @using Blazor.FileReader
 
-<label>@Label</label>
+    <div class="form-group">
+        
 
-<div>
-    @if (imageBase64 != null)
-    {
         <div>
-            <div style="margin:10px">
-                <img src="data:image/jpeg;base64, @imageBase64" style="width:400px;" />
+            <label>@Label</label>
+            @if (imageBase64 != null)
+            {
+                <div>
+                    <div style="margin-bottom:10px">
+                        <img src="data:image/jpeg;base64, @imageBase64" style="width:400px;" />
+                    </div>
+                </div>
+            }
+            @if (ImageURL != null)
+            {
+                <div>
+                    <div style="margin:10px">
+                        <img src="data:image/jpeg;base64, @ImageURL" style="width:400px;" />
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div>
+            <div>
+                <input type="file" @ref="inputElement" @onchange="ImageFileSelected" accept=".jpg,.jpeg,.png" />
             </div>
         </div>
-    }
-    @if (ImageURL != null)
-    {
-        <div>
-            <div style="margin:10px">
-                <img src="data:image/jpeg;base64, @ImageURL" style="width:400px;" />
-            </div>
-        </div>
-    }
-</div>
-
-<div>   
-    <div>
-        <input type="file" @ref="inputElement" @onchange="ImageFileSelected" accept=".jpg,.jpeg,.png" />
     </div>
-</div>
 
 
 

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "f6L7eatlOstyRcj6ZoXrc328/CCCvOk73vqevyF3jyZ1sg+8VBDFrxsjLwocnId+Q/55j8DJxb1kPN2JAGPxRQ==",
+  "dgSpecHash": "2J7jVSHXagTiHQBrHdj4ItbNqL2Dkqn6vVRkS+bDxzykovrsUrfZ46nu0uzxon8t+uMBmeNgYkNRqVT5EJai3A==",
   "success": true,
   "projectFilePath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventureplatform.Client.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\64221\\.nuget\\packages\\markdig\\0.20.0\\markdig.0.20.0.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.3\\microsoft.aspnetcore.authorization.3.1.3.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.aspnetcore.components\\3.1.3\\microsoft.aspnetcore.components.3.1.3.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\3.1.3\\microsoft.aspnetcore.components.analyzers.3.1.3.nupkg.sha512",

@@ -4,16 +4,22 @@
 
 @if (chapter != null)
 {
-    <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
+    <div class="row">
+        <div class="left-column">
+            <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
+        </div>
 
-    <div class="form-group">
-        <a class="btn btn-info" href="createlink">Create New Link</a>
+        <div class="right-column">
+            <div class="form-group">
+                <a class="btn btn-info btn-block" href="createlink">Create New Link</a>
+            </div>
+        </div>
     </div>
 }
 
-@code {
-    [Parameter] public int ChapterID { get; set; }
-    public Chapter chapter;
+    @code {
+        [Parameter] public int ChapterID { get; set; }
+public Chapter chapter;
 
     protected override void OnInitialized()
     {
@@ -29,4 +35,4 @@
     {
         Console.WriteLine("Chapter edited");
     }
-}
+    }

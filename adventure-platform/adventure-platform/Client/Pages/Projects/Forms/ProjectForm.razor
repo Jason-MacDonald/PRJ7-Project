@@ -11,7 +11,7 @@
     </div>
 
     @* PROJECT IMAGE *@
-    <UploadImage Label="Main Image:" OnSelectedImage="OnSelectedImage" ImageURL="imageURL"/>
+    <UploadImage Label="Main Image:" OnSelectedImage="OnSelectedImage" ImageURL="imageURL" />
 
     @* PROJECT DESCRIPTION *@
     <div class="form-group">
@@ -22,7 +22,12 @@
         </div>
     </div>
 
-    <button class="btn btn-success" type="submit">Save</button>
+    @* PROJECT DESCRIPTION *@
+    @*<div class="form-group form-markdown">
+        <InputMarkdown Label="Description" For="@(() => Project.Description)" @bind-Value="@Project.Description" />
+    </div>*@
+
+    <button class="btn btn-success" type="submit">Save Project</button>
 </EditForm>
 
 @code {

@@ -1,11 +1,19 @@
 ﻿@page "/createproject"
 
-<h3>Create Project</h3>
 
-<ProjectForm Project="project" OnValidSubmit="SaveProject"/>
 
-<div class="form-group">
-    <a class="btn btn-info" href="createchapter">Create New Chapter</a>
+<div class="row">
+    <div class="left-column">
+        <h3>Create Project</h3>
+        <ProjectForm Project="project" OnValidSubmit="SaveProject" />
+    </div>
+
+    <div class="right-column">
+        <h3>Chapters</h3>
+        <div class="form-group">
+            <a class="btn btn-info btn-block" href="createchapter">Create New Chapter</a>
+        </div>
+    </div>  
 </div>
 
 @code {
