@@ -4,7 +4,8 @@
     "\\adventure-platform",
     "\\adventure-platform\\adventure-platform",
     "\\adventure-platform\\adventure-platform\\Client",
-    "\\adventure-platform\\adventure-platform\\Client\\Pages"
+    "\\adventure-platform\\adventure-platform\\Client\\Pages",
+    "\\adventure-platform\\adventure-platform\\Client\\Shared"
   ],
   "SelectedNode": "\\adventure-platform\\adventure-platform.sln",
   "PreviewInSolutionExplorer": false

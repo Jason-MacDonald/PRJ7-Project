@@ -10,6 +10,14 @@
         </div>
     </div>
 
+    @* PROJECT GENRES *@
+    <div class="form-group">
+        <label>Genres:</label>
+        <div>
+            <MultipleSelector Selected="Selected" NotSelected="NotSelected"/>
+        </div>
+    </div>
+
     @* PROJECT IMAGE *@
     <UploadImage Label="Main Image:" OnSelectedImage="OnSelectedImage" ImageURL="imageURL" />
 
@@ -24,8 +32,8 @@
 
     @* PROJECT DESCRIPTION *@
     @*<div class="form-group form-markdown">
-        <InputMarkdown Label="Description" For="@(() => Project.Description)" @bind-Value="@Project.Description" />
-    </div>*@
+            <InputMarkdown Label="Description" For="@(() => Project.Description)" @bind-Value="@Project.Description" />
+        </div>*@
 
     <button class="btn btn-success" type="submit">Save Project</button>
 </EditForm>
@@ -33,10 +41,19 @@
 @code {
     [Parameter] public Adventure Project { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<Genre> NotSelectedGenres { get; set; } = new List<Genre>();
+    [Parameter] public List<Genre> SelectedGenres { get; set; } = new List<Genre>();
+
+    private List<MultipleSelectorModel> NotSelected = new List<MultipleSelectorModel>();
+    private List<MultipleSelectorModel> Selected = new List<MultipleSelectorModel>();
+
     string imageURL;
 
     protected override void OnInitialized()
     {
+        NotSelected = NotSelectedGenres.Select(x => new MultipleSelectorModel(x.ID.ToString(), x.Name)).ToList();
+        Selected = SelectedGenres.Select(x => new MultipleSelectorModel(x.ID.ToString(), x.Name)).ToList();
+
         if (!string.IsNullOrEmpty(Project.Image))
         {
             imageURL = Project.Image;

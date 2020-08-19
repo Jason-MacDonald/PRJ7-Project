@@ -1,7 +1,7 @@
 {
   "FilesToCompress": [
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\VladO3EjhIIb-d2jQ9h-NBn2AsJjOM05AjbD4OnHjQY=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\7r-d-bVljyE5WNyRqY1QOMgf9mXrlE5CSqRM536JaCk=.hash",
       "Source": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\adventureplatform.Client.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/adventureplatform.Client.dll.br"
     },
@@ -176,7 +176,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.AspNetCore.Components.Web.dll.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\S8YBJijiP8g_3NE6mR9sRRw6Dy-fD8q7kPYLAFklGU4=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\CSx8vhzg_brbMMlJlUFZSwTsQvDK1J8fwLk2jsBpvR0=.hash",
       "Source": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\adventureplatform.Shared.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/adventureplatform.Shared.dll.br"
     },
@@ -271,12 +271,12 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\lzqfQloiSEQLolKPVn1_Ox5fTUPznrotYLbTkYsy1oE=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\zKiVUCyEToiKhLyy-KL_qug7Gh5MAojYoDBc6iF3BtA=.hash",
       "Source": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\adventureplatform.Client.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/adventureplatform.Client.pdb.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\vdrsjbgpmUmquZ5uUA6NW9v_Bo-ZsyXQ-7814ZhflU8=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\MSRuzeN5ZxJSaRKc5hOIXuwr1aC59YGSIvmvoZvunHI=.hash",
       "Source": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\adventureplatform.Shared.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/adventureplatform.Shared.pdb.br"
     },
@@ -301,7 +301,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.webassembly.js.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\W3C8r7ZMPTDE_K7K7v3HNQDHtgjeLxxDmfbOIlv7JVE=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\G4Bdr-ruJm1QWcdjVhwULxRABJd-f14vWuN3XlKk9s0=.hash",
       "Source": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\obj\\Debug\\netstandard2.1\\blazor\\blazor.boot.json",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.boot.json.br"
     }

@@ -14,6 +14,8 @@ namespace adventureplatform.Shared.Entities
         [Required]
         public string Description { get; set; }
         public string Image { get; set; }
-        public DateTime ReleaseDate { get; set; }       
+        public DateTime ReleaseDate { get; set; }
+
+        public List<AdventureGenre> AdventureGenres { get; set; } = new List<AdventureGenre>();
     }
 }

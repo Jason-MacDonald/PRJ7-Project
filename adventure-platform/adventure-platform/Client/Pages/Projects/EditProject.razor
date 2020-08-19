@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="left-column">
-        <ProjectForm Project="project" OnValidSubmit="SaveProject" />
+        <ProjectForm Project="project" OnValidSubmit="SaveProject" NotSelectedGenres="NotSelectedGenres" SelectedGenres="SelectedGenres"/>
     </div>
 
     <div class="right-column">
@@ -17,6 +17,17 @@
 @code {
     [Parameter] public int ProjectID { get; set; }
     public Adventure project;
+
+    private List<Genre> NotSelectedGenres = new List<Genre>()
+    {
+        new Genre() {ID = 1, Name = "Sci Fi"}
+    };
+
+    private List<Genre> SelectedGenres = new List<Genre>()
+    {
+        new Genre() {ID = 1, Name = "Beginner"}
+    };
+
 
     protected override void OnInitialized()
     {

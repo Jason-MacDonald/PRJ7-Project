@@ -64,3 +64,19 @@
 a {
     cursor: pointer;
 }
+
+.multiple-selector {
+    display: flex;
+}
+
+.selectable-ul {
+    height: 200px;
+    overflow-y: auto;
+    list-style-type: none;
+    width: 50%;
+    margin-right: 20px;
+    margin-bottom: 0;
+    padding: 0;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
