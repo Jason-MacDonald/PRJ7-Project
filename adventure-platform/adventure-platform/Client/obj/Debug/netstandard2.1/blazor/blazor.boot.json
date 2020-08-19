@@ -41,7 +41,7 @@
       "System.Buffers.dll": "sha256-ZxXy75PYbzJxNfAc\/SAP1nUYm4gt1jSaOpFnBb9m85M=",
       "Microsoft.Extensions.Logging.Abstractions.dll": "sha256-45ia6XmGIa5WI3cHUIE9KhVornlZleYW+B5FPpfD1wQ=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-v4LhihP26fP\/dVajppSCZIrCVbkiALCJgAisyG2cmJQ=",
-      "adventureplatform.Shared.dll": "sha256-CSx8vhzg+brbMMlJlUFZSwTsQvDK1J8fwLk2jsBpvR0=",
+      "adventureplatform.Shared.dll": "sha256-zhActy7hkyR7rCCXhYJ7pIYvNbQUqG4b\/pbvs9R6vf0=",
       "Blazor.FileReader.dll": "sha256-w7zoa1AxZVKBDdcji6op2wFosAZhqzM1DqARhyo1se8=",
       "System.Threading.Tasks.Extensions.dll": "sha256-TkH6yxFQlTfY8NfznePrCdYJiEVpM9Dqy4Uu4H9qk10=",
       "Microsoft.JSInterop.dll": "sha256-K3dpli228kQQ75WVqoiIdmn8u8q8gZHixcWDdCHCRgU=",
@@ -63,7 +63,7 @@
     },
     "pdb": {
       "adventureplatform.Client.pdb": "sha256-zKiVUCyEToiKhLyy\/KL+qug7Gh5MAojYoDBc6iF3BtA=",
-      "adventureplatform.Shared.pdb": "sha256-MSRuzeN5ZxJSaRKc5hOIXuwr1aC59YGSIvmvoZvunHI="
+      "adventureplatform.Shared.pdb": "sha256-\/wbdLVzHfvwhyHQ5Cz29lS43JPhDjhGfrr49aFvkfP0="
     },
     "runtime": {
       "dotnet.3.2.0.js": "sha256-mPoqx7XczFHBWk3gRNn0hc9ekG1OvkKY4XiKRY5Mj5U=",

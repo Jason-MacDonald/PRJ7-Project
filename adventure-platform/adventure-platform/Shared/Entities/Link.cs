@@ -7,6 +7,7 @@ namespace adventureplatform.Shared.Entities
 {
     public class Link
     {
+        // BASE PROPERTIES
         public int ID { get; set; }
         [Required]
         public string Description { get; set; }
