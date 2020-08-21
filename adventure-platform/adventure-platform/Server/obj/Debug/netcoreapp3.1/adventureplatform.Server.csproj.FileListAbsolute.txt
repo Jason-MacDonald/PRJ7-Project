@@ -130,3 +130,6 @@ C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Serv
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\obj\Debug\netcoreapp3.1\adventureplatform.Server.csproj.CoreCompileInputs.cache
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\obj\Debug\netcoreapp3.1\adventureplatform.Server.MvcApplicationPartsAssemblyInfo.cache

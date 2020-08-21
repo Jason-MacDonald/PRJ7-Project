@@ -94,6 +94,13 @@ using adventureplatform.Client.Pages.Projects.Forms;
 #line hidden
 #nullable disable
 #nullable restore
+#line 13 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
+using adventureplatform.Client.Repository;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\Shared\InputMarkdown.razor"
 using System.Linq.Expressions;
 

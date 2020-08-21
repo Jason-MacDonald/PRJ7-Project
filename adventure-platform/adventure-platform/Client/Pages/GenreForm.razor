@@ -1,0 +1,19 @@
+﻿<EditForm Model="Genre" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    @* GENRE NAME *@
+    <div class="form-group">
+        <label>Genre:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Genre.Name" />
+            <ValidationMessage For="@(() => Genre.Name)" />
+        </div>
+    </div>
+
+    <button class="btn btn-success" type="submit">Create Genre</button>
+</EditForm>
+
+@code {
+    [Parameter] public Genre Genre { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

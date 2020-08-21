@@ -93,6 +93,13 @@ using adventureplatform.Client.Pages.Projects.Forms;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 13 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
+using adventureplatform.Client.Repository;
+
+#line default
+#line hidden
+#nullable disable
     public partial class App : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

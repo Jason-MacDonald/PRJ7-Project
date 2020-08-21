@@ -8,7 +8,7 @@ namespace adventureplatform.Shared.Entities
     public class Adventure
     {
         // BASE PROPERTIES
-        public int ID { get; set; } = 1;
+        public int ID { get; set; }
         public string Author { get; set; }
         [Required]
         public string Title { get; set; }
