@@ -26,25 +26,36 @@ namespace adventureplatform.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AdventureDTO>> Get(int id)
+        public async Task<ActionResult<Adventure>> Get(int id)
         {
-            var adventure = await context.Adventures.Where(x => x.ID == id)
-                .Include(x => x.AdventureGenres).ThenInclude(x => x.Genre)
-                .FirstOrDefaultAsync();
-
-            if(adventure == null)
-            {
-                return NotFound();
+            var adventure = await context.Adventures.FirstOrDefaultAsync(x => x.ID == id);
+            if(adventure == null) 
+            { 
+                return NotFound(); 
             }
-
-            adventure.Chapters = adventure.Chapters.ToList();
-
-            var model = new AdventureDTO();
-            model.adventure = adventure;
-            model.genreList = adventure.AdventureGenres.Select(x => x.Genre).ToList();
-
-            return model;
+            return adventure;
         }
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<AdventureDTO>> Get(int id)
+        //{
+        //    var adventure = await context.Adventures.Where(x => x.ID == id)
+        //        .Include(x => x.AdventureGenres).ThenInclude(x => x.Genre)
+        //        .FirstOrDefaultAsync();
+
+        //    if(adventure == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    adventure.Chapters = adventure.Chapters.ToList();
+
+        //    var model = new AdventureDTO();
+        //    model.adventure = adventure;
+        //    model.genreList = adventure.AdventureGenres.Select(x => x.Genre).ToList();
+
+        //    return model;
+        //}
 
         [HttpPost]
         public async Task<ActionResult<int>> Post(Adventure adventure)
@@ -52,6 +63,14 @@ namespace adventureplatform.Server.Controllers
             context.Add(adventure);
             await context.SaveChangesAsync();
             return adventure.ID;
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<int>> Put(Adventure adventure)
+        {
+            context.Attach(adventure).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

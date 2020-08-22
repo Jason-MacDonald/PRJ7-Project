@@ -18,6 +18,8 @@ namespace adventureplatform.Shared.Entities
         public string Help { get; set; }
 
         // NAVIGATIONAL PROPERTIES
+        public int AdventureID { get; set; }
+
         public List<Link> Links { get; set; } = new List<Link>();
     }
 }

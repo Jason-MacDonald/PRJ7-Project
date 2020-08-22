@@ -9,5 +9,7 @@ namespace adventureplatform.Client.Repository
     public interface IChapterRepository
     {
         Task CreateChapter(Chapter chapter);
+        Task<Chapter> GetChapter(int id);
+        Task<List<Chapter>> GetChapters(int adventureID);
     }
 }

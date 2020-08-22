@@ -27,10 +27,20 @@ namespace adventureplatform.Client.Repository
             return response.Response;
         }
 
-        public async Task<AdventureDTO> GetAdventureDTO(int id)
+        public async Task<Adventure> GetAdventure(int id)
         {
-            return await Get<AdventureDTO>($"{url}/{id}");
+            var response = await httpService.Get<Adventure>($"{url}/{id}");
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+            return response.Response;
         }
+
+        //public async Task<AdventureDTO> GetAdventureDTO(int id)
+        //{
+        //    return await Get<AdventureDTO>($"{url}/{id}");
+        //}
 
         public async Task<T> Get<T>(string url)
         {
@@ -45,6 +55,15 @@ namespace adventureplatform.Client.Repository
         public async Task CreateAdventure(Adventure adventure)
         {
             var response = await httpService.Post(url, adventure);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+        public async Task UpdateAdventure(Adventure adventure)
+        {
+            var response = await httpService.Put(url, adventure);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());

@@ -1,48 +1,59 @@
 ﻿@page "/editproject/{ProjectID:int}"
+@inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
+@inject IChapterRepository chapterReository
 
 <h3>Edit Project</h3>
 
-<div class="row">
-    <div class="left-column">
-        <ProjectForm Project="project" OnValidSubmit="SaveProject" NotSelectedGenres="NotSelectedGenres" SelectedGenres="SelectedGenres"/>
-    </div>
+@if (project != null)
+{
+    <div class="row">
+        <div class="left-column">
+            <ProjectForm Project="project" OnValidSubmit="SaveProject" NotSelectedGenres="NotSelectedGenres" SelectedGenres="SelectedGenres" />
+        </div>
 
-    <div class="right-column">
-        <div class="form-group">
-            <a class="btn btn-info btn-block" href="createchapter">Create New Chapter</a>
+        <div class="right-column">
+            <div class="form-group">
+                @foreach (var chapter in chapters)
+                {
+                    <a class="btn btn-warning btn-block" @onclick="@(() => NavEditChapter(chapter.ID))">Edit @chapter.Title</a><p></p>
+                }
+                <a class="btn btn-info btn-block" href="createchapter">Create New Chapter</a>
+            </div>
         </div>
     </div>
-</div>
+}
+
 
 @code {
     [Parameter] public int ProjectID { get; set; }
     public Adventure project;
+    public List<Chapter> chapters;
 
     private List<Genre> NotSelectedGenres = new List<Genre>()
-    {
+{
         new Genre() {ID = 1, Name = "Sci Fi"}
     };
 
     private List<Genre> SelectedGenres = new List<Genre>()
-    {
+{
         new Genre() {ID = 1, Name = "Beginner"}
     };
 
 
     protected async override Task OnInitializedAsync()
     {
-        project = new Adventure()
-        {
-            ID = ProjectID,
-            Author = "Jason MacDonald",
-            Title = "The Cloud Dungeon",
-            Description = "This is the description for The Cloud Dungeon."
-        };
+        project = await adventureRepository.GetAdventure(ProjectID);
+        chapters = await chapterReository.GetChapters(ProjectID);
     }
 
     private void SaveProject()
     {
-        Console.WriteLine("Project edited");
+        adventureRepository.UpdateAdventure(project);
+    }
+
+    private void NavEditChapter(int id)
+    {
+        navigationManager.NavigateTo($"editchapter/{id}");
     }
 }

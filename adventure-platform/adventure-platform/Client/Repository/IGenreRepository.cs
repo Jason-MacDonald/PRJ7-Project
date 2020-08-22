@@ -9,6 +9,8 @@ namespace adventureplatform.Client.Repository
     public interface IGenreRepository
     {
         Task CreateGenre(Genre genre);
+        Task<List<Genre>> GetGenre(int id);
         Task<List<Genre>> GetGenres();
+        Task UpdateGenre(Genre genre);
     }
 }

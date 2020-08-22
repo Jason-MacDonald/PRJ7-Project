@@ -25,5 +25,25 @@ namespace adventureplatform.Client.Repository
                 throw new ApplicationException(await response.GetBody());
             }
         }
+
+        public async Task<List<Chapter>> GetChapters(int id)
+        {
+            var response = await httpService.GetAll<List<Chapter>>($"{url}/{id}/list");
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+            return response.Response;
+        }
+
+        public async Task<Chapter> GetChapter(int id)
+        {
+            var response = await httpService.Get<Chapter>($"{url}/{id}");
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+            return response.Response;
+        }
     }
 }
