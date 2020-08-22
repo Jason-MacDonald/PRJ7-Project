@@ -1,34 +1,37 @@
 ﻿@page "/createproject"
 @inject IAdventureRepository adventureRepository
+@inject IGenreRepository genreRepository
 
 
-<div class="row">
-    <div class="left-column">
-        <h3>Create Project</h3>
-        <ProjectForm Project="project" OnValidSubmit="SaveProject" NotSelectedGenres="NotSelectedGenres"/>
-    </div>
-
-    <div class="right-column">
-        <h3>Chapters</h3>
-        <div class="form-group">
-            <a class="btn btn-info btn-block" href="createchapter">Create New Chapter</a>
+@if(NotSelectedGenres != null)
+{
+    <div class="row">
+        <div class="left-column">
+            <h3>Create Project</h3>
+            <ProjectForm Project="project" OnValidSubmit="SaveProject" NotSelectedGenres="NotSelectedGenres" />
         </div>
-    </div>  
-</div>
+
+        <div class="right-column">
+            <h3>Chapters</h3>
+            <div class="form-group">
+                <a class="btn btn-info btn-block" href="createchapter">Create New Chapter</a>
+            </div>
+        </div>
+    </div>
+}
+
 
 @code {
     private Adventure project = new Adventure();
+    private List<Genre> NotSelectedGenres;
 
-    private List<Genre> NotSelectedGenres = new List<Genre>()
+    protected override async Task OnInitializedAsync()
     {
-        new Genre() {ID = 1, Name = "Sci Fi"},
-        new Genre() {ID = 1, Name = "Beginner"}
-    };
+        NotSelectedGenres = await genreRepository.GetGenres();
+    }
 
     private async Task SaveProject()
     {
-        //project.ReleaseDate = DateTime.Now;
-
         try
         {
             await adventureRepository.CreateAdventure(project);

@@ -9,5 +9,7 @@ namespace adventureplatform.Client.Repository
     public interface IAdventureRepository
     {
         Task CreateAdventure(Adventure adventure);
+        Task<AdventureDTO> GetAdventureDTO(int id);
+        Task<List<Adventure>> GetAdventures();
     }
 }

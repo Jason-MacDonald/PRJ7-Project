@@ -3,9 +3,48 @@
 
 <h3>Genres</h3>
 
+<GenericList List="GenreList">
+    <ListTemplate>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead> 
+            <tbody>
+                @foreach (var item in GenreList)
+                {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <a class="btn btn-success">Edit</a>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </ListTemplate>
+</GenericList>
+
 <GenreForm Genre="genre" OnValidSubmit="CreateGenre"/>
 
 @code {
+    private List<Genre> GenreList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            GenreList = await genreRepository.GetGenres();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
     private Genre genre = new Genre();
 
     private async Task CreateGenre()

@@ -12,9 +12,27 @@ namespace adventureplatform.Client.Helpers
     {
         private readonly HttpClient httpClient;
 
+        private JsonSerializerOptions defaultJsonSerializerOptions =>
+            new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+
         public HttpService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
+        }
+
+        public async Task<HttpResponseWrapper<T>> Get<T>(string url)
+        {
+            var HttpResponse = await httpClient.GetAsync(url);
+
+            if (HttpResponse.IsSuccessStatusCode)
+            {
+                var response = await Deserialize<T>(HttpResponse, defaultJsonSerializerOptions);
+                return new HttpResponseWrapper<T>(response, true, HttpResponse);
+            }
+            else
+            {
+                return new HttpResponseWrapper<T>(default, false, HttpResponse);
+            }
         }
 
         public async Task<HttpResponseWrapper<object>> Post<T>(string url, T data)
@@ -23,6 +41,12 @@ namespace adventureplatform.Client.Helpers
             var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(url, stringContent);
             return new HttpResponseWrapper<object>(null, response.IsSuccessStatusCode, response);
+        }
+
+        private async Task<T> Deserialize<T>(HttpResponseMessage httpResponse, JsonSerializerOptions options)
+        {
+            var responseString = await httpResponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(responseString, options);
         }
     }
 }

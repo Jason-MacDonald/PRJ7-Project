@@ -1,5 +1,5 @@
 ﻿@page "/adventures"
-@inject IRepository repository
+@inject IAdventureRepository adventureRepository
 
 <h3>Adventures</h3>
 
@@ -10,8 +10,15 @@
 @code {
     private List<Adventure> adventures;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        adventures = repository.GetAdventures();
+        try
+        {
+            adventures = await adventureRepository.GetAdventures();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }

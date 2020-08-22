@@ -1,5 +1,6 @@
 ﻿using adventureplatform.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,12 @@ namespace adventureplatform.Server.Controllers
         public GenresController(ApplicationDBContext context)
         {
             this.context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Genre>>> Get()
+        {
+            return await context.Genres.ToListAsync();
         }
 
         [HttpPost]

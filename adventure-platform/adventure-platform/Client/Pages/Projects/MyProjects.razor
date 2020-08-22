@@ -1,10 +1,10 @@
 ﻿@page "/myprojects"
 @inject NavigationManager navigationManager
-@inject IRepository repository
+@inject IAdventureRepository adventureRepository
 
 <h3>MyProjects</h3>
 
-<button class="btn btn-primary" @onclick="NavEditProject">Create New Project</button>
+<button class="btn btn-primary" @onclick="NavCreateProject">Create New Project</button>
 
 <div>
     <AdventureList Adventures="adventures" />
@@ -13,12 +13,19 @@
 @code {
     private List<Adventure> adventures;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        adventures = repository.GetAdventures();
+        try
+        {
+            adventures = await adventureRepository.GetAdventures();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
-    private void NavEditProject()
+    private void NavCreateProject()
     {
         navigationManager.NavigateTo($"createproject");
     }

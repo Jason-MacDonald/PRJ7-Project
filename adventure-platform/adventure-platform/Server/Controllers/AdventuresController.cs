@@ -1,5 +1,6 @@
 ﻿using adventureplatform.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,33 @@ namespace adventureplatform.Server.Controllers
         public AdventuresController(ApplicationDBContext context)
         {
             this.context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Adventure>>> Get()
+        {
+            return await context.Adventures.ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AdventureDTO>> Get(int id)
+        {
+            var adventure = await context.Adventures.Where(x => x.ID == id)
+                .Include(x => x.AdventureGenres).ThenInclude(x => x.Genre)
+                .FirstOrDefaultAsync();
+
+            if(adventure == null)
+            {
+                return NotFound();
+            }
+
+            adventure.Chapters = adventure.Chapters.ToList();
+
+            var model = new AdventureDTO();
+            model.adventure = adventure;
+            model.genreList = adventure.AdventureGenres.Select(x => x.Genre).ToList();
+
+            return model;
         }
 
         [HttpPost]
