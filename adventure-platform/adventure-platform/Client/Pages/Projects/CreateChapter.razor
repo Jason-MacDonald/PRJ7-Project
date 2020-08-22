@@ -1,4 +1,5 @@
-﻿@page "/createchapter"
+﻿@page "/createchapter/{AdventureID:int}"
+@inject NavigationManager navigationManager 
 @inject IChapterRepository chapterRepository
 
 <div class="row">
@@ -9,17 +10,21 @@
     <div class="right-column">
         <h3>Links</h3>
         <div class="form-group">
-            <a class="btn btn-info btn-block" href="createlink">Create New Link</a>
+            <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
         </div>
     </div>
 </div>
 
 
 @code {
+    [Parameter] public int AdventureID { get; set; }
+
     private Chapter chapter = new Chapter();
 
     private async Task SaveChapter()
     {
+        chapter.AdventureID = AdventureID;
+
         try
         {
             await chapterRepository.CreateChapter(chapter);
@@ -28,5 +33,10 @@
         {
             Console.WriteLine(ex.Message);
         }
+    }
+
+    private void NavCreateLink()
+    {
+        navigationManager.NavigateTo($"createlink/{chapter.ID}");
     }
 }

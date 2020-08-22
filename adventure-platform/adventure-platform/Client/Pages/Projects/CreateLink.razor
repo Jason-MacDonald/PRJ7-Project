@@ -1,14 +1,18 @@
-﻿@page "/createlink"
+﻿@page "/createlink/{ChapterID:int}"
 @inject ILinkRepository linkRepository
 
 <h3>CreateLink</h3>
 <LinkForm Link="link" OnValidSubmit="SaveLink" />
 
 @code {
+    [Parameter] public int ChapterID { get; set; }
+
     private Link link = new Link();
 
     private async Task SaveLink()
     {
+        link.ChapterID = ChapterID;
+
         try
         {
             await linkRepository.CreateLink(link);

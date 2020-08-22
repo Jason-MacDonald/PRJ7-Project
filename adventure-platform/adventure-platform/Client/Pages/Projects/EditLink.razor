@@ -9,18 +9,14 @@
     [Parameter] public int LinkID { get; set; }
     public Link link;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        link = new Link()
-        {
-            ID = LinkID,
-            Description = "Continue"
-        };
+        link = await linkRepository.GetLink(LinkID);
     }
 
     private void SaveLink()
     {
         linkRepository.UpdateLink(link);
-        Console.WriteLine("Link edited");
+        Console.WriteLine("Link Saved");
     }
 }

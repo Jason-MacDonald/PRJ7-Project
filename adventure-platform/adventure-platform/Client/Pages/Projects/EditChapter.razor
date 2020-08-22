@@ -18,7 +18,7 @@
                 {
                     <a class="btn btn-warning btn-block" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</a><p></p>
                 }
-                <a class="btn btn-info btn-block" href="createlink">Create New Link</a>
+                <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
             </div>
         </div>
     </div>
@@ -44,5 +44,10 @@
     private void NavEditLink(int id)
     {
         navigationManager.NavigateTo($"editlink/{id}");
+    }
+
+    private void NavCreateLink()
+    {
+        navigationManager.NavigateTo($"createlink/{ChapterID}");
     }
 }

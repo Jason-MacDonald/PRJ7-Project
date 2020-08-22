@@ -1,7 +1,7 @@
 ﻿@page "/editproject/{ProjectID:int}"
 @inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
-@inject IChapterRepository chapterReository
+@inject IChapterRepository chapterRepository
 
 <h3>Edit Project</h3>
 
@@ -18,7 +18,7 @@
                 {
                     <a class="btn btn-warning btn-block" @onclick="@(() => NavEditChapter(chapter.ID))">Edit @chapter.Title</a><p></p>
                 }
-                <a class="btn btn-info btn-block" href="createchapter">Create New Chapter</a>
+                <a class="btn btn-info btn-block" @onclick="NavCreateChapter">Create New Chapter</a>
             </div>
         </div>
     </div>
@@ -44,13 +44,18 @@
     protected async override Task OnInitializedAsync()
     {
         project = await adventureRepository.GetAdventure(ProjectID);
-        chapters = await chapterReository.GetChapters(ProjectID);
+        chapters = await chapterRepository.GetChapters(ProjectID);
     }
 
     private void SaveProject()
     {
         adventureRepository.UpdateAdventure(project);
         Console.WriteLine("project Saved");
+    }
+
+    private void NavCreateChapter()
+    {
+        navigationManager.NavigateTo($"createchapter/{ProjectID}");
     }
 
     private void NavEditChapter(int id)
