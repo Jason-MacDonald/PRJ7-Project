@@ -12,7 +12,7 @@ namespace adventureplatform.Client.Helpers
     {
         private readonly HttpClient httpClient;
 
-        private JsonSerializerOptions defaultJsonSerializerOptions =>
+        private JsonSerializerOptions DefaultJsonSerializerOptions =>
             new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
 
         public HttpService(HttpClient httpClient)
@@ -26,7 +26,7 @@ namespace adventureplatform.Client.Helpers
 
             if (HttpResponse.IsSuccessStatusCode)
             {
-                var response = await Deserialize<T>(HttpResponse, defaultJsonSerializerOptions);
+                var response = await Deserialize<T>(HttpResponse, DefaultJsonSerializerOptions);
                 return new HttpResponseWrapper<T>(response, true, HttpResponse);
             }
             else
@@ -41,7 +41,7 @@ namespace adventureplatform.Client.Helpers
 
             if (HttpResponse.IsSuccessStatusCode)
             {
-                var response = await Deserialize<T>(HttpResponse, defaultJsonSerializerOptions);
+                var response = await Deserialize<T>(HttpResponse, DefaultJsonSerializerOptions);
                 return new HttpResponseWrapper<T>(response, true, HttpResponse);
             }
             else

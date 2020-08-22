@@ -19,6 +19,14 @@ namespace adventureplatform.Server.Controllers
             this.context = context;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<int>> Post(Adventure adventure)
+        {
+            context.Add(adventure);
+            await context.SaveChangesAsync();
+            return adventure.ID;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Adventure>>> Get()
         {
@@ -56,14 +64,6 @@ namespace adventureplatform.Server.Controllers
 
         //    return model;
         //}
-
-        [HttpPost]
-        public async Task<ActionResult<int>> Post(Adventure adventure)
-        {
-            context.Add(adventure);
-            await context.SaveChangesAsync();
-            return adventure.ID;
-        }
 
         [HttpPut]
         public async Task<ActionResult<int>> Put(Adventure adventure)

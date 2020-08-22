@@ -10,7 +10,7 @@ namespace adventureplatform.Client.Repository
     public class LinkRepository : ILinkRepository
     {
         private readonly IHttpService httpService;
-        private string url = "api/links";
+        private readonly string url = "api/links";
 
         public LinkRepository(IHttpService httpService)
         {
@@ -20,6 +20,35 @@ namespace adventureplatform.Client.Repository
         public async Task CreateLink(Link link)
         {
             var response = await httpService.Post(url, link);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+        public async Task<List<Link>> GetLinks(int id)
+        {
+            var response = await httpService.Get<List<Link>>($"{url}/{id}/list");
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+            return response.Response;
+        }
+
+        public async Task<Link> GetLink(int id)
+        {
+            var response = await httpService.Get<Link>($"{url}/{id}");
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+            return response.Response;
+        }
+
+        public async Task UpdateLink(Link link)
+        {
+            var response = await httpService.Put(url, link);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());

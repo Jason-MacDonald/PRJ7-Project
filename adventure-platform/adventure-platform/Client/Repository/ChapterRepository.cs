@@ -10,7 +10,7 @@ namespace adventureplatform.Client.Repository
     public class ChapterRepository : IChapterRepository
     {
         private readonly IHttpService httpService;
-        private string url = "api/chapters";
+        private readonly string url = "api/chapters";
 
         public ChapterRepository(IHttpService httpService)
         {
@@ -44,6 +44,15 @@ namespace adventureplatform.Client.Repository
                 throw new ApplicationException(await response.GetBody());
             }
             return response.Response;
+        }
+
+        public async Task UpdateChapter(Chapter chapter)
+        {
+            var response = await httpService.Put(url, chapter);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
         }
     }
 }

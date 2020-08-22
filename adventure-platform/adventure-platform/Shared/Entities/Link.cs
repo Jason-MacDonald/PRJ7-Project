@@ -11,6 +11,9 @@ namespace adventureplatform.Shared.Entities
         public int ID { get; set; }
         [Required]
         public string Description { get; set; }
-        public int Target { get; set; }
+        public int Target { get; set; } = 0;
+
+        // NAVIGATION PROPERTIES
+        public int ChapterID { get; set; }
     }
 }

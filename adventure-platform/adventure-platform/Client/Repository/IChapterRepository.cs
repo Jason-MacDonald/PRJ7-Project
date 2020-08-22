@@ -11,5 +11,6 @@ namespace adventureplatform.Client.Repository
         Task CreateChapter(Chapter chapter);
         Task<Chapter> GetChapter(int id);
         Task<List<Chapter>> GetChapters(int adventureID);
+        Task UpdateChapter(Chapter chapter);
     }
 }

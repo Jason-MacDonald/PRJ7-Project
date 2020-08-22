@@ -10,11 +10,20 @@ namespace adventureplatform.Client.Repository
     public class AdventureRepository : IAdventureRepository
     {
         private readonly IHttpService httpService;
-        private string url = "api/adventures";
+        private readonly string url = "api/adventures";
 
         public AdventureRepository(IHttpService httpService)
         {
             this.httpService = httpService;
+        }
+
+        public async Task CreateAdventure(Adventure adventure)
+        {
+            var response = await httpService.Post(url, adventure);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
         }
 
         public async Task<List<Adventure>> GetAdventures()
@@ -42,24 +51,15 @@ namespace adventureplatform.Client.Repository
         //    return await Get<AdventureDTO>($"{url}/{id}");
         //}
 
-        public async Task<T> Get<T>(string url)
-        {
-            var response = await httpService.Get<T>(url);
-            if (!response.Success)
-            {
-                throw new ApplicationException(await response.GetBody());
-            }
-            return response.Response;
-        }
-
-        public async Task CreateAdventure(Adventure adventure)
-        {
-            var response = await httpService.Post(url, adventure);
-            if (!response.Success)
-            {
-                throw new ApplicationException(await response.GetBody());
-            }
-        }
+        //public async Task<T> Get<T>(string url)
+        //{
+        //    var response = await httpService.Get<T>(url);
+        //    if (!response.Success)
+        //    {
+        //        throw new ApplicationException(await response.GetBody());
+        //    }
+        //    return response.Response;
+        //}
 
         public async Task UpdateAdventure(Adventure adventure)
         {

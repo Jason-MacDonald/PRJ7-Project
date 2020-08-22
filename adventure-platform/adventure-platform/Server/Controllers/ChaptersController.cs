@@ -52,5 +52,13 @@ namespace adventureplatform.Server.Controllers
 
             return chapter;
         }
+
+        [HttpPut]
+        public async Task<ActionResult<int>> Put(Chapter chapter)
+        {
+            context.Attach(chapter).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
