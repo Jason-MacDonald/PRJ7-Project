@@ -1,4 +1,5 @@
 ﻿@page "/createchapter"
+@inject IChapterRepository chapterRepository
 
 <div class="row">
     <div class="left-column">
@@ -17,8 +18,15 @@
 @code {
     private Chapter chapter = new Chapter();
 
-    private void SaveChapter()
+    private async Task SaveChapter()
     {
-        Console.WriteLine("Chapter created");
+        try
+        {
+            await chapterRepository.CreateChapter(chapter);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }

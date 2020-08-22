@@ -28,6 +28,9 @@ namespace adventureplatform.Client
             builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddScoped<IGenreRepository, GenreRepository>();
             builder.Services.AddScoped<IAdventureRepository, AdventureRepository>();
+            builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
+            builder.Services.AddScoped<ILinkRepository, LinkRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             await builder.Build().RunAsync();
         }

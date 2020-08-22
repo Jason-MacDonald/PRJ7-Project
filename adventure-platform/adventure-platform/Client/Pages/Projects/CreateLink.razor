@@ -1,4 +1,5 @@
 ﻿@page "/createlink"
+@inject ILinkRepository linkRepository
 
 <h3>CreateLink</h3>
 <LinkForm Link="link" OnValidSubmit="SaveLink" />
@@ -6,8 +7,15 @@
 @code {
     private Link link = new Link();
 
-    private void SaveLink()
+    private async Task SaveLink()
     {
-        Console.WriteLine("Link Created");
+        try
+        {
+            await linkRepository.CreateLink(link);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }
