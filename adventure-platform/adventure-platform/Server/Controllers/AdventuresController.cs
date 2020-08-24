@@ -1,4 +1,6 @@
-﻿using adventureplatform.Shared.Entities;
+﻿using adventureplatform.Server.Helpers;
+using adventureplatform.Shared.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,15 +15,25 @@ namespace adventureplatform.Server.Controllers
     public class AdventuresController : ControllerBase
     {
         private readonly ApplicationDBContext context;
+        private readonly IFileStorageService fileStorageService;
+        private readonly IMapper mapper;
 
-        public AdventuresController(ApplicationDBContext context)
+        public AdventuresController(ApplicationDBContext context, IFileStorageService fileStorageService, IMapper mapper)
         {
             this.context = context;
+            this.fileStorageService = fileStorageService;
+            this.mapper = mapper;
         }
 
         [HttpPost]
         public async Task<ActionResult<int>> Post(Adventure adventure)
         {
+            if (!string.IsNullOrWhiteSpace(adventure.Image))
+            {
+                var adventureImage = Convert.FromBase64String(adventure.Image);
+                adventure.Image = await fileStorageService.SaveFile(adventureImage, "jpg", "adventure");
+            }
+
             context.Add(adventure);
             await context.SaveChangesAsync();
             return adventure.ID;
@@ -68,7 +80,18 @@ namespace adventureplatform.Server.Controllers
         [HttpPut]
         public async Task<ActionResult<int>> Put(Adventure adventure)
         {
-            context.Attach(adventure).State = EntityState.Modified;
+            var dbAdventure = await context.Adventures.FirstOrDefaultAsync(x => x.ID == adventure.ID);
+
+            if(dbAdventure == null) { return NotFound(); }
+
+            dbAdventure = mapper.Map(adventure, dbAdventure);
+
+            if (!string.IsNullOrWhiteSpace(adventure.Image))
+            {
+                var adventureImage = Convert.FromBase64String(adventure.Image);
+                dbAdventure.Image = await fileStorageService.EditFile(adventureImage, "jpg", "adventure", dbAdventure.Image);
+            }
+
             await context.SaveChangesAsync();
             return NoContent();
         }

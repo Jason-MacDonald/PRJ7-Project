@@ -16,7 +16,7 @@
             <div class="form-group">
                 @foreach (var link in links)
                 {
-                    <a class="btn btn-warning btn-block" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</a><p></p>
+                    <a class="btn btn-warning btn-block" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</a>
                 }
                 <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
             </div>
@@ -43,11 +43,11 @@
 
     private void NavEditLink(int id)
     {
-        navigationManager.NavigateTo($"editlink/{id}");
+        navigationManager.NavigateTo($"editlink/{chapter.AdventureID}/{id}");
     }
 
     private void NavCreateLink()
     {
-        navigationManager.NavigateTo($"createlink/{ChapterID}");
+        navigationManager.NavigateTo($"createlink/{chapter.AdventureID}/{chapter.ID}");
     }
 }

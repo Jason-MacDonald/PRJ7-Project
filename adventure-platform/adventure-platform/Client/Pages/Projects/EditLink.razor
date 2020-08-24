@@ -1,22 +1,59 @@
-﻿@page "/editlink/{LinkID:int}"
-@inject ILinkRepository linkRepository 
+﻿@page "/editlink/{AdventureID:int}/{LinkID:int}"
+@inject ILinkRepository linkRepository
+@inject IChapterRepository chapterRepository
 
-<h3>EditLink</h3>
-
-<LinkForm Link="link" OnValidSubmit="SaveLink" />
+<div class="row">
+    <div class="left-column">
+        @if (link == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <h3>CreateLink</h3>
+            <LinkForm Link="link" OnValidSubmit="SaveLink" />
+        }
+    </div>
+    <div class="right-column">
+        <div class="form-group">
+            @if (chapters == null)
+            {
+                <p>Loading...</p>
+            }
+            else
+            {
+                @foreach (var chapter in chapters)
+                {
+                    <a class="btn btn-warning btn-block" @onclick="SetTarget">Set xxx as Target</a>
+                }
+            }
+        </div>
+    </div>
+</div>
+ 
 
 @code {
+    [Parameter] public int AdventureID { get; set; }
     [Parameter] public int LinkID { get; set; }
+
+    private List<Chapter> chapters;
+
     public Link link;
 
     protected async override Task OnInitializedAsync()
     {
         link = await linkRepository.GetLink(LinkID);
+        chapters = await chapterRepository.GetChapters(AdventureID);
     }
 
     private void SaveLink()
     {
         linkRepository.UpdateLink(link);
         Console.WriteLine("Link Saved");
+    }
+
+    private void SetTarget()
+    {
+
     }
 }

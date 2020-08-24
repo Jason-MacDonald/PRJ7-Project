@@ -10,8 +10,9 @@
         font-size: 15px;
     }
 
-    .individual-adventure-container h4 {
+    .individual-adventure-container h5 {
         width: 350px;
+        overflow: auto;
         /*height: 44px;*/
     }
 
@@ -19,6 +20,7 @@
     width: 350px;
     height: 225px;
     margin-bottom: 10px;
+    object-fit: cover;
 }
 
 .adventures-container {
@@ -79,4 +81,10 @@ a {
     padding: 0;
     border-radius: 3px;
     border: 1px solid #ccc;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

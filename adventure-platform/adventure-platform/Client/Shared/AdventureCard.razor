@@ -4,11 +4,13 @@
         <h5 class="pt-4 px-3">@Adventure.Title</h5>
         <p class="pb-3 px-3">@Adventure.Author</p>
 
-        <a>
-            <img src="@Adventure.Image"
-                 alt="Main Image"
-                 class="adventure-image" />
-        </a>
+        @if (Adventure.Image != null)
+        {
+            <a>
+                <img src="@Adventure.Image"
+                     class="adventure-image" />
+            </a>
+        }
 
         <p class="px-3">@Adventure.Description</p>
 
