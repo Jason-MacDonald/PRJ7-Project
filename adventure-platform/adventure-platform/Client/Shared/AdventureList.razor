@@ -1,6 +1,13 @@
-﻿@*<input type="checkbox" @bind="@isOwner" />*@
+﻿@inject NavigationManager navigationManager
+
+@*<input type="checkbox" @bind="@isOwner" />*@
 
 <div class="adventures-container">
+    @if (ProjectContext)
+    {
+        <button class="btn btn-info mr-3 create-project-button" @onclick="NavCreateProject">Create New Project</button>
+    }
+
     <GenericList List="Adventures">
         <EmptyTemplate>
             <p>There are no adventures to show.</p>
@@ -13,11 +20,17 @@
 
 @code {
     [Parameter] public List<Adventure> Adventures { get; set; }
+    [Parameter] public bool ProjectContext { get; set; }
 
-    bool isOwner = false;
+    bool isOwner = true;
 
     void DeleteAdventure(Adventure adventure)
     {
         Adventures.Remove(adventure);
+    }
+
+    private void NavCreateProject()
+    {
+        navigationManager.NavigateTo($"createproject");
     }
 }

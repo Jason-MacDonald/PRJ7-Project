@@ -1,11 +1,8 @@
 ﻿@page "/adventures"
 @inject IAdventureRepository adventureRepository
 
-<h3>Adventures</h3>
-
-<div>
-    <AdventureList Adventures="adventures" />
-</div>
+<AdventureFilter />
+<AdventureList Adventures="adventures" />
     
 @code {
     private List<Adventure> adventures;

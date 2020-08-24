@@ -2,13 +2,8 @@
 @inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
 
-<h3>MyProjects</h3>
-
-<button class="btn btn-primary" @onclick="NavCreateProject">Create New Project</button>
-
-<div>
-    <AdventureList Adventures="adventures" />
-</div>
+<AdventureFilter />
+<AdventureList Adventures="adventures" ProjectContext="@true"/>
 
 @code {
     private List<Adventure> adventures;

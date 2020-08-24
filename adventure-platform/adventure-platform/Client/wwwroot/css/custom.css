@@ -2,18 +2,38 @@
     margin-right: 2%;
     margin-bottom: 10px;
     text-align: left;
+    height: 575px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-    .individual-adventure-container p {
-        width: 350px;
-        /*height: 44px;*/
-        font-size: 15px;
-    }
+.individual-adventure-header {
+    height:120px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.individual-adventure-container p {
+    width: 350px;
+    font-size: 15px;
+    margin-top: 8px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
     .individual-adventure-container h5 {
         width: 350px;
-        overflow: auto;
-        /*height: 44px;*/
+
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 .adventure-image {
@@ -59,7 +79,7 @@
     padding: 0px 10px;
 }
 
-.form-group {
+.full {
     width: 100%;
 }
 
@@ -87,4 +107,13 @@ a {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.filter {
+    padding: 10px;
+}
+
+.create-project-button {
+    width: 350px;
+    align-self: flex-start;
 }

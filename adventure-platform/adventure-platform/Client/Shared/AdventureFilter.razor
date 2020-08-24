@@ -1,0 +1,61 @@
+﻿@inject IGenreRepository genreRepository
+    <div class="filter form-inline mb-2 shadow mb-4 bg-white">
+        <div class="form-group">
+            <label for="tags" class="sr-only">Tags</label>
+            <input type="text" class="form-control" id="tags" placeholder="Tags"
+                   @bind-value="tagString"
+                   @bind-value:event="oninput"
+                   @onkeypress="@((KeyboardEventArgs e) => TagsKeyPress(e))" />
+        </div>
+
+        <div class="form-group mx-sm-3">
+            <select class="form-control" @bind="selectedGenre">
+                <option value="0">-- Select a Genre</option>
+
+                @foreach (var genre in genreList)
+                {
+                    <option value="@genre.ID">@genre.Name</option>
+                }
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-primary mx-sm-3" @onclick="Filter">Filter</button>
+        <button type="button" class="btn btn-danger" @onclick="Clear">Clear</button>
+    </div>
+
+    @code {
+        private string tagString = "";
+
+        private List<Genre> genreList = new List<Genre>();
+        private string selectedGenre = "0";
+
+        protected async override Task OnInitializedAsync()
+        {
+            try
+            {
+                genreList = await genreRepository.GetGenres();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void Filter()
+        {
+
+        }
+
+        private void Clear()
+        {
+            selectedGenre = "0";
+        }
+
+        private void TagsKeyPress(KeyboardEventArgs e)
+        {
+            if (e.Key == "Enter")
+            {
+
+            }
+        }
+    }

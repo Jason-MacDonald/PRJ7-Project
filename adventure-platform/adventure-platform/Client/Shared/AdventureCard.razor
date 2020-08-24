@@ -1,34 +1,39 @@
 ﻿@inject NavigationManager navigationManager 
 
     <div class="individual-adventure-container shadow mb-4 bg-white">
-        <h5 class="pt-4 px-3">@Adventure.Title</h5>
-        <p class="pb-3 px-3">@Adventure.Author</p>
+        <div>
+            <div class="individual-adventure-header">
+                <h5 class="pt-4 px-3">@Adventure.Title</h5>
+                <p class="pb-3 px-3"><i>@Adventure.Author</i></p>
+            </div>
 
-        @if (Adventure.Image != null)
-        {
-            <a>
-                <img src="@Adventure.Image"
-                     class="adventure-image" />
-            </a>
-        }
-
-        <p class="px-3">@Adventure.Description</p>
-
-        <div class="p-3">
-            <a class="btn btn-success" @onclick="NavPlay"><span class="oi oi-media-play" aria-hidden="true"></span></a>
-            <a class="btn btn-info" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>
-            <spacer />
-            @if (IsOwner)
+            @if (Adventure.Image != null)
             {
-                <div class="float-right">
-                    <a class="btn btn-warning" @onclick="NavEditProject"><span class="oi oi-pencil" aria-hidden="true" /></a>
-                    <button type="button"
-                            class="btn btn-danger"
-                            @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
-                        <span class="oi oi-trash" aria-hidden="true" />
-                    </button>
-                </div>
+                <a>
+                    <img src="@Adventure.Image"
+                         class="adventure-image" />
+                </a>
             }
+
+            <p class="px-3">@Adventure.Description</p>
+        </div>
+        <div>
+            <div class="px-3 pb-3">
+                <a class="btn btn-success" @onclick="NavPlay"><span class="oi oi-media-play" aria-hidden="true"></span></a>
+                @*<a class="btn btn-danger" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>*@
+
+                @if (IsOwner)
+                {
+                    <div class="float-right">
+                        <a class="btn btn-warning" @onclick="NavEditProject"><span class="oi oi-pencil" aria-hidden="true" /></a>
+                        <button type="button"
+                                class="btn btn-danger"
+                                @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
+                            <span class="oi oi-trash" aria-hidden="true" />
+                        </button>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 
