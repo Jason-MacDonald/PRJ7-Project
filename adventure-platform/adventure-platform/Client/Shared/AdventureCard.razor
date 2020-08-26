@@ -20,7 +20,7 @@
         <div>
             <div class="px-3 pb-3">
                 <a class="btn btn-success" @onclick="NavPlay"><span class="oi oi-media-play" aria-hidden="true"></span></a>
-                @*<a class="btn btn-danger" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>*@
+                <a class="btn btn-info" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>
 
                 @if (IsOwner)
                 {
@@ -38,14 +38,21 @@
     </div>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public Adventure Adventure { get; set; }
     [Parameter] public EventCallback<Adventure> DeleteAdventure { get; set; }
     [Parameter] public bool IsOwner { get; set; }
+
+    #endregion
 
     private void AddToLibrary()
     {
 
     }
+
+    #region ##### NAVIGATION #####
 
     private void NavPlay()
     {
@@ -56,6 +63,8 @@
     {
         navigationManager.NavigateTo($"editproject/{Adventure.ID}");
     }
+
+    #endregion
 
 
 }

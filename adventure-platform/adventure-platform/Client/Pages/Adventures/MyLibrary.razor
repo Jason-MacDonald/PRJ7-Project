@@ -1,20 +1,43 @@
 ﻿@page "/mylibrary"
 @inject IAdventureRepository adventureRepository;
 
-<AdventureFilter />
+<AdventureFilter OnSubmit="FilterAdventures" />
+
 <AdventureList Adventures="adventures" />
-<Pagination CurrentPage="@paginationDTO.Page" NumPages="numPages" SelectedPage="SelectedPage" />
+
+@if (numPages > 1)
+{
+    <Pagination CurrentPage="@adventureFilterDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+}
 
 @code {
-    List<Adventure> adventures;
-    PaginationDTO paginationDTO = new PaginationDTO() { NumPerPage = 2};
-    private int numPages;
 
-    protected override async Task OnInitializedAsync()
+    #region ##### HEAD #####
+
+    private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO();
+    private List<Adventure> adventures;
+    private int numPages; // Returned from paginatedResponse calculation;
+
+    #endregion
+
+    #region ##### LIFE CYCLE METHODS #####
+
+    protected async override Task OnInitializedAsync()
     {
+        await SelectPage(1);
+    }
+
+    #endregion
+
+    #region ##### CALLBACK METHODS #####
+
+    private async Task SelectPage(int page)
+    {
+        adventureFilterDTO.Page = page;
+
         try
         {
-            await LoadAdventures();
+            await FilterAdventures(adventureFilterDTO);
         }
         catch (Exception ex)
         {
@@ -22,18 +45,15 @@
         }
     }
 
-    private async Task SelectedPage(int page)
+    public async Task FilterAdventures(AdventureFilterDTO prAdventureFilterDTO)
     {
-        paginationDTO.Page = page;
-        await LoadAdventures();
-    }
+        adventureFilterDTO = prAdventureFilterDTO;
 
-    private async Task LoadAdventures()
-    {
-        var paginatedResponse = await adventureRepository.GetAdventures(paginationDTO);
+        var paginatedResponse = await adventureRepository.GetFilteredAdventures(adventureFilterDTO);
         adventures = paginatedResponse.Response;
         numPages = paginatedResponse.NumPages;
-
-        Console.WriteLine(numPages);
     }
+
+    #endregion
+
 }

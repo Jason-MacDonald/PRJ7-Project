@@ -16,7 +16,10 @@
             <div class="form-group">
                 @foreach (var link in links)
                 {
-                    <a class="btn btn-warning btn-block" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</a>
+                <div class="d-flex">
+                    <a class="btn btn-warning flex-grow-1 mb-2" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</a>
+                    <button class="btn btn-danger ml-2 mb-2"><span class="oi oi-trash" aria-hidden="true"></span></button>
+                </div>
                 }
                 <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
             </div>

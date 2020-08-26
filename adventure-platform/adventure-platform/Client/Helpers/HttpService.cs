@@ -6,16 +6,22 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+/* ##### RESOURCES #####
+    HttpClient: https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1
+    JsonSerializerOptions: https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions?view=netcore-3.1
+*/
+
 namespace adventureplatform.Client.Helpers
 {
     public class HttpService : IHttpService
     {
+
         #region ##### HEAD #####
-
-        private readonly HttpClient httpClient;
-
+        
+        private readonly HttpClient httpClient; // 
+    
         private JsonSerializerOptions DefaultJsonSerializerOptions =>
-            new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+            new JsonSerializerOptions() { PropertyNameCaseInsensitive = true }; 
 
         public HttpService(HttpClient httpClient)
         {
@@ -70,21 +76,6 @@ namespace adventureplatform.Client.Helpers
             }
         }
 
-        public async Task<HttpResponseWrapper<T>> GetAll<T>(string url)
-        {
-            var HttpResponse = await httpClient.GetAsync(url);
-
-            if (HttpResponse.IsSuccessStatusCode)
-            {
-                var response = await Deserialize<T>(HttpResponse, DefaultJsonSerializerOptions);
-                return new HttpResponseWrapper<T>(response, true, HttpResponse);
-            }
-            else
-            {
-                return new HttpResponseWrapper<T>(default, false, HttpResponse);
-            }
-        }
-
         #endregion
 
         #region ##### PUT #####
@@ -118,5 +109,6 @@ namespace adventureplatform.Client.Helpers
         }
 
         #endregion
+
     }
 }

@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace adventureplatform.Client.Helpers
 {
-    // HttpResponseWrapper reprisents a response from the server.
+    /// <summary>
+    /// HttpResponseWrapper represents a response from the server.
+    /// </summary>
     public class HttpResponseWrapper<T>
     {
+        #region ##### HEAD #####
+
         public bool Success { get; set; }
         public T Response { get; set; }
         public HttpResponseMessage HttpResponseMessage { get; set; }
@@ -20,9 +24,16 @@ namespace adventureplatform.Client.Helpers
             HttpResponseMessage = httpResponseMessage;
         }
 
+        #endregion
+
+        #region ##### GENERAL #####
+
+        // Used to provide error message when ApplicationException is thrown during communication with database.
         public async Task<string> GetBody()
         {
             return await HttpResponseMessage.Content.ReadAsStringAsync();
         }
+
+        #endregion
     }
 }

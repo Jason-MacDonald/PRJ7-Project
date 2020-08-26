@@ -16,7 +16,10 @@
             <div class="form-group">
                 @foreach (var chapter in chapterList)
                 {
-                    <a class="btn btn-warning btn-block" @onclick="@(() => NavEditChapter(chapter.ID))">Edit @chapter.Title</a><p></p>
+                    <div class="d-flex">
+                        <button class="btn btn-warning flex-grow-1 mb-2" @onclick="@(() => NavEditChapter(chapter.ID))">Edit @chapter.Title</button>
+                        <button class="btn btn-danger ml-2 mb-2" @onclick="@(() => DeleteChapter(chapter.ID))"><span class="oi oi-trash" aria-hidden="true"></span></button>
+                    </div>
                 }
                 <a class="btn btn-info btn-block" @onclick="NavCreateChapter">Create New Chapter</a>
             </div>
@@ -60,4 +63,17 @@
     }
 
     #endregion
+
+    private async Task DeleteChapter(int id)
+    {
+        try
+        {
+            //await chapterRepository.DeleteChapter(id);
+            chapterList = await chapterRepository.GetChapters(adventure.ID);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
 }

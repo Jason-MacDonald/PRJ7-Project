@@ -29,7 +29,7 @@
 
     @code {
         [Parameter] public EventCallback<AdventureFilterDTO> OnSubmit { get; set; }
-        AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO() { NumPerPage = 2};
+        AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO();
 
         public Task Filter()
         {

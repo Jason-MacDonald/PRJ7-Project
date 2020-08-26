@@ -23,9 +23,10 @@ namespace adventureplatform.Client
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddOptions();
-            builder.Services.AddTransient<IRepository, RepositoryInMemory>();
+
             builder.Services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
             builder.Services.AddScoped<IHttpService, HttpService>();
+
             builder.Services.AddScoped<IGenreRepository, GenreRepository>();
             builder.Services.AddScoped<IAdventureRepository, AdventureRepository>();
             builder.Services.AddScoped<IChapterRepository, ChapterRepository>();

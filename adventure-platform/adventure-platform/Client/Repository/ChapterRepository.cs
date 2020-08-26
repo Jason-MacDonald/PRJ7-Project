@@ -28,7 +28,7 @@ namespace adventureplatform.Client.Repository
 
         public async Task<List<Chapter>> GetChapters(int id)
         {
-            var response = await httpService.GetAll<List<Chapter>>($"{url}/{id}/list");
+            var response = await httpService.Get<List<Chapter>>($"{url}/{id}/list");
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());
