@@ -1,0 +1,89 @@
+﻿@*https://www.udemy.com/course/programming-in-blazor-aspnet-core/learn/lecture/17136748#questions/9136948*@
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            @foreach (var link in links)
+            {
+                <li @onclick="(() => SelectedPageInternal(link))"
+                    style="cursor: pointer;"
+                    class="page-item @(link.Enabled ? null : "disabled") @(link.Active ? "active" : null)">
+                    <span class="page-link" href="#">@link.Text</span>
+                </li>
+            }
+        </ul>
+    </nav>
+
+@code {
+    [Parameter] public int CurrentPage { get; set; } = 1;
+    [Parameter] public int NumPages { get; set; }
+    [Parameter] public int Radius { get; set; } = 3; // Number of page buttons to show.
+    [Parameter] public EventCallback<int> SelectedPage { get; set; }
+
+    List<LinkModel> links;
+
+    protected override void OnParametersSet()
+    {
+        LoadPages();
+        base.OnParametersSet();
+    }
+
+    private void LoadPages()
+    {
+        var isPreviousPageLinkEnabled = CurrentPage != 1;
+        var previousPage = CurrentPage - 1;
+
+        links = new List<LinkModel>();
+
+        // Adds [previous] link.
+        links.Add(new LinkModel(previousPage, isPreviousPageLinkEnabled, "Previous"));
+
+        // Adds links within radius.
+        for (int i = 1; i < NumPages + 1; i++)
+        {
+            if(i >= CurrentPage - Radius && i <= CurrentPage + Radius)
+            {
+                links.Add(new LinkModel(i)
+                {
+                    Active = CurrentPage == i
+                });
+            }
+        }
+
+        // Adds [next] link
+        var isNextPageLinkEnabled = CurrentPage != NumPages;
+        var nextPage = CurrentPage + 1;
+
+        links.Add(new LinkModel(nextPage, isNextPageLinkEnabled, "Next"));
+
+    }
+
+    private async Task SelectedPageInternal(LinkModel link)
+    {
+        if(link.Page == CurrentPage || !link.Enabled)
+        {
+            return;
+        }
+
+        CurrentPage = link.Page;
+        await SelectedPage.InvokeAsync(link.Page);
+    }
+
+    class LinkModel
+    {
+        public string Text { get; set; }
+        public int Page { get; set; }
+        public bool Enabled { get; set; } = true;
+        public bool Active { get; set; } = false;
+
+        public LinkModel(int page) : this(page, true) { }
+
+        public LinkModel(int page, bool enabled) : this(page, enabled, page.ToString()) { }
+
+        public LinkModel(int page, bool enabled, string text)
+        {
+            Text = text;
+            Page = page;
+            Enabled = enabled;
+        }
+    }
+}

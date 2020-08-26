@@ -3,19 +3,37 @@
 
 <AdventureFilter />
 <AdventureList Adventures="adventures" />
+<Pagination CurrentPage="@paginationDTO.Page" NumPages="numPages" SelectedPage="SelectedPage" />
 
 @code {
-    private List<Adventure> adventures;
+    List<Adventure> adventures;
+    PaginationDTO paginationDTO = new PaginationDTO() { NumPerPage = 2};
+    private int numPages;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            adventures = await adventureRepository.GetAdventures();
+            await LoadAdventures();
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        paginationDTO.Page = page;
+        await LoadAdventures();
+    }
+
+    private async Task LoadAdventures()
+    {
+        var paginatedResponse = await adventureRepository.GetAdventures(paginationDTO);
+        adventures = paginatedResponse.Response;
+        numPages = paginatedResponse.NumPages;
+
+        Console.WriteLine(numPages);
     }
 }

@@ -50,11 +50,14 @@ namespace adventureplatform.Server.Controllers
 
         #region ##### GET #####
 
-        // Get All Adventures
+        // Get All Adventures --Using pagination for range of results.
         [HttpGet]
-        public async Task<ActionResult<List<Adventure>>> Get()
+        public async Task<ActionResult<List<Adventure>>> Get([FromQuery]PaginationDTO paginationDTO) // FromQuery allows the use of query strings.
         {
-            return await context.Adventures.ToListAsync();
+            var queryable = context.Adventures.AsQueryable();
+            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.NumPerPage);
+
+            return await queryable.Paginate(paginationDTO).ToListAsync();
         }
 
         // Get AdventureDTO By ID.

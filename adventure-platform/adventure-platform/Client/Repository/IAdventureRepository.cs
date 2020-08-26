@@ -10,11 +10,12 @@ namespace adventureplatform.Client.Repository
     public interface IAdventureRepository
     {
         Task<int> CreateAdventure(Adventure adventure);
-        Task DeleteAdventure(int id);
+        Task<PaginatedResponse<List<Adventure>>> GetAdventures(PaginationDTO paginationDTO);
         Task<Adventure> GetAdventure(int id);
         Task<AdventureDTO> GetAdventureDTO(int id);
-        Task<List<Adventure>> GetAdventures();
+        
         Task<AdventureUpdateDTO> GetAdventureUpdateDTO(int id);
         Task UpdateAdventure(Adventure adventure);
+        Task DeleteAdventure(int id);
     }
 }

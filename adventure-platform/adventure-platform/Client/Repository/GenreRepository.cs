@@ -12,7 +12,7 @@ namespace adventureplatform.Client.Repository
         #region ##### HEAD #####
 
         private readonly IHttpService httpService;
-        private string url = "api/genres";
+        private readonly string url = "api/genres";
 
         public GenreRepository(IHttpService httpService)
         {
