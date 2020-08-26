@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager navigationManager
+@inject IAdventureRepository adventureRepository 
 
 @*<input type="checkbox" @bind="@isOwner" />*@
 
@@ -24,8 +25,9 @@
 
     bool isOwner = true;
 
-    void DeleteAdventure(Adventure adventure)
+    public async Task DeleteAdventure(Adventure adventure)
     {
+        await adventureRepository.DeleteAdventure(adventure.ID);
         Adventures.Remove(adventure);
     }
 

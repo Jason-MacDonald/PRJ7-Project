@@ -12,5 +12,6 @@ namespace adventureplatform.Client.Repository
         Task<List<Genre>> GetGenre(int id);
         Task<List<Genre>> GetGenres();
         Task UpdateGenre(Genre genre);
+        Task DeleteGenre(int id);
     }
 }

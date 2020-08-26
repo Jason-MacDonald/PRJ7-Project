@@ -1,5 +1,6 @@
 ﻿using adventureplatform.Client.Helpers;
 using adventureplatform.Shared.Entities;
+using adventureplatform.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace adventureplatform.Client.Repository
 {
     public class AdventureRepository : IAdventureRepository
     {
+        #region ##### HEAD #####
+
         private readonly IHttpService httpService;
         private readonly string url = "api/adventures";
 
@@ -17,15 +20,25 @@ namespace adventureplatform.Client.Repository
             this.httpService = httpService;
         }
 
-        public async Task CreateAdventure(Adventure adventure)
+        #endregion
+
+        #region ##### POST #####
+
+        public async Task<int> CreateAdventure(Adventure adventure)
         {
-            var response = await httpService.Post(url, adventure);
+            var response = await httpService.Post<Adventure, int>(url, adventure);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());
             }
+            return response.Response;
         }
 
+        #endregion
+
+        #region ##### GET #####
+
+        // Get All Adventures.
         public async Task<List<Adventure>> GetAdventures()
         {
             var response = await httpService.Get<List<Adventure>>(url);
@@ -36,6 +49,7 @@ namespace adventureplatform.Client.Repository
             return response.Response;
         }
 
+        // Get Adventure By ID.
         public async Task<Adventure> GetAdventure(int id)
         {
             var response = await httpService.Get<Adventure>($"{url}/{id}");
@@ -46,20 +60,32 @@ namespace adventureplatform.Client.Repository
             return response.Response;
         }
 
-        //public async Task<AdventureDTO> GetAdventureDTO(int id)
-        //{
-        //    return await Get<AdventureDTO>($"{url}/{id}");
-        //}
+        // Get AdventureDTO By ID.
+        public async Task<AdventureDTO> GetAdventureDTO(int id)
+        {
+            return await Get<AdventureDTO>($"{url}/{id}");
+        }
 
-        //public async Task<T> Get<T>(string url)
-        //{
-        //    var response = await httpService.Get<T>(url);
-        //    if (!response.Success)
-        //    {
-        //        throw new ApplicationException(await response.GetBody());
-        //    }
-        //    return response.Response;
-        //}
+        // Get AdventureUpdateDTO By ID.
+        public async Task<AdventureUpdateDTO> GetAdventureUpdateDTO(int id)
+        {
+            return await Get<AdventureUpdateDTO>($"{url}/update/{id}");
+        }
+
+        // 
+        private async Task<T> Get<T>(string url)
+        {
+            var response = await httpService.Get<T>(url);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+            return response.Response;
+        }
+
+        #endregion
+
+        #region ##### UPDATE #####
 
         public async Task UpdateAdventure(Adventure adventure)
         {
@@ -69,5 +95,29 @@ namespace adventureplatform.Client.Repository
                 throw new ApplicationException(await response.GetBody());
             }
         }
+
+        #endregion
+
+        #region ##### DELETE #####
+
+        // Delete Adventure By ID.
+        public async Task DeleteAdventure(int id)
+        {
+            var response = await httpService.Delete($"{url}/{id}");
+
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+        #endregion
+
+
+
+
+
+
+
     }
 }

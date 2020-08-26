@@ -3,7 +3,6 @@
 @inject IAdventureRepository adventureRepository
 @inject IGenreRepository genreRepository
 
-
 @if(NotSelectedGenres != null)
 {
     <div class="row">
@@ -21,15 +20,20 @@
     </div>
 }
 
-
 @code {
     private Adventure project = new Adventure();
     private List<Genre> NotSelectedGenres;
+
+    #region ##### LIFE CYCLE #####
 
     protected override async Task OnInitializedAsync()
     {
         NotSelectedGenres = await genreRepository.GetGenres();
     }
+
+    #endregion
+
+    #region ##### CRUD #####
 
     private async Task SaveProject()
     {
@@ -43,8 +47,14 @@
         }
     }
 
+    #endregion
+
+    #region ##### NAVIGATION ####
+
     public void NavCreateChapter()
     {
         navigationManager.NavigateTo($"createchapter/{project.ID}");
     }
+
+    #endregion
 }

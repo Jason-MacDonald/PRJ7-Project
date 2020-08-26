@@ -24,10 +24,19 @@
     </div>
 
     @code {
+        [Parameter] public EventCallback<string> OnSubmit { get; set; }
+
+        public Task Filter()
+        {
+            return OnSubmit.InvokeAsync(selectedGenre);
+        }
+
         private string tagString = "";
 
         private List<Genre> genreList = new List<Genre>();
         private string selectedGenre = "0";
+
+
 
         protected async override Task OnInitializedAsync()
         {
@@ -39,11 +48,6 @@
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-
-        private void Filter()
-        {
-
         }
 
         private void Clear()

@@ -10,6 +10,8 @@ namespace adventureplatform.Client.Helpers
 {
     public class HttpService : IHttpService
     {
+        #region ##### HEAD #####
+
         private readonly HttpClient httpClient;
 
         private JsonSerializerOptions DefaultJsonSerializerOptions =>
@@ -19,6 +21,39 @@ namespace adventureplatform.Client.Helpers
         {
             this.httpClient = httpClient;
         }
+
+        #endregion
+
+        #region ##### POST #####
+
+        public async Task<HttpResponseWrapper<object>> Post<T>(string url, T data)
+        {
+            var dataJson = JsonSerializer.Serialize(data);
+            var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(url, stringContent);
+            return new HttpResponseWrapper<object>(null, response.IsSuccessStatusCode, response);
+        }
+
+        public async Task<HttpResponseWrapper<TResponse>> Post<T, TResponse>(string url, T data)
+        {
+            var dataJson = JsonSerializer.Serialize(data);
+            var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(url, stringContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var deserializedResponse = await Deserialize<TResponse>(response, DefaultJsonSerializerOptions);
+                return new HttpResponseWrapper<TResponse>(deserializedResponse, true, response);
+            }
+            else
+            {
+                return new HttpResponseWrapper<TResponse>(default, false, response);
+            }
+        }
+
+        #endregion
+
+        #region ##### GET #####
 
         public async Task<HttpResponseWrapper<T>> Get<T>(string url)
         {
@@ -50,13 +85,9 @@ namespace adventureplatform.Client.Helpers
             }
         }
 
-        public async Task<HttpResponseWrapper<object>> Post<T>(string url, T data)
-        {
-            var dataJson = JsonSerializer.Serialize(data);
-            var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync(url, stringContent);
-            return new HttpResponseWrapper<object>(null, response.IsSuccessStatusCode, response);
-        }
+        #endregion
+
+        #region ##### PUT #####
 
         public async Task<HttpResponseWrapper<object>> Put<T>(string url, T data)
         {
@@ -66,10 +97,26 @@ namespace adventureplatform.Client.Helpers
             return new HttpResponseWrapper<object>(null, response.IsSuccessStatusCode, response);
         }
 
+        #endregion
+
+        #region ##### DELETE #####
+
+        public async Task<HttpResponseWrapper<object>> Delete(string url)
+        {
+            var httpResponse = await httpClient.DeleteAsync(url);
+            return new HttpResponseWrapper<object>(null, httpResponse.IsSuccessStatusCode, httpResponse);
+        }
+
+        #endregion
+
+        #region ##### DESERIALIZE #####
+
         private async Task<T> Deserialize<T>(HttpResponseMessage httpResponse, JsonSerializerOptions options)
         {
             var responseString = await httpResponse.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<T>(responseString, options);
         }
+
+        #endregion
     }
 }

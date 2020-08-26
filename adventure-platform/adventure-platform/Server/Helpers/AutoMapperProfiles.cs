@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace adventureplatform.Server.Helpers
 {
-    public class AutoMapperAdventure : Profile
+    public class AutoMapperProfiles : Profile
     {
-        public AutoMapperAdventure()
+        public AutoMapperProfiles()
         {
             // Image only updated if changed.
-            CreateMap<Adventure, Adventure>().ForMember(x => x.Image, Base64FormattingOptions => Base64FormattingOptions.Ignore());
+            CreateMap<Adventure, Adventure>()
+                .ForMember(x => x.Image, Base64FormattingOptions => Base64FormattingOptions.Ignore());
         }
     }
 }

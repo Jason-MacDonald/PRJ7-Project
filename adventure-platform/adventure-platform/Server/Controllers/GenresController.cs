@@ -12,6 +12,9 @@ namespace adventureplatform.Server.Controllers
     [Route("api/[controller]")]
     public class GenresController : ControllerBase
     {
+
+        #region ##### HEAD #####
+
         private readonly ApplicationDBContext context;
 
         public GenresController(ApplicationDBContext context)
@@ -19,13 +22,31 @@ namespace adventureplatform.Server.Controllers
             this.context = context;
         }
 
+        #endregion
+
+        #region ##### POST #####
+
+        [HttpPost]
+        public async Task<ActionResult> Post(Genre genre)
+        {
+            context.Add(genre);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+        #endregion
+
+        #region ##### GET #####
+
+        // Get All Genres.
         [HttpGet]
         public async Task<ActionResult<List<Genre>>> Get()
         {
             return await context.Genres.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        // Get Genre By ID.
+        [HttpGet("{id}")] 
         public async Task<ActionResult<Genre>> Get(int id)
         {
             var genre = await context.Genres.FirstOrDefaultAsync(x => x.ID == id);
@@ -36,13 +57,9 @@ namespace adventureplatform.Server.Controllers
             return genre;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post(Genre genre)
-        {
-            context.Add(genre);
-            await context.SaveChangesAsync();
-            return Ok();
-        }
+        #endregion
+
+        #region ##### PUT #####
 
         [HttpPut]
         public async Task<ActionResult> Put(Genre genre)
@@ -51,6 +68,26 @@ namespace adventureplatform.Server.Controllers
             await context.SaveChangesAsync();
             return NoContent();
         }
+
+        #endregion
+
+        #region ##### DELETE #####
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var genre = await context.Genres.FirstOrDefaultAsync(x => x.ID == id);
+            if(genre == null)
+            {
+                return NotFound();
+            }
+
+            context.Remove(genre);
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        #endregion
 
     }
 }

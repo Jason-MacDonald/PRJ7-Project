@@ -19,7 +19,7 @@
                     <td>@item.Name</td>
                     <td>
                         <a class="btn btn-success">Edit</a>
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger" @onclick="@(() => DeleteGenre(item.ID))">Delete</button>
                     </td>
                 </tr>
                 }
@@ -31,7 +31,15 @@
 <GenreForm Genre="genre" OnValidSubmit="CreateGenre"/>
 
 @code {
+
+    #region ##### HEAD #####
+
+    private Genre genre = new Genre();
     private List<Genre> GenreList;
+
+    #endregion
+
+    #region ##### INIT #####
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,18 +53,37 @@
         }
     }
 
-    private Genre genre = new Genre();
+    #endregion
+
+    #region ##### CRUD #####
 
     private async Task CreateGenre()
     {
         try
         {
             await genreRepository.CreateGenre(genre);
+            genre.Name = "";
+            GenreList = await genreRepository.GetGenres(); // Updates display.
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
     }
+
+    private async Task DeleteGenre(int id)
+    {
+        try
+        {
+            await genreRepository.DeleteGenre(id);
+            GenreList = await genreRepository.GetGenres(); // Updates display.
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    #endregion
 
 }

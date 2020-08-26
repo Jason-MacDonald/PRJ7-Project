@@ -1,4 +1,4 @@
-﻿<EditForm Model="Project" OnValidSubmit="OnValidSubmit">
+﻿<EditForm Model="Project" OnValidSubmit="OnDataAnnotationsValidated">
     <DataAnnotationsValidator />
 
     @* PROJECT TITLE *@
@@ -64,5 +64,18 @@
     private void OnSelectedImage(string imageBase64)
     {
         Project.Image = imageBase64;
+    }
+
+    private async Task OnDataAnnotationsValidated()
+    {
+        Project.AdventureGenres = Selected
+            .Select(x => new AdventureGenre { GenreID = int.Parse(x.Key) }).ToList();
+
+        if(!string.IsNullOrWhiteSpace(Project.Image)) 
+        { 
+            imageURL = null; 
+        }
+
+        await OnValidSubmit.InvokeAsync(null);
     }
 }

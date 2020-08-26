@@ -9,6 +9,8 @@ namespace adventureplatform.Client.Repository
 {
     public class GenreRepository : IGenreRepository
     {
+        #region ##### HEAD #####
+
         private readonly IHttpService httpService;
         private string url = "api/genres";
 
@@ -16,6 +18,23 @@ namespace adventureplatform.Client.Repository
         {
             this.httpService = httpService;
         }
+
+        #endregion
+
+        #region ##### POST #####
+
+        public async Task CreateGenre(Genre genre)
+        {
+            var response = await httpService.Post(url, genre);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+        #endregion
+
+        #region ##### GET #####
 
         public async Task<List<Genre>> GetGenres()
         {
@@ -37,14 +56,9 @@ namespace adventureplatform.Client.Repository
             return response.Response;
         }
 
-        public async Task CreateGenre(Genre genre)
-        {
-            var response = await httpService.Post(url, genre);
-            if (!response.Success)
-            {
-                throw new ApplicationException(await response.GetBody());
-            }
-        }
+        #endregion
+
+        #region ##### PUT #####
 
         public async Task UpdateGenre(Genre genre)
         {
@@ -54,5 +68,21 @@ namespace adventureplatform.Client.Repository
                 throw new ApplicationException(await response.GetBody());
             }
         }
+
+        #endregion
+
+        #region ##### DELETE #####
+
+        public async Task DeleteGenre(int id)
+        {
+            var response = await httpService.Delete($"{url}/{id}");
+
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+        #endregion
     }
 }

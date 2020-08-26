@@ -1,7 +1,7 @@
 ﻿@page "/adventures"
 @inject IAdventureRepository adventureRepository
 
-<AdventureFilter />
+<AdventureFilter OnSubmit="Filter"/>
 <AdventureList Adventures="adventures" />
     
 @code {
@@ -17,5 +17,10 @@
         {
             Console.WriteLine(ex.Message);
         }
+    }
+
+    public void Filter(string genre)
+    {
+        Console.WriteLine(genre);
     }
 }
