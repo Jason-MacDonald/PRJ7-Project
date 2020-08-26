@@ -14,7 +14,7 @@
             <p>There are no adventures to show.</p>
         </EmptyTemplate>
         <ElementTemplate>
-            <AdventureCard Adventure="context" IsOwner="isOwner" DeleteAdventure="DeleteAdventure" />
+            <AdventureCard @key="context.ID" Adventure="context" IsOwner="isOwner" DeleteAdventure="DeleteAdventure" />
         </ElementTemplate>
     </GenericList>
 </div>

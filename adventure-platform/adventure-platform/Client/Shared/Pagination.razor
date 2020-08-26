@@ -38,7 +38,7 @@
         links.Add(new LinkModel(previousPage, isPreviousPageLinkEnabled, "Previous"));
 
         // Adds links within radius.
-        for (int i = 1; i < NumPages + 1; i++)
+        for (int i = 1; i <= NumPages; i++)
         {
             if(i >= CurrentPage - Radius && i <= CurrentPage + Radius)
             {

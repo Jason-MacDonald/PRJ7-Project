@@ -38,17 +38,23 @@ namespace adventureplatform.Client.Repository
 
         #region ##### GET #####
 
-        // Get All Adventures.
+        // Get All Adventures --With Pagination.
         public async Task<PaginatedResponse<List<Adventure>>> GetAdventures(PaginationDTO paginationDTO)
         {
             return await httpService.GetHelper<List<Adventure>>(url, paginationDTO);
+        }
 
-            //var response = await httpService.Get<List<Adventure>>(url);
-            //if (!response.Success)
-            //{
-            //    throw new ApplicationException(await response.GetBody());
-            //}
-            //return response.Response;
+        public async Task<PaginatedResponse<List<Adventure>>> GetFilteredAdventures(AdventureFilterDTO adventureFilterDTO)
+        {
+            var httpResponse = await httpService.Post<AdventureFilterDTO, List<Adventure>>($"{url}/filter", adventureFilterDTO);
+            var numPages = int.Parse(httpResponse.HttpResponseMessage.Headers.GetValues("numPages").FirstOrDefault());
+            var paginatedResponse = new PaginatedResponse<List<Adventure>>()
+            {
+                Response = httpResponse.Response,
+                NumPages = numPages
+            };
+
+            return paginatedResponse;
         }
 
         // Get Adventure By ID.

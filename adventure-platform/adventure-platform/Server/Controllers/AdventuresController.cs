@@ -109,6 +109,26 @@ namespace adventureplatform.Server.Controllers
 
         }
 
+        [HttpPost("filter")]
+        public async Task<ActionResult<List<Adventure>>> Filter(AdventureFilterDTO adventureFilterDTO)
+        {
+            var adventuresQueryable = context.Adventures.AsQueryable();
+
+            if (adventureFilterDTO.GenreID != 0)
+            {
+                adventuresQueryable = adventuresQueryable
+                    .Where(x => x.AdventureGenres.Select(y => y.GenreID)
+                    .Contains(adventureFilterDTO.GenreID));
+            }
+
+            await HttpContext.InsertPaginationParametersInResponse(adventuresQueryable, adventureFilterDTO.NumPerPage);
+
+            var adventures = await adventuresQueryable.Paginate(adventureFilterDTO.Pagination).ToListAsync();
+
+            return adventures;
+        }
+
+
         #endregion
 
         #region ##### PUT #####

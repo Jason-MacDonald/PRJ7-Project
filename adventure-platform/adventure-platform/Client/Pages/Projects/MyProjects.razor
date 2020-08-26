@@ -2,13 +2,13 @@
 @inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
 
-<AdventureFilter />
+<AdventureFilter OnSubmit="Filter"/>
 <AdventureList Adventures="adventures" ProjectContext="@true"/>
 <Pagination CurrentPage="@paginationDTO.Page" NumPages="numPages" SelectedPage="SelectedPage" />
 
 @code {
     List<Adventure> adventures;
-    PaginationDTO paginationDTO = new PaginationDTO();
+    PaginationDTO paginationDTO = new PaginationDTO() { NumPerPage = 2};
     private int numPages;
 
     protected override async Task OnInitializedAsync()
@@ -41,5 +41,11 @@
     private void NavCreateProject()
     {
         navigationManager.NavigateTo($"createproject");
+    }
+
+    public async Task Filter(AdventureFilterDTO adventureFilterDTO)
+    {
+        var paginatedResponse = await adventureRepository.GetFilteredAdventures(adventureFilterDTO);
+        adventures = paginatedResponse.Response;
     }
 }

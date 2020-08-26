@@ -42,12 +42,12 @@
         var paginatedResponse = await adventureRepository.GetAdventures(paginationDTO);
         adventures = paginatedResponse.Response;
         numPages = paginatedResponse.NumPages;
-
-        Console.WriteLine(numPages);
     }
 
-    public void Filter(string genre)
+    public async Task Filter(AdventureFilterDTO adventureFilterDTO)
     {
-        Console.WriteLine(genre);
+        var paginatedResponse = await adventureRepository.GetFilteredAdventures(adventureFilterDTO);
+        adventures = paginatedResponse.Response;
+        numPages = paginatedResponse.NumPages;
     }
 }
