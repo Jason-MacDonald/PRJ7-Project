@@ -1,5 +1,6 @@
 ﻿@page "/mylibrary"
 @inject IAdventureRepository adventureRepository;
+@attribute [Authorize]
 
 <AdventureFilter OnSubmit="FilterAdventures" />
 

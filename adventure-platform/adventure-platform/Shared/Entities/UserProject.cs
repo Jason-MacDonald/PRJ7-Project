@@ -11,7 +11,7 @@ namespace adventureplatform.Shared.Entities
         public int AdventureID { get; set; }
 
         // NAVIGATIONAL PROPERTIES
-        public User User { get; set; }
+        //public User User { get; set; }
         public Adventure Project { get; set; }
     }
 }

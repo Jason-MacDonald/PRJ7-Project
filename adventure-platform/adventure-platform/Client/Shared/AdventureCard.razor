@@ -22,17 +22,19 @@
                 <a class="btn btn-success" @onclick="NavPlay"><span class="oi oi-media-play" aria-hidden="true"></span></a>
                 <a class="btn btn-info" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>
 
-                @if (IsOwner)
-                {
-                    <div class="float-right">
-                        <a class="btn btn-warning" @onclick="NavEditProject"><span class="oi oi-pencil" aria-hidden="true" /></a>
-                        <button type="button"
-                                class="btn btn-danger"
-                                @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
-                            <span class="oi oi-trash" aria-hidden="true" />
-                        </button>
-                    </div>
-                }
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="float-right">
+                            <a class="btn btn-warning" @onclick="NavEditProject"><span class="oi oi-pencil" aria-hidden="true" /></a>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
+                                <span class="oi oi-trash" aria-hidden="true" />
+                            </button>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
+
             </div>
         </div>
     </div>
@@ -43,7 +45,6 @@
 
     [Parameter] public Adventure Adventure { get; set; }
     [Parameter] public EventCallback<Adventure> DeleteAdventure { get; set; }
-    [Parameter] public bool IsOwner { get; set; }
 
     #endregion
 

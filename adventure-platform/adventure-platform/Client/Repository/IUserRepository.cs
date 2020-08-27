@@ -1,4 +1,4 @@
-﻿using adventureplatform.Shared.Entities;
+﻿using adventureplatform.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,9 @@ namespace adventureplatform.Client.Repository
 {
     public interface IUserRepository
     {
-        Task CreateUser(User user);
+        Task AssignRole(EditRoleDTO editRoleDTO);
+        Task<List<RoleDTO>> GetRoles();
+        Task<PaginatedResponse<List<UserDTO>>> GetUsers(PaginationDTO paginationDTO);
+        Task RemoveRole(EditRoleDTO editRoleDTO);
     }
 }

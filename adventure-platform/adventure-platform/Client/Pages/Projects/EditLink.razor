@@ -1,6 +1,7 @@
 ﻿@page "/editlink/{AdventureID:int}/{LinkID:int}"
 @inject ILinkRepository linkRepository
 @inject IChapterRepository chapterRepository
+@attribute [Authorize]
 
 <div class="row">
     <div class="left-column">
@@ -30,7 +31,7 @@
         </div>
     </div>
 </div>
- 
+
 
 @code {
     [Parameter] public int AdventureID { get; set; }

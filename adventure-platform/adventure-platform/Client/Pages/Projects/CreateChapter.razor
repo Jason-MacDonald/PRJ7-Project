@@ -1,11 +1,12 @@
 ﻿@page "/createchapter/{AdventureID:int}"
-@inject NavigationManager navigationManager 
+@inject NavigationManager navigationManager
 @inject IChapterRepository chapterRepository
+@attribute [Authorize]
 
 <div class="row">
     <div class="left-column">
         <h3>Create Chapter</h3>
-        <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter"/>
+        <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
     </div>
     <div class="right-column">
         <h3>Links</h3>

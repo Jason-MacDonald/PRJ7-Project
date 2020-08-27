@@ -136,5 +136,13 @@ C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Serv
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\obj\Debug\netcoreapp3.1\adventureplatform.Server.csproj.CoreCompileInputs.cache
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\obj\Debug\netcoreapp3.1\adventureplatform.Server.MvcApplicationPartsAssemblyInfo.cache

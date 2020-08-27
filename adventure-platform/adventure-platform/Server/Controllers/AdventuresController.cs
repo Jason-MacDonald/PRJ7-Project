@@ -2,6 +2,8 @@
 using adventureplatform.Shared.DTOs;
 using adventureplatform.Shared.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +15,7 @@ namespace adventureplatform.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AdventuresController : ControllerBase
     {
         #region ##### HEAD #####
@@ -52,6 +55,7 @@ namespace adventureplatform.Server.Controllers
 
         // Get All Adventures --Using pagination for range of results.
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Adventure>>> Get([FromQuery]PaginationDTO paginationDTO) // FromQuery allows the use of query strings.
         {
             var queryable = context.Adventures.AsQueryable();
@@ -62,6 +66,7 @@ namespace adventureplatform.Server.Controllers
 
         // Get AdventureDTO By ID.
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<AdventureDTO>> Get(int id)
         {
             var adventure = await context.Adventures.Where(x => x.ID == id)
@@ -110,6 +115,7 @@ namespace adventureplatform.Server.Controllers
         }
 
         [HttpPost("filter")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Adventure>>> Filter(AdventureFilterDTO adventureFilterDTO)
         {
             var adventuresQueryable = context.Adventures.AsQueryable();

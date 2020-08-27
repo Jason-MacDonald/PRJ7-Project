@@ -1,6 +1,7 @@
 ﻿@page "/myprojects"
 @inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
+@attribute [Authorize]
 
 <AdventureFilter OnSubmit="FilterAdventures" />
 
@@ -13,7 +14,7 @@
 
 @code {
 
-        #region ##### HEAD #####
+    #region ##### HEAD #####
 
     private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO() { NumPerPage = 11 };
     private List<Adventure> adventures;

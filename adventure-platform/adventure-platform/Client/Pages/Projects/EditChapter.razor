@@ -1,7 +1,8 @@
 ﻿@page "/editchapter/{ChapterID:int}"
 @inject NavigationManager navigationManager
-@inject IChapterRepository chapterRepository 
+@inject IChapterRepository chapterRepository
 @inject ILinkRepository linkRepository
+@attribute [Authorize]
 
 <h3>Edit Chapter</h3>
 
@@ -16,10 +17,10 @@
             <div class="form-group">
                 @foreach (var link in links)
                 {
-                <div class="d-flex">
-                    <button class="btn btn-warning flex-grow-1 mb-2" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</button>
-                    <button class="btn btn-danger ml-2 mb-2" @onclick="(() => DeleteLink(link.ID))"><span class="oi oi-trash" aria-hidden="true"></span></button>
-                </div>
+                    <div class="d-flex">
+                        <button class="btn btn-warning flex-grow-1 mb-2" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</button>
+                        <button class="btn btn-danger ml-2 mb-2" @onclick="(() => DeleteLink(link.ID))"><span class="oi oi-trash" aria-hidden="true"></span></button>
+                    </div>
                 }
                 <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
             </div>

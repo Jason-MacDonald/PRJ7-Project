@@ -1,6 +1,6 @@
 ﻿@inject NavigationManager navigationManager
-@inject IAdventureRepository adventureRepository 
-
+@inject IAdventureRepository adventureRepository
+@inject IJSRuntime js
 @*<input type="checkbox" @bind="@isOwner" />*@
 
 <div class="adventures-container">
@@ -14,7 +14,7 @@
             <p>There are no adventures to show.</p>
         </EmptyTemplate>
         <ElementTemplate>
-            <AdventureCard @key="context.ID" Adventure="context" IsOwner="isOwner" DeleteAdventure="DeleteAdventure" />
+            <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" />
         </ElementTemplate>
     </GenericList>
 </div>
@@ -23,12 +23,15 @@
     [Parameter] public List<Adventure> Adventures { get; set; }
     [Parameter] public bool ProjectContext { get; set; }
 
-    bool isOwner = true;
-
     public async Task DeleteAdventure(Adventure adventure)
     {
-        await adventureRepository.DeleteAdventure(adventure.ID);
-        Adventures.Remove(adventure);
+        var confirm = await js.Confirm($"Are you sure you want to delete {adventure.Title}?");
+
+        if(confirm == true)
+        {
+            await adventureRepository.DeleteAdventure(adventure.ID);
+            Adventures.Remove(adventure);
+        }
     }
 
     private void NavCreateProject()

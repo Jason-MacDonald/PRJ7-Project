@@ -111,6 +111,27 @@ using adventureplatform.Client.Repository;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 15 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 17 "C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\_Imports.razor"
+using adventureplatform.Client.Pages.Users;
+
+#line default
+#line hidden
+#nullable disable
     public partial class ProjectForm : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

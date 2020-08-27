@@ -1,6 +1,18 @@
 ﻿@page "/account"
+@attribute [Authorize]
 
 <h3>Account</h3>
+
+@* ##### ADMINISTRATION PANEL ##### *@
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <a class="btn btn-info" href="genres">Edit Genres</a>
+
+        <Users />
+    </Authorized>
+</AuthorizeView>
+
+
 
 @code {
 

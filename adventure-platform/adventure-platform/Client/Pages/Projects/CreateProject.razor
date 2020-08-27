@@ -1,9 +1,10 @@
 ﻿@page "/createproject"
-@inject NavigationManager navigationManager 
+@inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
 @inject IGenreRepository genreRepository
+@attribute [Authorize]
 
-@if(NotSelectedGenres != null)
+@if (NotSelectedGenres != null)
 {
     <div class="row">
         <div class="left-column">

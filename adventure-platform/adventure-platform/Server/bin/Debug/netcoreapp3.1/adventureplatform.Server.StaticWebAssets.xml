@@ -1,5 +1,6 @@
 ﻿<StaticWebAssets Version="1.0">
   <ContentRoot BasePath="/" Path="C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\wwwroot\" />
   <ContentRoot BasePath="/" Path="C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\bin\Debug\netstandard2.1\wwwroot\" />
+  <ContentRoot BasePath="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication" Path="C:\Users\64221\.nuget\packages\microsoft.aspnetcore.components.webassembly.authentication\3.2.1\build\..\staticwebassets\" />
   <ContentRoot BasePath="_content/Tewr.Blazor.FileReader" Path="C:\Users\64221\.nuget\packages\tewr.blazor.filereader\1.1.0.19274\build\..\staticwebassets\" />
 </StaticWebAssets>
