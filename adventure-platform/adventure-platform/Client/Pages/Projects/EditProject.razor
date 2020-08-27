@@ -68,7 +68,7 @@
     {
         try
         {
-            //await chapterRepository.DeleteChapter(id);
+            await chapterRepository.DeleteChapter(id);
             chapterList = await chapterRepository.GetChapters(adventure.ID);
         }
         catch (Exception ex)

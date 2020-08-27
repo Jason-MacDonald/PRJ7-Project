@@ -60,5 +60,22 @@ namespace adventureplatform.Server.Controllers
             await context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var chapter = await context.Chapters.FirstOrDefaultAsync(x => x.ID == id);
+
+            if(chapter == null)
+            {
+                return NotFound();
+            }
+
+            await context.Database.ExecuteSqlRawAsync($"delete from Links where ChapterID = {chapter.ID};");
+
+            context.Remove(chapter);
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

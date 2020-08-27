@@ -162,7 +162,7 @@ namespace adventureplatform.Server.Controllers
 
         #region ##### DELETE #####
 
-        // Delete Adventure By ID --Cascade through links/chapters/adventure
+        // Delete Adventure By ID --Manually cascade through links/chapters/adventure
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

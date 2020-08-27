@@ -77,6 +77,7 @@ namespace adventureplatform.Server.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var genre = await context.Genres.FirstOrDefaultAsync(x => x.ID == id);
+           
             if(genre == null)
             {
                 return NotFound();

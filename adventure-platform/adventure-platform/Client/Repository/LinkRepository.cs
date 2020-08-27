@@ -54,5 +54,15 @@ namespace adventureplatform.Client.Repository
                 throw new ApplicationException(await response.GetBody());
             }
         }
+
+        public async Task DeleteLink(int id)
+        {
+            var response = await httpService.Delete($"{url}/{id}");
+
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
     }
 }

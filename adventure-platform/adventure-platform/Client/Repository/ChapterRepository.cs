@@ -49,6 +49,17 @@ namespace adventureplatform.Client.Repository
         public async Task UpdateChapter(Chapter chapter)
         {
             var response = await httpService.Put(url, chapter);
+
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+        public async Task DeleteChapter(int id)
+        {
+            var response = await httpService.Delete($"{url}/{id}");
+
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());
