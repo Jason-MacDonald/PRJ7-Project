@@ -1,4 +1,5 @@
 ﻿using adventureplatform.Shared.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,10 +17,12 @@ namespace adventureplatform.Server.Controllers
         #region ##### HEAD #####
 
         private readonly ApplicationDBContext context;
+        private readonly IAuthorizationService _authorizationService;
 
-        public GenresController(ApplicationDBContext context)
+        public GenresController(ApplicationDBContext context, IAuthorizationService authorizationService)
         {
             this.context = context;
+            _authorizationService = authorizationService;
         }
 
         #endregion
@@ -54,6 +57,7 @@ namespace adventureplatform.Server.Controllers
             { 
                 return NotFound(); 
             }
+
             return genre;
         }
 

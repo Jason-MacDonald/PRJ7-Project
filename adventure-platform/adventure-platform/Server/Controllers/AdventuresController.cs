@@ -4,6 +4,7 @@ using adventureplatform.Shared.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,12 +24,14 @@ namespace adventureplatform.Server.Controllers
         private readonly ApplicationDBContext context;
         private readonly IFileStorageService fileStorageService;
         private readonly IMapper mapper;
+        private readonly IAuthorizationService _authorizationService;
 
-        public AdventuresController(ApplicationDBContext context, IFileStorageService fileStorageService, IMapper mapper)
+        public AdventuresController(ApplicationDBContext context, IFileStorageService fileStorageService, IMapper mapper, IAuthorizationService authorizationService)
         {
             this.context = context;
             this.fileStorageService = fileStorageService;
             this.mapper = mapper;
+            this._authorizationService = authorizationService;
         }
 
         #endregion
@@ -145,7 +148,10 @@ namespace adventureplatform.Server.Controllers
         {
             var dbAdventure = await context.Adventures.FirstOrDefaultAsync(x => x.ID == adventure.ID);
 
-            if(dbAdventure == null) { return NotFound(); }
+            if(dbAdventure == null) 
+            { 
+                return NotFound(); 
+            }
 
             dbAdventure = mapper.Map(adventure, dbAdventure);
 
@@ -155,7 +161,6 @@ namespace adventureplatform.Server.Controllers
                 dbAdventure.Image = await fileStorageService.EditFile(adventureImage, "jpg", "adventure", dbAdventure.Image);
             }
 
-            // TODO: Deletes all from join tables. (should iterate?)
             await context.Database.ExecuteSqlRawAsync($"delete from AdventureGenres where AdventureID = {adventure.ID};");
 
             dbAdventure.AdventureGenres = adventure.AdventureGenres;

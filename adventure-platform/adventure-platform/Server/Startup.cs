@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace adventureplatform.Server
 {
@@ -59,6 +60,8 @@ namespace adventureplatform.Server
 
             services.AddScoped<IFileStorageService, InAppStorageService>();
             services.AddHttpContextAccessor();
+
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

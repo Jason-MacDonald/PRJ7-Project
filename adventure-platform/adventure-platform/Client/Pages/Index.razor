@@ -1,4 +1,31 @@
 ﻿@page "/"
+@inject IUserFavouriteRepository userFavouriteRepository
 
 <h1>Under Construction</h1>
 
+@test
+
+@code {
+    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
+    string test = "";
+
+    List<UserFavourite> userFavourites = new List<UserFavourite>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            test = user.Identity.Name;
+            Console.WriteLine(user.Claims);
+        }
+        else
+        {
+            test = "The user is not authenticated.";
+        }
+
+        userFavourites = await userFavouriteRepository.GetUserFavourites();
+    }
+
+}

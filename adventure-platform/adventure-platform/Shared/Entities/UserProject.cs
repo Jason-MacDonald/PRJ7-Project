@@ -7,7 +7,7 @@ namespace adventureplatform.Shared.Entities
     public class UserProject
     {
         // BASE PROPERTIES
-        public string UserEmail { get; set; }
+        public string UserID { get; set; }
         public int AdventureID { get; set; }
 
         // NAVIGATIONAL PROPERTIES

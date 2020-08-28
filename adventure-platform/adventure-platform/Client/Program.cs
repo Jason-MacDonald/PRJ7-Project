@@ -45,6 +45,7 @@ namespace adventureplatform.Client
             builder.Services.AddScoped<ILinkRepository, LinkRepository>();
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserFavouriteRepository, UserFavouriteRepository>();
 
             await builder.Build().RunAsync();
         }

@@ -19,8 +19,8 @@ namespace adventureplatform.Server
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AdventureGenre>().HasKey(x => new { x.AdventureID, x.GenreID });
-            modelBuilder.Entity<UserFavourite>().HasKey(x => new { x.UserEmail, x.AdventureID });
-            modelBuilder.Entity<UserProject>().HasKey(x => new { x.UserEmail, x.AdventureID });
+            modelBuilder.Entity<UserFavourite>().HasKey(x => new { x.UserID, x.AdventureID });
+            modelBuilder.Entity<UserProject>().HasKey(x => new { x.UserID, x.AdventureID });
 
             base.OnModelCreating(modelBuilder);
         }

@@ -3,6 +3,7 @@
 @inject IAdventureRepository adventureRepository
 @inject IChapterRepository chapterRepository
 @attribute [Authorize]
+@using System.Security.Claims
 
 <h3>Edit Project</h3>
 
@@ -30,6 +31,7 @@
 
 
 @code {
+
     [Parameter] public int ProjectID { get; set; }
 
     Adventure adventure;
@@ -48,7 +50,9 @@
 
     private async Task SaveProject()
     {
-        await adventureRepository.UpdateAdventure(adventure);
+
+            await adventureRepository.UpdateAdventure(adventure);
+
     }
 
     #region ##### NAVIGATION #####
