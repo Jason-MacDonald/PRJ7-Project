@@ -30,7 +30,6 @@ namespace adventureplatform.Server
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Link> Links { get; set; }
-        //public DbSet<User> Users { get; set; }
         public DbSet<UserFavourite> UserFavourites { get; set; }
         public DbSet<UserProject> UserProjects { get; set; }
     }

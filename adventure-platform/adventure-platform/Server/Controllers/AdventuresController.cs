@@ -137,6 +137,25 @@ namespace adventureplatform.Server.Controllers
             return adventures;
         }
 
+        [HttpPost("favourites")]
+        public async Task<ActionResult<List<Adventure>>> GetFavourites(UserFavouritesDTO userFavouritesDTO)
+        {
+            var userFavouritesQueryable = context.Adventures.AsQueryable();
+
+            if (!string.IsNullOrEmpty(userFavouritesDTO.UserEmail))
+            {
+                userFavouritesQueryable = userFavouritesQueryable
+                    .Where(x => x.UserFavourites.Select(y => y.UserID)
+                    .Contains(userFavouritesDTO.UserEmail));
+            }
+
+            await HttpContext.InsertPaginationParametersInResponse(userFavouritesQueryable, userFavouritesDTO.NumPerPage);
+
+            var favourites = await userFavouritesQueryable.Paginate(userFavouritesDTO.Pagination).ToListAsync();
+
+            return favourites;
+        }
+
 
         #endregion
 

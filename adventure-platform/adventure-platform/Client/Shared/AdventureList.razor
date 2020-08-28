@@ -1,6 +1,8 @@
 ﻿@inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
 @inject IJSRuntime js
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IUserFavouriteRepository userFavouriteRepository
 @*<input type="checkbox" @bind="@isOwner" />*@
 
 <div class="adventures-container">
@@ -14,12 +16,16 @@
             <p>There are no adventures to show.</p>
         </EmptyTemplate>
         <ElementTemplate>
-            <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" />
+            <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" Context="@Context" DeleteFromLibrary="DeleteFromLibrary" />
         </ElementTemplate>
     </GenericList>
 </div>
 
 @code {
+    [Parameter] public EventCallback<int> Refresh { get; set; }
+
+    [Parameter] public string Context { get; set; }
+
     [Parameter] public List<Adventure> Adventures { get; set; }
     [Parameter] public bool ProjectContext { get; set; }
 
@@ -27,15 +33,39 @@
     {
         var confirm = await js.Confirm($"Are you sure you want to delete {adventure.Title}?");
 
-        if(confirm == true)
+        if (confirm == true)
         {
             await adventureRepository.DeleteAdventure(adventure.ID);
             Adventures.Remove(adventure);
         }
     }
 
+    private async Task DeleteFromLibrary(int adventureID)
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userEmail = authState.User.Identity.Name;
+
+        try
+        {
+            UserFavourite userFavourite = new UserFavourite()
+            {
+                UserID = userEmail,
+                AdventureID = adventureID
+            };
+
+            await userFavouriteRepository.DeleteUserFavourite(userFavourite);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        await Refresh.InvokeAsync(1);
+    }
+
     private void NavCreateProject()
     {
         navigationManager.NavigateTo($"createproject");
     }
+
 }

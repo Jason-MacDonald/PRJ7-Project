@@ -8,6 +8,8 @@ namespace adventureplatform.Client.Repository
 {
     public interface IUserFavouriteRepository
     {
+        Task CreateUserFavourite(UserFavourite userFavourite);
+        Task DeleteUserFavourite(UserFavourite userFavourite);
         Task<List<UserFavourite>> GetUserFavourites();
     }
 }

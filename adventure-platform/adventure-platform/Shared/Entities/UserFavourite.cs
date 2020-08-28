@@ -10,6 +10,8 @@ namespace adventureplatform.Shared.Entities
         public string UserID { get; set; }
         public int AdventureID { get; set; }
 
+        public int CurrentChapter { get; set; }
+
         // NAVIGATIONAL PROPERTIES
         //public User User { get; set; }
         public Adventure Favourite { get; set; }

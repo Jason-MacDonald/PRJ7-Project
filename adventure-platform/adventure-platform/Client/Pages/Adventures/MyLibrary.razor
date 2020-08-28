@@ -1,21 +1,22 @@
 ﻿@page "/mylibrary"
 @inject IAdventureRepository adventureRepository;
 @attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@*<AdventureFilter OnSubmit="FilterAdventures" />*@
 
-<AdventureFilter OnSubmit="FilterAdventures" />
-
-<AdventureList Adventures="adventures" />
+<AdventureList Adventures="adventures" Context="@context" Refresh="SelectPage"/>
 
 @if (numPages > 1)
 {
-    <Pagination CurrentPage="@adventureFilterDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+    <Pagination CurrentPage="@_UserFavouritesDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
 }
 
 @code {
 
     #region ##### HEAD #####
+    private const string context = "mylibrary";
 
-    private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO();
+    private UserFavouritesDTO _UserFavouritesDTO = new UserFavouritesDTO();
     private List<Adventure> adventures;
     private int numPages; // Returned from paginatedResponse calculation;
 
@@ -34,11 +35,16 @@
 
     private async Task SelectPage(int page)
     {
-        adventureFilterDTO.Page = page;
+        /// TODO: !!!!! INSECURE !!!!!
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        _UserFavouritesDTO.UserEmail = user.Identity.Name;
+
+        _UserFavouritesDTO.Page = page;
 
         try
         {
-            await FilterAdventures(adventureFilterDTO);
+            await FilterAdventures(_UserFavouritesDTO);
         }
         catch (Exception ex)
         {
@@ -46,11 +52,11 @@
         }
     }
 
-    public async Task FilterAdventures(AdventureFilterDTO prAdventureFilterDTO)
+    public async Task FilterAdventures(UserFavouritesDTO userFavouritesDTO)
     {
-        adventureFilterDTO = prAdventureFilterDTO;
+        _UserFavouritesDTO = userFavouritesDTO;
 
-        var paginatedResponse = await adventureRepository.GetFilteredAdventures(adventureFilterDTO);
+        var paginatedResponse = await adventureRepository.GetUserFavourites(userFavouritesDTO);
         adventures = paginatedResponse.Response;
         numPages = paginatedResponse.NumPages;
     }

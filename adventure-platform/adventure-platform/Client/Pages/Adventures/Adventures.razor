@@ -3,7 +3,7 @@
 
 <AdventureFilter OnSubmit="FilterAdventures" />
 
-<AdventureList Adventures="adventures" />
+<AdventureList Adventures="adventures" Context="@context" />
 
 @if (numPages > 1)
 {
@@ -13,6 +13,7 @@
 @code {
 
     #region ##### HEAD #####
+    private const string context = "adventures";
 
     private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO();
     private List<Adventure> adventures;
@@ -23,7 +24,9 @@
     #region ##### LIFE CYCLE METHODS #####
 
     protected async override Task OnInitializedAsync()
-    { 
+    {
+
+
         await SelectPage(1);
     }
 

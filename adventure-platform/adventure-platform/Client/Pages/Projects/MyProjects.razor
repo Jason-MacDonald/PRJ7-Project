@@ -5,7 +5,7 @@
 
 <AdventureFilter OnSubmit="FilterAdventures" />
 
-<AdventureList Adventures="adventures" ProjectContext="@true" />
+<AdventureList Adventures="adventures" ProjectContext="@true" Context="@context"/>
 
 @if (numPages > 1)
 {
@@ -15,6 +15,7 @@
 @code {
 
     #region ##### HEAD #####
+    private const string context = "myprojects";
 
     private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO() { NumPerPage = 11 };
     private List<Adventure> adventures;

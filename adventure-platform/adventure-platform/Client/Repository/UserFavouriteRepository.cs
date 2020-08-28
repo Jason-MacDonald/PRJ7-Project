@@ -17,6 +17,15 @@ namespace adventureplatform.Client.Repository
             this.httpService = httpService;
         }
 
+        public async Task CreateUserFavourite(UserFavourite userFavourite)
+        {
+            var response = await httpService.Post(url, userFavourite);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
         public async Task<List<UserFavourite>> GetUserFavourites()
         {
             var response = await httpService.Get<List<UserFavourite>>(url);
@@ -28,5 +37,19 @@ namespace adventureplatform.Client.Repository
 
             return response.Response;
         }
+
+        #region ##### DELETE #####
+
+        public async Task DeleteUserFavourite(UserFavourite userFavourite)
+        {
+            var response = await httpService.Delete($"{url}/{userFavourite.UserID}/{userFavourite.AdventureID}");
+
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+        #endregion
     }
 }

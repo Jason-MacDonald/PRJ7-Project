@@ -57,6 +57,20 @@ namespace adventureplatform.Client.Repository
             return paginatedResponse;
         }
 
+        // Get UserFavourites
+        public async Task<PaginatedResponse<List<Adventure>>> GetUserFavourites(UserFavouritesDTO userFavouritesDTO)
+        {
+            var httpResponse = await httpService.Post<UserFavouritesDTO, List<Adventure>>($"{url}/favourites", userFavouritesDTO);
+            var numPages = int.Parse(httpResponse.HttpResponseMessage.Headers.GetValues("numPages").FirstOrDefault());
+            var paginatedResponse = new PaginatedResponse<List<Adventure>>()
+            {
+                Response = httpResponse.Response,
+                NumPages = numPages
+            };
+
+            return paginatedResponse;
+        }
+
         // Get Adventure By ID.
         public async Task<Adventure> GetAdventure(int id)
         {

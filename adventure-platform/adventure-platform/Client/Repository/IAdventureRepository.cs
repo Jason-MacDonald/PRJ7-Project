@@ -18,5 +18,6 @@ namespace adventureplatform.Client.Repository
         Task UpdateAdventure(Adventure adventure);
         Task DeleteAdventure(int id);
         Task<PaginatedResponse<List<Adventure>>> GetFilteredAdventures(AdventureFilterDTO adventureFilterDTO);
+        Task<PaginatedResponse<List<Adventure>>> GetUserFavourites(UserFavouritesDTO userFavouritesDTO);
     }
 }
