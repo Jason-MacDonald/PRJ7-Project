@@ -28,16 +28,23 @@
 
         try
         {
-            await chapterRepository.CreateChapter(chapter);
+            var chapterID = await chapterRepository.CreateChapter(chapter);
+            NavEditChapter(chapterID);
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+
         }
     }
 
     private void NavCreateLink()
     {
         navigationManager.NavigateTo($"createlink/{AdventureID}/{chapter.ID}");
+    }
+
+    private void NavEditChapter(int chapterID)
+    {
+        navigationManager.NavigateTo($"editchapter/{chapterID}");
     }
 }

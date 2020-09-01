@@ -11,7 +11,7 @@ namespace adventureplatform.Shared.Entities
         public int ID { get; set; }
         [Required]
         public string Title { get; set; }
-        public string Images { get; set; }
+        public string Image { get; set; }
         [Required]
         public string Description { get; set; }
         public string Event { get; set; }

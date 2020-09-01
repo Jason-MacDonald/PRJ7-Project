@@ -1,7 +1,32 @@
-﻿@page "/play"
+﻿@page "/play/{adventureID:int}"
+@inject IAdventureRepository adventureRepository
 
 <h3>Play</h3>
 
-@code {
+@if (adventureDTO != null)
+{
+    <h4>@adventureDTO.ChapterList[0].Title</h4>
 
+    <img src="@adventureDTO.ChapterList[0].Image" />
+
+    <p>@adventureDTO.ChapterList[0].Description</p>
+
+    @foreach (var link in @adventureDTO.ChapterList[0].Links)
+    {
+        <button class="btn btn-primary">@link.Description</button>
+    }
+}
+else
+{
+    <p>something's wrong</p>
+}
+
+@code {
+    [Parameter] public int adventureID { get; set; }
+    AdventureDTO adventureDTO;
+
+    protected async override Task OnInitializedAsync()
+    {
+        adventureDTO = await adventureRepository.GetAdventureDTO(adventureID);
+    }
 }

@@ -1,4 +1,5 @@
-﻿using adventureplatform.Shared.Entities;
+﻿using adventureplatform.Server.Helpers;
+using adventureplatform.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,15 +14,23 @@ namespace adventureplatform.Server.Controllers
     public class ChaptersController : ControllerBase
     {
         private readonly ApplicationDBContext context;
+        private readonly IFileStorageService fileStorageService;
 
-        public ChaptersController(ApplicationDBContext context)
+        public ChaptersController(ApplicationDBContext context, IFileStorageService fileStorageService)
         {
             this.context = context;
+            this.fileStorageService = fileStorageService;
         }
 
         [HttpPost]
         public async Task<ActionResult<int>> Post(Chapter chapter)
         {
+            if (!string.IsNullOrWhiteSpace(chapter.Image))
+            {
+                var adventureImage = Convert.FromBase64String(chapter.Image);
+                chapter.Image = await fileStorageService.SaveFile(adventureImage, "jpg", "chapter");
+            }
+
             context.Add(chapter);
             await context.SaveChangesAsync();
             return chapter.ID;
@@ -56,6 +65,12 @@ namespace adventureplatform.Server.Controllers
         [HttpPut]
         public async Task<ActionResult<int>> Put(Chapter chapter)
         {
+            if (!string.IsNullOrWhiteSpace(chapter.Image))
+            {
+                var adventureImage = Convert.FromBase64String(chapter.Image);
+                chapter.Image = await fileStorageService.SaveFile(adventureImage, "jpg", "chapter");
+            }
+
             context.Attach(chapter).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return NoContent();

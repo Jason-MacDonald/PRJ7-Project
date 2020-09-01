@@ -17,13 +17,14 @@ namespace adventureplatform.Client.Repository
             this.httpService = httpService;
         }
 
-        public async Task CreateChapter(Chapter chapter)
+        public async Task<int> CreateChapter(Chapter chapter)
         {
-            var response = await httpService.Post(url, chapter);
+            var response = await httpService.Post<Chapter, int>(url, chapter);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());
             }
+            return response.Response;
         }
 
         public async Task<List<Chapter>> GetChapters(int id)

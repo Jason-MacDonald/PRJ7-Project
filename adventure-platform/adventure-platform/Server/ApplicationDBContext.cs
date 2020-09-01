@@ -18,6 +18,7 @@ namespace adventureplatform.Server
         // REQUIRED FOR COMPOSITE KEYS
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Required for composite keys.
             modelBuilder.Entity<AdventureGenre>().HasKey(x => new { x.AdventureID, x.GenreID });
             modelBuilder.Entity<UserFavourite>().HasKey(x => new { x.UserID, x.AdventureID });
             modelBuilder.Entity<UserProject>().HasKey(x => new { x.UserID, x.AdventureID });

@@ -19,5 +19,6 @@ namespace adventureplatform.Client.Repository
         Task DeleteAdventure(int id);
         Task<PaginatedResponse<List<Adventure>>> GetFilteredAdventures(AdventureFilterDTO adventureFilterDTO);
         Task<PaginatedResponse<List<Adventure>>> GetUserFavourites(UserFavouritesDTO userFavouritesDTO);
+        Task<PaginatedResponse<List<Adventure>>> GetUserProjects(UserProjectsDTO userProjectsDTO);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,10 @@ namespace adventureplatform.Server.Controllers
 
             context.Add(adventure);
             await context.SaveChangesAsync();
+
+            // Save user project.
+            await context.Database.ExecuteSqlRawAsync($"insert into UserProjects (UserID, AdventureID) values ('{adventure.Author}', {adventure.ID});");
+            
             return adventure.ID;
         }
 
@@ -76,6 +81,7 @@ namespace adventureplatform.Server.Controllers
                 .Include(x => x.AdventureGenres)
                 .ThenInclude(x => x.Genre)
                 .Include(x => x.Chapters )
+                .ThenInclude(x => x.Links)
                 .FirstOrDefaultAsync();
 
             if(adventure == null) 
@@ -152,6 +158,25 @@ namespace adventureplatform.Server.Controllers
             await HttpContext.InsertPaginationParametersInResponse(userFavouritesQueryable, userFavouritesDTO.NumPerPage);
 
             var favourites = await userFavouritesQueryable.Paginate(userFavouritesDTO.Pagination).ToListAsync();
+
+            return favourites;
+        }
+
+        [HttpPost("projects")]
+        public async Task<ActionResult<List<Adventure>>> GetProjects(UserProjectsDTO userProjectsDTO)
+        {
+            var userProjectsQueryable = context.Adventures.AsQueryable();
+
+            if (!string.IsNullOrEmpty(userProjectsDTO.UserEmail))
+            {
+                userProjectsQueryable = userProjectsQueryable
+                    .Where(x => x.UserProjects.Select(y => y.UserID)
+                    .Contains(userProjectsDTO.UserEmail));
+            }
+
+            await HttpContext.InsertPaginationParametersInResponse(userProjectsQueryable, userProjectsDTO.NumPerPage);
+
+            var favourites = await userProjectsQueryable.Paginate(userProjectsDTO.Pagination).ToListAsync();
 
             return favourites;
         }

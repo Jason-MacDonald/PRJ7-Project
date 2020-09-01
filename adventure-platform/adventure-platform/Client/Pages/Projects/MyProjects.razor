@@ -1,15 +1,14 @@
 ﻿@page "/myprojects"
 @inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
-<AdventureFilter OnSubmit="FilterAdventures" />
-
-<AdventureList Adventures="adventures" ProjectContext="@true" Context="@context"/>
+<AdventureList Adventures="adventures" ProjectContext="@true" Context="@context" />
 
 @if (numPages > 1)
 {
-    <Pagination CurrentPage="@adventureFilterDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+    <Pagination CurrentPage="@_UserProjectsDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
 }
 
 @code {
@@ -17,7 +16,7 @@
     #region ##### HEAD #####
     private const string context = "myprojects";
 
-    private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO() { NumPerPage = 11 };
+    private UserProjectsDTO _UserProjectsDTO = new UserProjectsDTO() { NumPerPage = 11 };
     private List<Adventure> adventures;
     private int numPages; // Returned from paginatedResponse calculation;
 
@@ -36,11 +35,16 @@
 
     private async Task SelectPage(int page)
     {
-        adventureFilterDTO.Page = page;
+        /// TODO: !!!!! INSECURE !!!!!
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        _UserProjectsDTO.UserEmail = user.Identity.Name;
+
+        _UserProjectsDTO.Page = page;
 
         try
         {
-            await FilterAdventures(adventureFilterDTO);
+            await FilterAdventures(_UserProjectsDTO);
         }
         catch (Exception ex)
         {
@@ -48,11 +52,11 @@
         }
     }
 
-    public async Task FilterAdventures(AdventureFilterDTO prAdventureFilterDTO)
+    public async Task FilterAdventures(UserProjectsDTO userProjectsDTO)
     {
-        adventureFilterDTO = prAdventureFilterDTO;
+        _UserProjectsDTO = userProjectsDTO;
 
-        var paginatedResponse = await adventureRepository.GetFilteredAdventures(adventureFilterDTO);
+        var paginatedResponse = await adventureRepository.GetUserProjects(userProjectsDTO);
         adventures = paginatedResponse.Response;
         numPages = paginatedResponse.NumPages;
     }
