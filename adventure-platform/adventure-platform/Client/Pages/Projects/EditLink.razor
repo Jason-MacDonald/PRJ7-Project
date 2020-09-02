@@ -11,7 +11,8 @@
         }
         else
         {
-            <h3>CreateLink</h3>
+            <h3>EditLink</h3>
+
             <LinkForm Link="link" OnValidSubmit="SaveLink" />
         }
     </div>
@@ -25,7 +26,7 @@
             {
                 @foreach (var chapter in chapters)
                 {
-                    <a class="btn btn-warning btn-block" @onclick="SetTarget">Set xxx as Target</a>
+                    <a class="btn btn-warning btn-block" @onclick="(() => SetTarget(chapter.ID))">Set <b>@chapter.Title</b> as Target</a>
                 }
             }
         </div>
@@ -53,8 +54,8 @@
         Console.WriteLine("Link Saved");
     }
 
-    private void SetTarget()
+    private void SetTarget(int chapterID)
     {
-
+        link.Target = chapterID;
     }
 }

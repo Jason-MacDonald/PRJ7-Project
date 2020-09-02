@@ -1,9 +1,48 @@
 ﻿@page "/"
 @inject IUserFavouriteRepository userFavouriteRepository
 
-<h1>Under Construction</h1>
+    <div class="row">
+        <div class="left-column">
 
-@test
+
+
+            <img class="mb-4" style="display:block; margin:auto; width:80%;" src="https://localhost:44363\chapter\4e3cd841-d1d8-44d1-8f6c-29cfc0b4a78a.jpg" alt="Alternate Text" />
+
+            <h4 style="text-align:center" class="mb-5">
+                Now you've gone and done it! You've only gone and stumbled into an endless world of adventure, of magic, of fierce battles, and most importantly of all, super awesome loot!'
+            </h4>
+
+        </div>
+        <div class="right-column">
+
+            <div class="card index-card">
+                <div class="card-header" style="background-color: #28a745"></div>
+                <div class="card-title center mt-4">
+                    <h4> Play</h4>
+                </div>
+                <div class="card-body">
+                    Play through adventures alone or with friends. Create an account to save your progress.
+                </div>
+                <div class="p-3">
+                    <a class="btn btn-block btn-success" href="adventures">Check out the Adventures</a>
+                </div>
+                
+            </div>
+
+            <div class="card index-card">
+                <div class="card-header" style="background-color: #ffc107"></div>
+                <div class="card-title center mt-4">
+                    <h4>Create</h4>
+                </div>
+                <div class="card-body">
+                    Create your own adventures using our simple adventure design system.
+                </div>
+                <div class="p-3">
+                    <a class="btn btn-block btn-warning" href="myprojects" style="color: white">Create a New Project</a>
+                </div>
+            </div>
+        </div>
+    </div>    
 
 @code {
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }

@@ -8,7 +8,7 @@ namespace adventureplatform.Client.Repository
 {
     public interface ILinkRepository
     {
-        Task CreateLink(Link link);
+        Task<int> CreateLink(Link link);
         Task DeleteLink(int id);
         Task<Link> GetLink(int id);
         Task<List<Link>> GetLinks(int id);

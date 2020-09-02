@@ -448,6 +448,6 @@ C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Clie
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\Razor\Pages\Users\Users.razor.g.cs
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\doLOTGx7noXKSVv3lTxuzoatbBviJrZkPUMTPhh_tfA=.hash
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\zNdQ5UyJUFQ_tcOYHJNEPjGYDIrX2jWKIKl1vXTLrs0=.hash
-C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\YzE2nSnmY-cFy_2FeYDGQ42pzSGaDZelQ9xPq3qn3rM=.hash
-C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\3lrNrgbvyKZb8xaFRuCaLhZa7WLvVBY2ztCzbZZOlSk=.hash
-C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\Bp45J9guWNEW8UgJCLHaj52YNEN7SOvPM1U4sB-Mle0=.hash
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\1YPhTA5uFoXjW6CJlUN4kxxEQh6x1GuYRPyi7B8yPCk=.hash
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\h54vpWaUh7vrhpPwdYttql7Q8ahxVNVo6fWtKMG5wdo=.hash
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Client\obj\Debug\netstandard2.1\integrity\VypYOBXD1FEsghrpa34sPd9Rri8GUffFyaG4_uFKrgE=.hash

@@ -17,13 +17,15 @@ namespace adventureplatform.Client.Repository
             this.httpService = httpService;
         }
 
-        public async Task CreateLink(Link link)
+        public async Task<int> CreateLink(Link link)
         {
-            var response = await httpService.Post(url, link);
+            var response = await httpService.Post<Link, int>(url, link);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());
             }
+
+            return response.Response;
         }
 
         public async Task<List<Link>> GetLinks(int id)

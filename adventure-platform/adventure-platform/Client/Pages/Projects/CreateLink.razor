@@ -1,6 +1,7 @@
 ﻿@page "/createlink/{AdventureID:int}/{ChapterID:int}"
 @inject ILinkRepository linkRepository
 @inject IChapterRepository chapterRepository
+@inject NavigationManager navigationManager 
 @attribute [Authorize]
 
 <div class="row">
@@ -14,7 +15,7 @@
             {
                 @foreach (var chapter in chapters)
                 {
-                    <a class="btn btn-warning btn-block" @onclick="SetTarget">Set xxx as Target</a>
+                    <a class="btn btn-warning btn-block" @onclick="SetTarget">Set @chapter.Title as Target</a>
                 }
             }
         </div>
@@ -41,7 +42,8 @@
 
         try
         {
-            await linkRepository.CreateLink(link);
+            var linkID = await linkRepository.CreateLink(link);
+            navigationManager.NavigateTo($"editlink/{AdventureID}/{linkID}");
         }
         catch (Exception ex)
         {

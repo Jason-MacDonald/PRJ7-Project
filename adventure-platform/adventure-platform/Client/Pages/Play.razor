@@ -1,20 +1,22 @@
 ﻿@page "/play/{adventureID:int}"
 @inject IAdventureRepository adventureRepository
 
-<h3>Play</h3>
-
 @if (adventureDTO != null)
 {
-    <h4>@adventureDTO.ChapterList[0].Title</h4>
+    <div class="play mb-3">
+        <h4>@adventureDTO.ChapterList[currentChapter].Title</h4>
 
-    <img src="@adventureDTO.ChapterList[0].Image" />
+        <img class="my-3" src="@adventureDTO.ChapterList[currentChapter].Image" />
 
-    <p>@adventureDTO.ChapterList[0].Description</p>
+        <p>@adventureDTO.ChapterList[currentChapter].Description</p>
 
-    @foreach (var link in @adventureDTO.ChapterList[0].Links)
-    {
-        <button class="btn btn-primary">@link.Description</button>
-    }
+        <p><i>@adventureDTO.ChapterList[currentChapter].Event</i></p>
+
+        @foreach (var link in @adventureDTO.ChapterList[currentChapter].Links)
+        {
+            <button class="btn btn-primary btn-block" @onclick="(() => GoToChapter(link.Target))">@link.Target @link.Description</button>
+        }
+    </div>
 }
 else
 {
@@ -24,9 +26,16 @@ else
 @code {
     [Parameter] public int adventureID { get; set; }
     AdventureDTO adventureDTO;
+    int currentChapter = 0;
 
     protected async override Task OnInitializedAsync()
     {
         adventureDTO = await adventureRepository.GetAdventureDTO(adventureID);
+    }
+
+    public void GoToChapter(int target)
+    {
+        target = adventureDTO.ChapterList.FindIndex(x => x.ID == target);
+        currentChapter = target;
     }
 }

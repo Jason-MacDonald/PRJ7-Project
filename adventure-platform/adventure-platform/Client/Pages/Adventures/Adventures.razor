@@ -3,7 +3,7 @@
 
 <AdventureFilter OnSubmit="FilterAdventures" />
 
-<AdventureList Adventures="adventures" Context="@context" />
+<AdventureList Adventures="adventures" ContextString="@contextString" />
 
 @if (numPages > 1)
 {
@@ -13,7 +13,7 @@
 @code {
 
     #region ##### HEAD #####
-    private const string context = "adventures";
+    private const string contextString = "adventures";
 
     private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO();
     private List<Adventure> adventures;

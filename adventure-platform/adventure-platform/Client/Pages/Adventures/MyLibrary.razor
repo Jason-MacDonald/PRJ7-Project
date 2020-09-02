@@ -1,20 +1,33 @@
 ﻿@page "/mylibrary"
 @inject IAdventureRepository adventureRepository;
-@attribute [Authorize]
+@*@attribute [Authorize]*@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @*<AdventureFilter OnSubmit="FilterAdventures" />*@
 
-<AdventureList Adventures="adventures" Context="@context" Refresh="SelectPage" />
+<AuthorizeView>
 
-@if (numPages > 1)
-{
-    <Pagination CurrentPage="@_UserFavouritesDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
-}
+    <Authorized>
+        <AdventureList Adventures="adventures" ContextString="@contextString" Refresh="SelectPage" />
+
+        @if (numPages > 1)
+        {
+            <Pagination CurrentPage="@_UserFavouritesDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <p>You must be logged in to view your library.</p>
+
+        <LoginForm />
+    </NotAuthorized>
+
+</AuthorizeView>
+
 
 @code {
 
     #region ##### HEAD #####
-    private const string context = "mylibrary";
+    private const string contextString = "mylibrary";
 
     private UserFavouritesDTO _UserFavouritesDTO = new UserFavouritesDTO();
     private List<Adventure> adventures;

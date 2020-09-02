@@ -26,7 +26,7 @@
 
             <AuthorizeView>
                 <Authorized>
-                    @if (Context == "adventures")
+                    @if (ContextString == "adventures")
                     {
                         <a class="btn btn-info" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>
                     }
@@ -34,13 +34,13 @@
             </AuthorizeView>
 
 
-            @if (Context == "mylibrary")
+            @if (ContextString == "mylibrary")
             {
                 <a class="btn btn-warning" @onclick="@(() => DeleteFromLibrary.InvokeAsync(Adventure.ID))"><span class="oi oi-minus" aria-hidden="true"></span></a>
             }
 
 
-            @if (Context == "myprojects")
+            @if (ContextString == "myprojects")
             {
 
             }
@@ -48,7 +48,7 @@
             <AuthorizeView>
                 <Authorized>
 
-                    @if (Context == "myprojects")
+                    @if (ContextString == "myprojects")
                     {
                         @if (userEmail == Adventure.Author)
                         {
@@ -75,7 +75,7 @@
     #region ##### HEAD #####
     private string userEmail = "";
 
-    [Parameter] public string Context { get; set; }
+    [Parameter] public string ContextString { get; set; }
 
     [Parameter] public Adventure Adventure { get; set; }
     [Parameter] public EventCallback<Adventure> DeleteAdventure { get; set; }

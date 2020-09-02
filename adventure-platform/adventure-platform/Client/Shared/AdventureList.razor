@@ -5,26 +5,26 @@
 @inject IUserFavouriteRepository userFavouriteRepository
 @*<input type="checkbox" @bind="@isOwner" />*@
 
-<div class="adventures-container">
-    @if (ProjectContext)
-    {
-        <button class="btn btn-info mr-3 create-project-button" @onclick="NavCreateProject">Create New Project</button>
-    }
+    <div class="adventures-container">
+        @if (ProjectContext)
+        {
+            <button class="btn btn-info mr-3 create-project-button" @onclick="NavCreateProject">Create New Project</button>
+        }     
 
-    <GenericList List="Adventures">
-        <EmptyTemplate>
-            <p>There are no adventures to show.</p>
-        </EmptyTemplate>
-        <ElementTemplate>
-            <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" Context="@Context" DeleteFromLibrary="DeleteFromLibrary" />
-        </ElementTemplate>
-    </GenericList>
-</div>
+        <GenericList List="Adventures">
+            <EmptyTemplate>
+                <p>There are no projects to show.</p>
+            </EmptyTemplate>
+            <ElementTemplate>
+                <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" ContextString="@ContextString" DeleteFromLibrary="DeleteFromLibrary" />
+            </ElementTemplate>
+        </GenericList>
+    </div>
 
 @code {
     [Parameter] public EventCallback<int> Refresh { get; set; }
 
-    [Parameter] public string Context { get; set; }
+    [Parameter] public string ContextString { get; set; }
 
     [Parameter] public List<Adventure> Adventures { get; set; }
     [Parameter] public bool ProjectContext { get; set; }

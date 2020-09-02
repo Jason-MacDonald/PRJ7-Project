@@ -2,19 +2,35 @@
 @inject NavigationManager navigationManager
 @inject IAdventureRepository adventureRepository
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize]
 
-<AdventureList Adventures="adventures" ProjectContext="@true" Context="@context" />
+<AuthorizeView>
 
-@if (numPages > 1)
-{
-    <Pagination CurrentPage="@_UserProjectsDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
-}
+    <Authorized>
+        <div>
+            <AdventureList Adventures="adventures" ProjectContext="@true" ContextString="@contextString" />
+
+            @if (numPages > 1)
+            {
+                <Pagination CurrentPage="@_UserProjectsDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+            }
+        </div>
+    </Authorized>
+
+    <NotAuthorized>
+        <p>You must be logged in to access your projects.</p>
+
+        <LoginForm />
+
+    </NotAuthorized>
+
+</AuthorizeView>
+
+
 
 @code {
 
     #region ##### HEAD #####
-    private const string context = "myprojects";
+    private const string contextString = "myprojects";
 
     private UserProjectsDTO _UserProjectsDTO = new UserProjectsDTO() { NumPerPage = 11 };
     private List<Adventure> adventures;
