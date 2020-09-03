@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace adventureplatform.Client.Helpers
 {
-    /// <summary>
-    /// HttpResponseWrapper represents a response from the server.
-    /// </summary>
     public class HttpResponseWrapper<T>
     {
+
         #region ##### HEAD #####
 
         public bool Success { get; set; }
@@ -35,5 +33,6 @@ namespace adventureplatform.Client.Helpers
         }
 
         #endregion
+
     }
 }

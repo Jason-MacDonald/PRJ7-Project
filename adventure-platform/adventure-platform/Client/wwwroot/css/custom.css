@@ -125,16 +125,17 @@ a {
     margin-right: auto;
 }
 
+/* INDEX RIGHT COLUMN CARDS*/
 .index-card {
     width: 80%;
     margin: 10px 30px 30px 30px;
 }
 
-.btn-circle {
+/*.btn-circle {
     width: 70px;
     height: 70px;
     padding: 10px 16px;
     border-radius: 35px;
     font-size: 12px;
     text-align: center;
-} 
+} */

@@ -1,13 +1,27 @@
 ﻿<EditForm Model="Link" OnSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-
-    @* LINK DESCRIPTION *@
+    
     <div class="form-group">
+
+        @* LINK DESCRIPTION *@
         <label>Description:</label>
-        <div>
+        <div class="mb-4">
             <InputText class="form-control" @bind-Value="@Link.Description" />
             <ValidationMessage For="@(() => Link.Description)" />
         </div>
+
+        @* LINK TARGET *@
+        <label>Target:</label>
+        @if (Link.Target == 0)
+        {
+            <p>No Target Selected.</p>
+        }
+        else
+        {
+            <p>@Link.Target</p>
+        }
+
+
     </div>
 
     <button class="btn btn-success" type="submit">Save Link</button>

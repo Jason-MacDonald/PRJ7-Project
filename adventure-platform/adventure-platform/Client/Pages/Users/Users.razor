@@ -1,44 +1,68 @@
 ﻿@page "/users"
 @inject IUserRepository userRepository
+@attribute [Authorize]
 
-<h3>Users</h3>
+<AuthorizeView>
+    <Authorized>
 
-<GenericList List="users">
-    <ListTemplate>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>User</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in users)
-                {
-                    <tr>
-                        <td>
-                            @user.Email
-                        </td>
-                        <td>
-                            <a href="/users/edit/@user.UserID" class="btn btn-success">Edit</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </ListTemplate>
-</GenericList>
+        @* ##### TITLE ##### *@
+        <h3>Users</h3>
 
-<Pagination CurrentPage="@paginationDTO.Page" SelectPage="SelectPage" NumPages="numPages"/>
+        @* ##### USER TABLE ##### *@
+        <GenericList List="users">
+            <ListTemplate>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>User</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in users)
+                        {
+                            <tr>
+                                <td>
+                                    @user.Email
+                                </td>
+                                <td>
+                                    <a href="/users/edit/@user.UserID" class="btn btn-success">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </ListTemplate>
+        </GenericList>
+
+        @* ##### PAGINATION ##### *@
+        <Pagination CurrentPage="@paginationDTO.Page" SelectPage="SelectPage" NumPages="numPages" />
+
+    </Authorized>
+</AuthorizeView>
 
 @code {
+
+    #region ##### HEAD #####
+
     List<UserDTO> users;
     PaginationDTO paginationDTO = new PaginationDTO();
     int numPages;
 
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadUsers();
+    }
+
+    #endregion
+
+    private async Task SelectPage(int page)
+    {
+        paginationDTO.Page = page;
         await LoadUsers();
     }
 
@@ -49,9 +73,4 @@
         numPages = paginatedResponse.NumPages;
     }
 
-    private async Task  SelectPage(int page)
-    {
-        paginationDTO.Page = page;
-        await LoadUsers();
-    }
 }

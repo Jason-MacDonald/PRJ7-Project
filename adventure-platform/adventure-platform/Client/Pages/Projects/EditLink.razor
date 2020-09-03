@@ -11,13 +11,14 @@
         }
         else
         {
-            <h3>EditLink</h3>
+            <h3>Edit Link</h3>
 
             <LinkForm Link="link" OnValidSubmit="SaveLink" />
         }
     </div>
     <div class="right-column">
         <div class="form-group">
+
             @if (chapters == null)
             {
                 <p>Loading...</p>
@@ -26,9 +27,18 @@
             {
                 @foreach (var chapter in chapters)
                 {
-                    <a class="btn btn-warning btn-block" @onclick="(() => SetTarget(chapter.ID))">Set <b>@chapter.Title</b> as Target</a>
+                    @if (link.Target == chapter.ID)
+                    {
+                        <a class="btn btn-primary btn-block" @onclick="(() => SetTarget(chapter.ID))">Set <b>@chapter.Title</b> as Target</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-warning btn-block" @onclick="(() => SetTarget(chapter.ID))">Set <b>@chapter.Title</b> as Target</a>
+                    }
+
                 }
             }
+
         </div>
     </div>
 </div>
@@ -48,14 +58,15 @@
         chapters = await chapterRepository.GetChapters(AdventureID);
     }
 
-    private void SaveLink()
+    private async void SaveLink()
     {
-        linkRepository.UpdateLink(link);
-        Console.WriteLine("Link Saved");
+        await linkRepository.UpdateLink(link);
+        link = await linkRepository.GetLink(LinkID);
     }
 
     private void SetTarget(int chapterID)
     {
         link.Target = chapterID;
+        SaveLink();
     }
 }

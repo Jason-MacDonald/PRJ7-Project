@@ -9,12 +9,15 @@ namespace adventureplatform.Client.Repository
 {
     public class UserProjectRepository : IUserProjectRepository
     {
-        private readonly IHttpService httpService;
-        private readonly string url = "api/userProjects";
+        //TODO: Remove class. This calss may not be required as creating occurs 
+        //      through navigational properties and ExectuteSQLRaw
 
-        public UserProjectRepository(IHttpService httpService)
-        {
-            this.httpService = httpService;
-        }
+        //private readonly IHttpService httpService;
+        //private readonly string url = "api/userProjects";
+
+        //public UserProjectRepository(IHttpService httpService)
+        //{
+        //    this.httpService = httpService;
+        //}
     }
 }

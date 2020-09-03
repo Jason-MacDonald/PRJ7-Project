@@ -1,19 +1,27 @@
 ﻿@page "/account"
-@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize] 
 
 <h3>Account</h3>
+
+<p>@_UserEmail</p>
 
 @* ##### ADMINISTRATION PANEL ##### *@
 <AuthorizeView Roles="Admin">
     <Authorized>
         <a class="btn btn-info" href="genres">Edit Genres</a>
-
-        <Users />
+        <a class="btn btn-info" href="users">Edit Users</a>
     </Authorized>
 </AuthorizeView>
 
 
 
 @code {
+    private string _UserEmail;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _UserEmail = authState.User.Identity.Name;
+    }
 }

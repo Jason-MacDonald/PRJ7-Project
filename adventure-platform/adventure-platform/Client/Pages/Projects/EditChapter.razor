@@ -4,17 +4,23 @@
 @inject ILinkRepository linkRepository
 @attribute [Authorize]
 
-<h3>Edit Chapter</h3>
-
 @if (chapter != null)
 {
+
+    // ##### TITLE #####
+    <h3>Edit Chapter</h3>
+   
     <div class="row">
+
+        @* ##### CHAPTER FORM ##### *@
         <div class="left-column">
             <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
         </div>
-
+       
         <div class="right-column">
             <div class="form-group">
+
+                @* ##### LINK LIST ##### *@
                 @foreach (var link in links)
                 {
                     <div class="d-flex">
@@ -22,16 +28,27 @@
                         <button class="btn btn-danger ml-2 mb-2" @onclick="(() => DeleteLink(link.ID))"><span class="oi oi-trash" aria-hidden="true"></span></button>
                     </div>
                 }
+
+                @* ##### CREATE LINK BUTTON ##### *@
                 <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
+
             </div>
         </div>
     </div>
+
 }
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public int ChapterID { get; set; }
     public Chapter chapter;
     public List<Link> links;
+
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected async override Task OnInitializedAsync()
     {
@@ -39,20 +56,14 @@
         links = await linkRepository.GetLinks(ChapterID);
     }
 
+    #endregion
+
+    #region ##### CRUD METHODS #####
+
     private void SaveChapter()
     {
         chapterRepository.UpdateChapter(chapter);
         Console.WriteLine("Chapter Saved");
-    }
-
-    private void NavEditLink(int id)
-    {
-        navigationManager.NavigateTo($"editlink/{chapter.AdventureID}/{id}");
-    }
-
-    private void NavCreateLink()
-    {
-        navigationManager.NavigateTo($"createlink/{chapter.AdventureID}/{chapter.ID}");
     }
 
     private async Task DeleteLink(int id)
@@ -67,4 +78,21 @@
             Console.WriteLine(ex.Message);
         }
     }
+
+    #endregion
+
+    #region ##### NAVIGATION #####
+
+    private void NavCreateLink()
+    {
+        navigationManager.NavigateTo($"createlink/{chapter.AdventureID}/{chapter.ID}");
+    }
+
+    private void NavEditLink(int id)
+    {
+        navigationManager.NavigateTo($"editlink/{chapter.AdventureID}/{id}");
+    }
+
+    #endregion
+
 }
