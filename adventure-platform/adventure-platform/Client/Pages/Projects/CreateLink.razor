@@ -1,29 +1,40 @@
 ﻿@page "/createlink/{AdventureID:int}/{ChapterID:int}"
+
 @inject ILinkRepository linkRepository
 @inject IChapterRepository chapterRepository
+
 @inject NavigationManager navigationManager 
+
 @attribute [Authorize]
 
 <div class="row">
     <div class="left-column">
+
         <h3>CreateLink</h3>
+
         <LinkForm Link="link" OnValidSubmit="SaveLink" />
+
     </div>
     <div class="right-column">
         <div class="form-group">
+
             @if (chapters != null)
             {
                 @foreach (var chapter in chapters)
                 {
-                    <a class="btn btn-warning btn-block" @onclick="SetTarget">Set @chapter.Title as Target</a>
+                    <a class="btn btn-warning btn-block">Set @chapter.Title as Target</a>
                 }
             }
+
         </div>
     </div>
 </div>
 
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public int AdventureID { get; set; }
     [Parameter] public int ChapterID { get; set; }
 
@@ -31,10 +42,18 @@
 
     private Link link = new Link();
 
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
+
     protected async override Task OnInitializedAsync()
     {
         chapters = await chapterRepository.GetChapters(AdventureID);
     }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
 
     private async Task SaveLink()
     {
@@ -51,8 +70,6 @@
         }
     }
 
-    private void SetTarget()
-    {
+    #endregion
 
-    }
 }

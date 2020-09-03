@@ -2,43 +2,66 @@
 @inject IAdventureRepository adventureRepository
 
     <EditForm Model="adventureFilterDTO">
-        <div class="filter form-inline mb-2 shadow mb-4 bg-white">
-            <div class="form-group">
-                <label for="tags" class="sr-only">Tags</label>
-                <input type="text" class="form-control" id="tags" placeholder="Tags"
-                       @bind-value="tagString"
-                       @bind-value:event="oninput"
-                       @onkeypress="@((KeyboardEventArgs e) => TagsKeyPress(e))" />
+
+        <div class="container">
+            <div class="row">
+
+                @* TAG INPUT *@
+                <div class="col-sm-12 col-lg-4">
+                    <div class="form-group">
+
+                        <label for="tags" class="sr-only">Tags</label>
+                        <input type="text" class="form-control" id="tags" placeholder="Tags"
+                               @bind-value="tagString"
+                               @bind-value:event="oninput"
+                               @onkeypress="@((KeyboardEventArgs e) => TagsKeyPress(e))" />
+
+                    </div>
+                </div>
+
+                @* GENRE SELECT *@
+                <div class="col-sm-12 col-lg-4">
+                    <div class="form-group d-block">
+
+                        <select class="form-control" @bind="adventureFilterDTO.GenreID">
+                            <option value="0">-- Select a Genre</option>
+
+                            @foreach (var genre in genreList)
+                            {
+                                <option value="@genre.ID">@genre.Name</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+
+                @* FILTER BUTTONS *@
+                <div class="col-sm-12 col-lg-4 mb-4">
+
+                    <button type="button" class="btn btn-primary d-inline-block" @onclick="Filter">Filter</button>
+
+                    <button type="button" class="btn btn-danger" @onclick="Clear">Clear</button>
+
+                </div>
+
             </div>
-
-            <div class="form-group mx-sm-3">
-                <select class="form-control" @bind="adventureFilterDTO.GenreID">
-                    <option value="0">-- Select a Genre</option>
-
-                    @foreach (var genre in genreList)
-                    {
-                        <option value="@genre.ID">@genre.Name</option>
-                    }
-                </select>
-            </div>
-
-            <button type="button" class="btn btn-primary mx-sm-3" @onclick="Filter">Filter</button>
-            <button type="button" class="btn btn-danger" @onclick="Clear">Clear</button>
         </div>
+
     </EditForm>
 
     @code {
+
+        #region ##### HEAD #####
+
         [Parameter] public EventCallback<AdventureFilterDTO> OnSubmit { get; set; }
+
         AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO();
-
-        public Task Filter()
-        {
-            return OnSubmit.InvokeAsync(adventureFilterDTO);
-        }
-
+        private List<Genre> genreList = new List<Genre>();
         private string tagString = "";
 
-        private List<Genre> genreList = new List<Genre>();
+        #endregion
+
+        #region ##### LIFECYCLE METHODS #####
 
         protected async override Task OnInitializedAsync()
         {
@@ -52,16 +75,32 @@
             }
         }
 
-        private void Clear()
+        #endregion
+
+        #region ##### CALLBACK METHODS #####
+
+        public Task Filter()
         {
-            adventureFilterDTO.GenreID = 0;
+            return OnSubmit.InvokeAsync(adventureFilterDTO);
         }
+
+        #endregion
+
+        #region ##### INTERACTION METHODS #####
 
         private void TagsKeyPress(KeyboardEventArgs e)
         {
             if (e.Key == "Enter")
             {
-
+                Filter();
             }
         }
+
+        private void Clear()
+        {
+            adventureFilterDTO.GenreID = 0;
+        }
+
+        #endregion
+
     }

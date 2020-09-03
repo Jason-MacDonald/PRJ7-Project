@@ -34,12 +34,14 @@
 </EditForm>
 
 @code {
+    [Parameter] public EventCallback Done { get; set; }
     private UserInfo userInfo = new UserInfo();
 
     private async Task Login()
     {
         var userToken = await accountRepository.Login(userInfo);
         await loginService.Login(userToken.Token);
+        await Done.InvokeAsync(null);
     }
 
 }

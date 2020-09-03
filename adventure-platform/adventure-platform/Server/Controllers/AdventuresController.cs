@@ -201,6 +201,7 @@ namespace adventureplatform.Server.Controllers
 
             // TODO: How do I athenticate and set the user property?
 
+
             ////TEST
             //var authorizationResult = await _authorizationService.AuthorizeAsync(User, adventure, "EditPolicy");
 

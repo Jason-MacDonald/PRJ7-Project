@@ -139,3 +139,9 @@ a {
     font-size: 12px;
     text-align: center;
 } */
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 99999px;
+    }
+}

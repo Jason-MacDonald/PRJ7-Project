@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "SamwSTyDi6ebJRC39YTFPNyyXPqZ+9KPWcjegdvsTrbPtWLPotU5DCwulQxKemijdpRjFtfUaJVk5w9lvXp2JA==",
+  "dgSpecHash": "KVdgyOawlNBswBV6Wr2fdGoaJjvU0QEyVhedZ6tzcaTfLjypy9qJGGjVzaIP2C4r79Sx+rQox3OcmBYakpIpEA==",
   "success": true,
   "projectFilePath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\adventureplatform.Server.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,7 @@
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\3.1.3\\microsoft.extensions.fileproviders.abstractions.3.1.3.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\3.1.3\\microsoft.extensions.fileproviders.physical.3.1.3.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\3.1.3\\microsoft.extensions.filesystemglobbing.3.1.3.nupkg.sha512",
+    "C:\\Users\\64221\\.nuget\\packages\\microsoft.extensions.http\\3.1.7\\microsoft.extensions.http.3.1.7.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.extensions.identity.core\\3.1.7\\microsoft.extensions.identity.core.3.1.7.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.extensions.identity.stores\\3.1.7\\microsoft.extensions.identity.stores.3.1.7.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.extensions.logging\\3.1.7\\microsoft.extensions.logging.3.1.7.nupkg.sha512",

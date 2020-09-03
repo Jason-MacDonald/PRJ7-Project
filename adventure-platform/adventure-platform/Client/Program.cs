@@ -12,6 +12,7 @@ using Blazor.FileReader;
 using adventureplatform.Client.Repository;
 using Microsoft.AspNetCore.Components.Authorization;
 using adventureplatform.Client.Auth;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 namespace adventureplatform.Client
 {
@@ -23,6 +24,7 @@ namespace adventureplatform.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
             builder.Services.AddOptions();
 
             builder.Services.AddAuthorizationCore();

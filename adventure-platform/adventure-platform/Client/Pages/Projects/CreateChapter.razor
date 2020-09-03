@@ -5,22 +5,35 @@
 
 <div class="row">
     <div class="left-column">
+
         <h3>Create Chapter</h3>
+
         <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
+
     </div>
     <div class="right-column">
+
         <h3>Links</h3>
+
         <div class="form-group">
             <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
         </div>
+
     </div>
 </div>
 
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public int AdventureID { get; set; }
 
     private Chapter chapter = new Chapter();
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
 
     private async Task SaveChapter()
     {
@@ -38,6 +51,10 @@
         }
     }
 
+    #endregion
+
+    #region ##### NAVIGATION #####
+
     private void NavCreateLink()
     {
         navigationManager.NavigateTo($"createlink/{AdventureID}/{chapter.ID}");
@@ -47,4 +64,7 @@
     {
         navigationManager.NavigateTo($"editchapter/{chapterID}");
     }
+
+    #endregion
+
 }
