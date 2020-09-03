@@ -4,6 +4,7 @@ using adventureplatform.Shared.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace adventureplatform.Server.Controllers
@@ -27,7 +29,13 @@ namespace adventureplatform.Server.Controllers
         private readonly IMapper mapper;
         private readonly IAuthorizationService _authorizationService;
 
-        public AdventuresController(ApplicationDBContext context, IFileStorageService fileStorageService, IMapper mapper, IAuthorizationService authorizationService)
+        public AdventuresController
+        (
+            ApplicationDBContext context, 
+            IFileStorageService fileStorageService, 
+            IMapper mapper, 
+            IAuthorizationService authorizationService
+        )
         {
             this.context = context;
             this.fileStorageService = fileStorageService;
@@ -190,27 +198,49 @@ namespace adventureplatform.Server.Controllers
         [HttpPut]
         public async Task<ActionResult<int>> Put(Adventure adventure)
         {
-            var dbAdventure = await context.Adventures.FirstOrDefaultAsync(x => x.ID == adventure.ID);
 
-            if(dbAdventure == null) 
-            { 
-                return NotFound(); 
-            }
+            // TODO: How do I athenticate and set the user property?
 
-            dbAdventure = mapper.Map(adventure, dbAdventure);
+            ////TEST
+            //var authorizationResult = await _authorizationService.AuthorizeAsync(User, adventure, "EditPolicy");
 
-            if (!string.IsNullOrWhiteSpace(adventure.Image))
-            {
-                var adventureImage = Convert.FromBase64String(adventure.Image);
-                dbAdventure.Image = await fileStorageService.EditFile(adventureImage, "jpg", "adventure", dbAdventure.Image);
-            }
+            //if (authorizationResult.Succeeded)
+            //{
+            //    //END TEST
 
-            await context.Database.ExecuteSqlRawAsync($"delete from AdventureGenres where AdventureID = {adventure.ID};");
+                var dbAdventure = await context.Adventures.FirstOrDefaultAsync(x => x.ID == adventure.ID);
 
-            dbAdventure.AdventureGenres = adventure.AdventureGenres;
+                if (dbAdventure == null)
+                {
+                    return NotFound();
+                }
 
-            await context.SaveChangesAsync();
-            return NoContent();
+                dbAdventure = mapper.Map(adventure, dbAdventure);
+
+                if (!string.IsNullOrWhiteSpace(adventure.Image))
+                {
+                    var adventureImage = Convert.FromBase64String(adventure.Image);
+                    dbAdventure.Image = await fileStorageService.EditFile(adventureImage, "jpg", "adventure", dbAdventure.Image);
+                }
+
+                await context.Database.ExecuteSqlRawAsync($"delete from AdventureGenres where AdventureID = {adventure.ID};");
+
+                dbAdventure.AdventureGenres = adventure.AdventureGenres;
+
+                await context.SaveChangesAsync();
+                return NoContent();
+
+            //    //TEST
+            //}
+            //else if (User.Identity.IsAuthenticated)
+            //{
+            //    return new ForbidResult();
+            //}
+            //else
+            //{
+            //    return new ChallengeResult();
+            //}
+            ////END TEST          
         }
 
         #endregion

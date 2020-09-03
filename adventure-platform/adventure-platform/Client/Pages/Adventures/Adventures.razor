@@ -1,4 +1,5 @@
 ﻿@page "/adventures"
+
 @inject IAdventureRepository adventureRepository
 
 <AdventureFilter OnSubmit="FilterAdventures" />
@@ -25,8 +26,6 @@
 
     protected async override Task OnInitializedAsync()
     {
-
-
         await SelectPage(1);
     }
 

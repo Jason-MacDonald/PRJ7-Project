@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using adventureplatform.Server.Handlers;
 
 namespace adventureplatform.Server
 {
@@ -61,7 +62,11 @@ namespace adventureplatform.Server
             services.AddScoped<IFileStorageService, InAppStorageService>();
             services.AddHttpContextAccessor();
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("EditPolicy", policy =>
+                    policy.Requirements.Add(new SameAuthorRequirement()));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
