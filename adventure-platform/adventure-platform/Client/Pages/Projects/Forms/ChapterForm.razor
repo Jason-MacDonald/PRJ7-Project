@@ -11,7 +11,7 @@
     </div>
 
     @* PROJECT IMAGE *@
-    <UploadImage Label="Main Image:" OnSelectedImage="OnSelectedImage" ImageURL="@imageURL" />
+    <UploadImage Label="Main Image:" OnSelectedImage="OnSelectedImage" ImageURL="@_ImageURL" />
 
     @* CHAPTER DESCRIPTION *@
     <div class="form-group">
@@ -44,32 +44,47 @@
 </EditForm>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public Chapter Chapter { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    string imageURL;
+    private string _ImageURL;
+
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected override void OnInitialized()
     {
         if (!string.IsNullOrEmpty(Chapter.Image))
         {
-            imageURL = Chapter.Image;
+            _ImageURL = Chapter.Image;
             Chapter.Image = null; /*Stops the image from being sent if hasn't been changed*/
         }
     }
+
+    #endregion
+
+    #region ##### GENERAL METHODS #####
 
     private void OnSelectedImage(string imageBase64)
     {
         Chapter.Image = imageBase64;
     }
 
+    @* Image pre-processing *@
     private async Task OnDataAnnotationsValidated()
     {
         if (!string.IsNullOrWhiteSpace(Chapter.Image))
         {
-            imageURL = null;
+            _ImageURL = null;
         }
 
         await OnValidSubmit.InvokeAsync(null);
     }
+
+    #endregion
+
 }

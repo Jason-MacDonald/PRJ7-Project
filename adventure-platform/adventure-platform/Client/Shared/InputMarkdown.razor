@@ -2,6 +2,8 @@
 @using System.Linq.Expressions
 @typeparam TValue
 
+@* TODO: Testing - Currently unused. *@
+
 <div>
     <label>@Label</label>
     <div>
@@ -18,6 +20,12 @@
 </div>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public Expression<Func<TValue>> For { get; set; }
     [Parameter] public string Label { get; set; }
+
+    #endregion
+
 }

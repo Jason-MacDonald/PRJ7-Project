@@ -1,5 +1,7 @@
 ﻿@page "/genres"
+
 @inject IGenreRepository genreRepository
+
 @attribute [Authorize]
 
 <h3>Genres</h3>
@@ -7,32 +9,46 @@
 <AuthorizeView Roles="Admin">
     <Authorized>
 
-        <GenericList List="GenreList">
+        @* ##### GENRE LIST #####*@
+        <GenericList List="_GenreList">
             <ListTemplate>
+
                 <table class="table table-striped">
+
+                    @* TABLE HEADER *@
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th></th>
                         </tr>
                     </thead>
+
+                    @* GENRE TABLE *@
                     <tbody>
-                        @foreach (var item in GenreList)
+                        @foreach (var item in _GenreList)
                         {
                             <tr>
                                 <td>@item.Name</td>
                                 <td>
+
+                                    @* EDIT BUTTON *@
                                     <a class="btn btn-success">Edit</a>
+
+                                    @* DELETE BUTTON *@
                                     <button class="btn btn-danger" @onclick="@(() => DeleteGenre(item.ID))">Delete</button>
+
                                 </td>
                             </tr>
                         }
                     </tbody>
+
                 </table>
+
             </ListTemplate>
         </GenericList>
 
-        <GenreForm Genre="genre" OnValidSubmit="CreateGenre" />
+        @* ##### GENRE FORM #####*@
+        <GenreForm Genre="_Genre" OnValidSubmit="CreateGenre" />
 
     </Authorized>
 </AuthorizeView>
@@ -41,40 +57,48 @@
 
     #region ##### HEAD #####
 
-    private Genre genre = new Genre();
-    private List<Genre> GenreList;
+    private Genre _Genre = new Genre();
+    private List<Genre> _GenreList;
 
     #endregion
 
-    #region ##### INIT #####
+    #region ##### LIFECYCLE METHODS #####
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            GenreList = await genreRepository.GetGenres();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        await GetGenres();
     }
 
     #endregion
 
-    #region ##### CRUD #####
+    #region ##### CRUD METHODS #####
+
+    private async Task GetGenres()
+    {
+        try
+        {
+            _GenreList = await genreRepository.GetGenres();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("GEN001: Unable to Retrieve Genres.");
+        }
+    }
 
     private async Task CreateGenre()
     {
         try
         {
-            await genreRepository.CreateGenre(genre);
-            genre.Name = "";
-            GenreList = await genreRepository.GetGenres(); // Updates display.
+            await genreRepository.CreateGenre(_Genre);
+            _Genre.Name = "";
+
+            await GetGenres();
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("GEN002: Unable to Create Genre.");
         }
     }
 
@@ -83,11 +107,12 @@
         try
         {
             await genreRepository.DeleteGenre(id);
-            GenreList = await genreRepository.GetGenres(); // Updates display.
+            await GetGenres();
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("GEN003: Unable to Delete Genre.");
         }
     }
 

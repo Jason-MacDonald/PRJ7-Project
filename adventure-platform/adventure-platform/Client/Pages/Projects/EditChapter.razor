@@ -1,41 +1,49 @@
 ﻿@page "/editchapter/{ChapterID:int}"
-@inject NavigationManager navigationManager
+
 @inject IChapterRepository chapterRepository
 @inject ILinkRepository linkRepository
+
+@inject NavigationManager navigationManager
+
 @attribute [Authorize]
 
-@if (chapter != null)
+@if (_Chapter != null)
 {
-
-    // ##### TITLE #####
+    @* TITLE *@
     <h3>Edit Chapter</h3>
-   
+
     <div class="row">
 
-        @* ##### CHAPTER FORM ##### *@
+        @* LEFT COLUMN *@
         <div class="left-column">
-            <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
+            <ChapterForm Chapter="_Chapter" OnValidSubmit="SaveChapter" />
         </div>
-       
+
+        @* RIGHT COLUMN *@
         <div class="right-column">
             <div class="form-group">
 
-                @* ##### LINK LIST ##### *@
-                @foreach (var link in links)
+                @* LINK LIST *@
+                @foreach (var link in _Links)
                 {
                     <div class="d-flex">
+
+                        @* EDIT LINK BUTTON *@
                         <button class="btn btn-warning flex-grow-1 mb-2" @onclick="@(() => NavEditLink(link.ID))">Edit @link.Description</button>
+
+                        @* DELETE LINK BUTTON *@
                         <button class="btn btn-danger ml-2 mb-2" @onclick="(() => DeleteLink(link.ID))"><span class="oi oi-trash" aria-hidden="true"></span></button>
+
                     </div>
                 }
 
-                @* ##### CREATE LINK BUTTON ##### *@
+                @* CREATE LINK BUTTON *@
                 <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
 
             </div>
         </div>
-    </div>
 
+    </div>
 }
 
 @code {
@@ -43,8 +51,9 @@
     #region ##### HEAD #####
 
     [Parameter] public int ChapterID { get; set; }
-    public Chapter chapter;
-    public List<Link> links;
+
+    public Chapter _Chapter;
+    public List<Link> _Links;
 
     #endregion
 
@@ -52,18 +61,51 @@
 
     protected async override Task OnInitializedAsync()
     {
-        chapter = await chapterRepository.GetChapter(ChapterID);
-        links = await linkRepository.GetLinks(ChapterID);
+        await GetChapter();
+        await GetLinks();
     }
 
     #endregion
 
     #region ##### CRUD METHODS #####
 
-    private void SaveChapter()
+    private async Task GetChapter()
     {
-        chapterRepository.UpdateChapter(chapter);
-        Console.WriteLine("Chapter Saved");
+        try
+        {
+            _Chapter = await chapterRepository.GetChapter(ChapterID);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ECH001: Unable to Retrieve Chapter.");
+        }
+    }
+
+    private async Task GetLinks()
+    {
+        try
+        {
+            _Links = await linkRepository.GetLinks(ChapterID);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ECH002: Unable to Retrieve Links.");
+        }
+    }
+
+    private async Task SaveChapter()
+    {
+        try
+        {
+            await chapterRepository.UpdateChapter(_Chapter);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ECH003: Unable to Save Chapter.");
+        }
     }
 
     private async Task DeleteLink(int id)
@@ -71,11 +113,12 @@
         try
         {
             await linkRepository.DeleteLink(id);
-            links = await linkRepository.GetLinks(chapter.ID);
+            await GetLinks();
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ECH002: Unable to Delete Link.");
         }
     }
 
@@ -85,12 +128,12 @@
 
     private void NavCreateLink()
     {
-        navigationManager.NavigateTo($"createlink/{chapter.AdventureID}/{chapter.ID}");
+        navigationManager.NavigateTo($"createlink/{_Chapter.AdventureID}/{_Chapter.ID}");
     }
 
     private void NavEditLink(int id)
     {
-        navigationManager.NavigateTo($"editlink/{chapter.AdventureID}/{id}");
+        navigationManager.NavigateTo($"editlink/{_Chapter.AdventureID}/{id}");
     }
 
     #endregion

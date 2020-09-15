@@ -1,24 +1,32 @@
 ﻿@page "/mylibrary"
+
 @inject IAdventureRepository adventureRepository;
-@*@attribute [Authorize]*@
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@*<AdventureFilter OnSubmit="FilterAdventures" />*@
+
+@*@attribute [Authorize]*@
 
 <AuthorizeView>
 
+    @* USER IS LOGGED IN *@
     <Authorized>
-        <AdventureList Adventures="adventures" ContextString="@contextString" Refresh="SelectPage" />
 
-        @if (numPages > 1)
+        <AdventureList Adventures="_Adventures" ContextString="@CONTEXT_STRING" Refresh="SelectPage" />
+
+        @if (_NumPages > 1)
         {
-            <Pagination CurrentPage="@_UserFavouritesDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+            <Pagination CurrentPage="@_UserFavouritesDTO.Page" NumPages="_NumPages" SelectPage="SelectPage" />
         }
+
     </Authorized>
 
+    @* USER IS NOT LOGGED IN *@
     <NotAuthorized>
+
         <p>You must be logged in to view your library.</p>
 
         <LoginForm />
+
     </NotAuthorized>
 
 </AuthorizeView>
@@ -27,11 +35,13 @@
 @code {
 
     #region ##### HEAD #####
-    private const string contextString = "mylibrary";
 
+    private const string CONTEXT_STRING = "mylibrary";
+
+    private string _UserEmail;
     private UserFavouritesDTO _UserFavouritesDTO = new UserFavouritesDTO();
-    private List<Adventure> adventures;
-    private int numPages; // Returned from paginatedResponse calculation;
+    private List<Adventure> _Adventures;
+    private int _NumPages; // Returned from paginatedResponse calculation;
 
     #endregion
 
@@ -39,7 +49,18 @@
 
     protected async override Task OnInitializedAsync()
     {
+        await GetAuthState();
         await SelectPage(1);
+    }
+
+    #endregion
+
+    #region ##### AUTHENTICATION #####
+
+    private async Task GetAuthState()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _UserEmail = authState.User.Identity.Name;
     }
 
     #endregion
@@ -48,30 +69,29 @@
 
     private async Task SelectPage(int page)
     {
-        /// TODO: !!!!! INSECURE !!!!!
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        _UserFavouritesDTO.UserEmail = user.Identity.Name;
-
+        _UserFavouritesDTO.UserEmail = _UserEmail;
         _UserFavouritesDTO.Page = page;
 
+        await FilterAdventures();
+    }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
+
+    public async Task FilterAdventures()
+    {
         try
         {
-            await FilterAdventures(_UserFavouritesDTO);
+            var paginatedResponse = await adventureRepository.GetUserFavourites(_UserFavouritesDTO);
+            _Adventures = paginatedResponse.Response;
+            _NumPages = paginatedResponse.NumPages;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("MLY001: Unable to Retrieve User Favourites.");
         }
-    }
-
-    public async Task FilterAdventures(UserFavouritesDTO userFavouritesDTO)
-    {
-        _UserFavouritesDTO = userFavouritesDTO;
-
-        var paginatedResponse = await adventureRepository.GetUserFavourites(userFavouritesDTO);
-        adventures = paginatedResponse.Response;
-        numPages = paginatedResponse.NumPages;
     }
 
     #endregion

@@ -1,59 +1,128 @@
 ﻿@page "/editproject/{ProjectID:int}"
-@inject NavigationManager navigationManager
+
 @inject IAdventureRepository adventureRepository
 @inject IChapterRepository chapterRepository
+
+@inject NavigationManager navigationManager
+
 @attribute [Authorize]
+
 @using System.Security.Claims
 
+@* TITLE *@
 <h3>Edit Project</h3>
 
-@if (adventure != null)
+@if (_Adventure != null)
 {
     <div class="row">
+
+        @* LEFT COLUMN *@
         <div class="left-column">
-            <ProjectForm Project="adventure" OnValidSubmit="SaveProject" NotSelectedGenres="notSelectedGenreList" SelectedGenres="selectedGenreList" />
+            <ProjectForm Project="_Adventure" OnValidSubmit="SaveProject" NotSelectedGenres="_NotSelectedGenreList" SelectedGenres="_SelectedGenreList" />
         </div>
 
+        @* RIGHT COLUMN *@
         <div class="right-column">
             <div class="form-group">
-                @foreach (var chapter in chapterList)
+
+                @* CHAPTER LIST BUTTONS *@
+                @foreach (var chapter in _ChapterList)
                 {
                     <div class="d-flex">
-                        <button class="btn btn-warning flex-grow-1 mb-2" @onclick="@(() => NavEditChapter(chapter.ID))">Edit @chapter.Title</button>
-                        <button class="btn btn-danger ml-2 mb-2" @onclick="@(() => DeleteChapter(chapter.ID))"><span class="oi oi-trash" aria-hidden="true"></span></button>
+
+                        @* EDIT CHAPTER BUTTON *@
+                        <button class="btn btn-warning flex-grow-1 mb-2" @onclick="@(() => NavEditChapter(chapter.ID))">
+                            Edit @chapter.Title
+                        </button>
+
+                        @* DELETE CHAPTER BUTTON *@
+                        <button class="btn btn-danger ml-2 mb-2" @onclick="@(() => DeleteChapter(chapter.ID))">
+                            <span class="oi oi-trash" aria-hidden="true" />
+                        </button>
+
                     </div>
                 }
+
+                @* CREATE CHAPTER BUTTON *@
                 <a class="btn btn-info btn-block" @onclick="NavCreateChapter">Create New Chapter</a>
+
             </div>
         </div>
+
     </div>
 }
 
-
 @code {
+
+    #region ##### HEAD #####
 
     [Parameter] public int ProjectID { get; set; }
 
-    Adventure adventure;
-    List<Genre> notSelectedGenreList;
-    List<Genre> selectedGenreList;
-    List<Chapter> chapterList;
+    Adventure _Adventure;
+    List<Genre> _NotSelectedGenreList;
+    List<Genre> _SelectedGenreList;
+    List<Chapter> _ChapterList;
+
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected async override Task OnInitializedAsync()
     {
-        var model = await adventureRepository.GetAdventureUpdateDTO(ProjectID);
-        adventure = model.Adventure;
-        notSelectedGenreList = model.NotSelectedGenreList;
-        selectedGenreList = model.SelectedGenreList;
-        chapterList = model.ChapterList;
+        await GetAdventureModel();
+    }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
+
+    private async Task GetAdventureModel()
+    {
+        try
+        {
+            var model = await adventureRepository.GetAdventureUpdateDTO(ProjectID);
+
+            _Adventure = model.Adventure;
+            _NotSelectedGenreList = model.NotSelectedGenreList;
+            _SelectedGenreList = model.SelectedGenreList;
+            _ChapterList = model.ChapterList;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("EPT001: Unable to Retrieve Adventure.");
+        }
     }
 
     private async Task SaveProject()
     {
-
-            await adventureRepository.UpdateAdventure(adventure);
-
+        try
+        {
+            await adventureRepository.UpdateAdventure(_Adventure);
+            await GetAdventureModel();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ACC001: Unable to Save Project.");
+        }
     }
+
+    private async Task DeleteChapter(int id)
+    {
+        try
+        {
+            await chapterRepository.DeleteChapter(id);
+            await GetAdventureModel();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ACC001: Unable to Delete Chapter.");
+        }
+    }
+
+    #endregion
 
     #region ##### NAVIGATION #####
 
@@ -69,16 +138,4 @@
 
     #endregion
 
-    private async Task DeleteChapter(int id)
-    {
-        try
-        {
-            await chapterRepository.DeleteChapter(id);
-            chapterList = await chapterRepository.GetChapters(adventure.ID);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-    }
 }

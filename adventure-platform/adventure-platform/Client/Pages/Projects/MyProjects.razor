@@ -1,24 +1,33 @@
 ﻿@page "/myprojects"
-@inject NavigationManager navigationManager
+
 @inject IAdventureRepository adventureRepository
+
+@inject NavigationManager navigationManager
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <AuthorizeView>
 
+    @* USER IS LOGGED IN *@
     <Authorized>
-        <div>
-            <AdventureList Adventures="adventures" ProjectContext="@true" ContextString="@contextString" />
 
-            @if (numPages > 1)
+        <div>
+            @* ADVENTURE LIST *@
+            <AdventureList Adventures="_Adventures" ProjectContext="@true" ContextString="@CONTEXT_STRING" />
+
+            @* PAGINATION *@
+            @if (_NumPages > 1)
             {
-                <Pagination CurrentPage="@_UserProjectsDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+                <Pagination CurrentPage="@_UserProjectsDTO.Page" NumPages="_NumPages" SelectPage="SelectPage" />
             }
         </div>
+
     </Authorized>
 
+    @* USER IS NOT LOGGED IN *@
     <NotAuthorized>
-        <p>You must be logged in to access your projects.</p>
 
+        <p>You must be logged in to access your projects.</p>
         <LoginForm />
 
     </NotAuthorized>
@@ -30,11 +39,12 @@
 @code {
 
     #region ##### HEAD #####
-    private const string contextString = "myprojects";
 
-    private UserProjectsDTO _UserProjectsDTO = new UserProjectsDTO() { NumPerPage = 11 };
-    private List<Adventure> adventures;
-    private int numPages; // Returned from paginatedResponse calculation;
+    private const string CONTEXT_STRING = "myprojects";
+
+    private UserProjectsDTO _UserProjectsDTO = new UserProjectsDTO() { NumPerPage = 11 }; // Overwrite to allow create button.
+    private List<Adventure> _Adventures;
+    private int _NumPages; // Returned from paginatedResponse calculation;
 
     #endregion
 
@@ -47,34 +57,40 @@
 
     #endregion
 
-    #region ##### CALLBACK METHODS #####
+    #region ##### CRUD METHODS #####
 
     private async Task SelectPage(int page)
     {
-        /// TODO: !!!!! INSECURE !!!!!
+        // TODO: Horrible!
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         _UserProjectsDTO.UserEmail = user.Identity.Name;
-
         _UserProjectsDTO.Page = page;
 
         try
         {
-            await FilterAdventures(_UserProjectsDTO);
+            await FilterAdventures();
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("MPJ001: Unable to Get Filtered Adventures.");
         }
     }
 
-    public async Task FilterAdventures(UserProjectsDTO userProjectsDTO)
+    public async Task FilterAdventures()
     {
-        _UserProjectsDTO = userProjectsDTO;
-
-        var paginatedResponse = await adventureRepository.GetUserProjects(userProjectsDTO);
-        adventures = paginatedResponse.Response;
-        numPages = paginatedResponse.NumPages;
+        try
+        {
+            var paginatedResponse = await adventureRepository.GetUserProjects(_UserProjectsDTO);
+            _Adventures = paginatedResponse.Response;
+            _NumPages = paginatedResponse.NumPages;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("MPS002: Unable to Filter Adventures.");
+        }
     }
 
     #endregion

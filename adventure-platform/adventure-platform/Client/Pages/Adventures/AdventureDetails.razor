@@ -1,0 +1,125 @@
+﻿@page "/details/{AdventureID:int}"
+@inject IAdventureRepository adventureRepository
+@inject IUserFavouriteRepository userFavouriteRepository
+@inject NavigationManager navigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@if (_Adventure != null)
+{
+    <div class="play mb-3">
+
+        @* ##### ADVENTURE TITLE ##### *@
+        <h4>@_Adventure.Title</h4>
+
+        @* ##### ADVENTURE IMAGE ##### *@
+        <img class="my-3" src="@_Adventure.Image" />
+
+        @* ##### ADVENTURE DESCRIPTION #####*@
+        <p>@_Adventure.Description</p>
+
+    </div>
+
+    @* ##### PLAY BUTTON #####*@
+    <a class="btn btn-success" @onclick="NavPlay" 
+       data-toggle="tooltip" title="Play @_Adventure.Title"
+    >
+        <span class="oi oi-media-play" aria-hidden="true"/>
+    </a>
+
+    @*<AuthorizeView>
+        <Authorized>
+
+            <a class="btn btn-info" @onclick="AddToLibrary" data-toggle="tooltip" title="Add @adventure.Title to your library">
+                <span class="oi oi-plus" aria-hidden="true" />
+            </a>
+
+        </Authorized>
+    </AuthorizeView>*@
+}
+
+@code {
+
+    #region ##### HEAD #####
+
+    [Parameter] public int AdventureID { get; set; }
+
+    private Adventure _Adventure;
+    private string _UserEmail = "";
+
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
+
+    protected async override Task OnInitializedAsync()
+    {
+        await GetAuthState();
+        await GetAdventure();
+    }
+
+    #endregion
+
+    #region ##### AUTHENTICATION #####
+
+    private async Task GetAuthState()
+    {
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            _UserEmail = authState.User.Identity.Name;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ADS001: Unable to Authenticate User.");
+        }
+    }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
+
+    private async Task GetAdventure()
+    {
+        try
+        {
+            var adventureDTO = await adventureRepository.GetAdventureDTO(AdventureID);
+            _Adventure = adventureDTO.Adventure;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ADS002: Unable to Retrieve Adventure.");
+        }
+    }
+
+    private async Task AddToLibrary()
+    {
+        try
+        {
+            UserFavourite userFavourite = new UserFavourite()
+            {
+                UserID = _UserEmail,
+                AdventureID = _Adventure.ID
+            };
+
+            await userFavouriteRepository.CreateUserFavourite(userFavourite);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ACC003: Unable to Authenticate User.");
+        }
+    }
+
+    #endregion
+
+    #region ##### NAVIGATION #####
+
+    private void NavPlay()
+    {
+        navigationManager.NavigateTo($"play/{_Adventure.ID}");
+    }
+
+    #endregion
+
+}

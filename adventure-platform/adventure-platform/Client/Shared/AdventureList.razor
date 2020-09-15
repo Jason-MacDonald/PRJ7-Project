@@ -1,71 +1,109 @@
-﻿@inject NavigationManager navigationManager
-@inject IAdventureRepository adventureRepository
-@inject IJSRuntime js
-@inject AuthenticationStateProvider AuthenticationStateProvider
+﻿@inject IAdventureRepository adventureRepository
 @inject IUserFavouriteRepository userFavouriteRepository
-@*<input type="checkbox" @bind="@isOwner" />*@
+
+@inject IJSRuntime js
+@inject NavigationManager navigationManager
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
     <div class="adventures-container">
+
+        @* CREATE PROJECT BUTTON *@
         @if (ProjectContext)
         {
             <button class="btn btn-info mr-3 create-project-button" @onclick="NavCreateProject">Create New Project</button>
-        }     
+        }
 
+        @* ADVENTURE LIST *@
         <GenericList List="Adventures">
+
+            <ElementTemplate>
+                <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventureModal" ContextString="@ContextString" DeleteFromLibrary="DeleteFromLibrary" />
+            </ElementTemplate>
+
+            @* Fragment defines what to show if there are no projects. *@
             <EmptyTemplate>
                 <p>There are no projects to show.</p>
             </EmptyTemplate>
-            <ElementTemplate>
-                <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" ContextString="@ContextString" DeleteFromLibrary="DeleteFromLibrary" />
-            </ElementTemplate>
+
         </GenericList>
     </div>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public EventCallback<int> Refresh { get; set; }
-
     [Parameter] public string ContextString { get; set; }
-
     [Parameter] public List<Adventure> Adventures { get; set; }
     [Parameter] public bool ProjectContext { get; set; }
 
-    public async Task DeleteAdventure(Adventure adventure)
+    #endregion
+
+    #region ##### GENERAL METHODS #####
+
+    public async Task DeleteAdventureModal(Adventure adventure)
     {
         var confirm = await js.Confirm($"Are you sure you want to delete {adventure.Title}?");
 
         if (confirm == true)
         {
+            await DeleteAdventure(adventure);
+        }
+    }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
+
+    private async Task DeleteAdventure(Adventure adventure)
+    {
+        try
+        {
             await adventureRepository.DeleteAdventure(adventure.ID);
             Adventures.Remove(adventure);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ADL001: Unable to Delete Adventure User.");
         }
     }
 
     private async Task DeleteFromLibrary(int adventureID)
     {
+        //TODO: Yuck.
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var userEmail = authState.User.Identity.Name;
 
+        UserFavourite userFavourite = new UserFavourite()
+        {
+            UserID = userEmail,
+            AdventureID = adventureID
+        };
+
         try
         {
-            UserFavourite userFavourite = new UserFavourite()
-            {
-                UserID = userEmail,
-                AdventureID = adventureID
-            };
-
             await userFavouriteRepository.DeleteUserFavourite(userFavourite);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ADL002: Unable to Delete From Library.");
         }
 
         await Refresh.InvokeAsync(1);
     }
 
+    #endregion
+
+    #region ##### NAVIGATION METHODS #####
+
     private void NavCreateProject()
     {
         navigationManager.NavigateTo($"createproject");
     }
+
+    #endregion
 
 }

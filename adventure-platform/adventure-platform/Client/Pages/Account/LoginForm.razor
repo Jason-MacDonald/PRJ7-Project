@@ -1,21 +1,22 @@
 ﻿@page "/login"
 
 @inject IAccountRepository accountRepository
+
 @inject ILoginService loginService
 
 @using adventureplatform.Client.Auth
 
 <h3>Login</h3>
 
-<EditForm Model="userInfo" OnValidSubmit="Login">
+<EditForm Model="_UserInfo" OnValidSubmit="Login">
     <DataAnnotationsValidator />
 
     @* ##### EMAIL INPUT ##### *@
     <div class="form-group">
         <label>Email:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@userInfo.Email" />
-            <ValidationMessage For="@(() => userInfo.Email)" />
+            <InputText class="form-control" @bind-Value="@_UserInfo.Email" />
+            <ValidationMessage For="@(() => _UserInfo.Email)" />
         </div>
     </div>
 
@@ -23,8 +24,8 @@
     <div class="form-group">
         <label>Password:</label>
         <div>
-            <InputPassword class="form-control" @bind-Value="@userInfo.Password" />
-            <ValidationMessage For="@(() => userInfo.Password)" />
+            <InputPassword class="form-control" @bind-Value="@_UserInfo.Password" />
+            <ValidationMessage For="@(() => _UserInfo.Password)" />
         </div>
     </div>
 
@@ -34,14 +35,32 @@
 </EditForm>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public EventCallback Done { get; set; }
-    private UserInfo userInfo = new UserInfo();
+
+    private UserInfo _UserInfo = new UserInfo();
+
+    #endregion
+
+    #region ##### LOGIN #####
 
     private async Task Login()
     {
-        var userToken = await accountRepository.Login(userInfo);
-        await loginService.Login(userToken.Token);
-        await Done.InvokeAsync(null);
+        try
+        {
+            var userToken = await accountRepository.Login(_UserInfo);
+            await loginService.Login(userToken.Token);
+            await Done.InvokeAsync(null);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("LIF001: Unable to login to the server.");
+        }
     }
+
+    #endregion
 
 }

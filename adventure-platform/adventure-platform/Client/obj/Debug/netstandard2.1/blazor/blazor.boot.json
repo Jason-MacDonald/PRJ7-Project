@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "adventureplatform.Client.dll": "sha256-0nKKbBnH1xD59ezMyOfIaOitWi+o0jWRD+\/lQy+3UGc=",
+      "adventureplatform.Client.dll": "sha256-HuCi3WY7HtrkIlKz\/m5m9b5Hzx7BUe\/5ti1j\/AQU1iI=",
       "Microsoft.Extensions.Options.dll": "sha256-CNukDMTMsZ77nI593UgjfZkJqNhgDLvnpUjL2QzFL2M=",
       "Microsoft.Extensions.Primitives.dll": "sha256-ylX7VKoH7433xA+yHLYr6lPOuhCKV4qhw7GLUx6J82E=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-kL\/omZDwqByAi+lPdMeDmr3XjHcn4RVb+LmZ4mut1Yc=",
@@ -65,7 +65,7 @@
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-dwm+rKImjhxtOmHHVpSxOgl2oh2R26xOWihLaZSv7Vs="
     },
     "pdb": {
-      "adventureplatform.Client.pdb": "sha256-X3fwP2ma1OosbpQLcSzOUPfY0miOVIDOSbz4dgCeryE=",
+      "adventureplatform.Client.pdb": "sha256-nb31WMvEam8uyFS4k+RQpDE6+leTCTcYtViV5RaZxSc=",
       "adventureplatform.Shared.pdb": "sha256-zNdQ5UyJUFQ+tcOYHJNEPjGYDIrX2jWKIKl1vXTLrs0="
     },
     "runtime": {

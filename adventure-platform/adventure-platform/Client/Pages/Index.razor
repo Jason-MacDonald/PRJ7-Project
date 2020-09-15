@@ -1,6 +1,6 @@
 ﻿@page "/"
-@inject IUserFavouriteRepository userFavouriteRepository
 
+@inject IUserFavouriteRepository userFavouriteRepository
 
     <div class="container">
         <div class="row">
@@ -51,26 +51,34 @@
     </div>  
 
 @code {
+
+    #region ##### HEAD #####
+
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
-    string test = "";
 
-    List<UserFavourite> userFavourites = new List<UserFavourite>();
+    #endregion
 
-    protected async override Task OnInitializedAsync()
-    {
-        var authState = await authenticationStateTask;
-        var user = authState.User;
-        if (user.Identity.IsAuthenticated)
-        {
-            test = user.Identity.Name;
-            Console.WriteLine(user.Claims);
-        }
-        else
-        {
-            test = "The user is not authenticated.";
-        }
+    #region ##### 
 
-        userFavourites = await userFavouriteRepository.GetUserFavourites();
-    }
+    #endregion
+
+    //List<UserFavourite> userFavourites = new List<UserFavourite>();
+
+    //protected async override Task OnInitializedAsync()
+    //{
+    //    var authState = await authenticationStateTask;
+    //    var user = authState.User;
+    //    if (user.Identity.IsAuthenticated)
+    //    {
+    //        _Test = user.Identity.Name;
+    //        Console.WriteLine(user.Claims);
+    //    }
+    //    else
+    //    {
+    //        _Test = "The user is not authenticated.";
+    //    }
+
+    //    userFavourites = await userFavouriteRepository.GetUserFavourites();
+    //}
 
 }

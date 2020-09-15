@@ -1,44 +1,68 @@
 ﻿@page "/account"
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<AuthorizeView>
-    <Authorized>
+    <AuthorizeView>
 
-        <h3>Account</h3>
+        @* USER IS LOGGED IN *@
+        <Authorized>
+            <h3>Account</h3>
+            <p>@_UserEmail</p>
+        </Authorized>
 
-        <p>@_UserEmail</p>
+        @* USER IS NOT LOGGED IN *@
+        <NotAuthorized>
+            @* Done = Event callback which runs when login form is submitted - Currently updates user information.*@
+            <LoginForm Done="UpdateAccountInfo" />
+        </NotAuthorized>
 
-    </Authorized>
-    <NotAuthorized>
-        
-        <LoginForm Done="UpdateAccountInfo"/>
-
-    </NotAuthorized>
-</AuthorizeView>
+    </AuthorizeView>
 
 
-@* ##### ADMINISTRATION PANEL ##### *@
-<AuthorizeView Roles="Admin">
-    <Authorized>
+    @* ##### ADMINISTRATION PANEL ##### *@
+    <AuthorizeView Roles="Admin">
 
-        <a class="btn btn-info" href="genres">Edit Genres</a>
+        @* USER IS LOGGED IN AND HAS 'Admin' ROLE *@
+        <Authorized>
+            <a class="btn btn-info" href="genres">Edit Genres</a>
+            <a class="btn btn-info" href="users">Edit Users</a>
+        </Authorized>
 
-        <a class="btn btn-info" href="users">Edit Users</a>
-
-    </Authorized>
-</AuthorizeView>
+    </AuthorizeView>
 
 @code {
+
+    #region ##### HEAD #####
+
     private string _UserEmail;
+
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected async override void OnInitialized()
     {
         await UpdateAccountInfo();
     }
 
+    #endregion
+
+    #region ##### AUTHENTICATION #####
+
     public async Task UpdateAccountInfo()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        _UserEmail = authState.User.Identity.Name;
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            _UserEmail = authState.User.Identity.Name;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ACC001: Unable to Authenticate User.");
+        }
     }
+
+    #endregion
+
 }

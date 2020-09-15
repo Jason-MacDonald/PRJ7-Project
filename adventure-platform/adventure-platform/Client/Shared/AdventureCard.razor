@@ -1,64 +1,95 @@
-﻿@inject NavigationManager navigationManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IUserFavouriteRepository userFavouriteRepository 
+﻿@inject IUserFavouriteRepository userFavouriteRepository
 @inject IAdventureRepository adventureRepository
 
+@inject NavigationManager navigationManager
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@* CARD CONTAINER *@
 <div class="individual-adventure-container shadow mb-4 bg-white">
+
     <div>
+
+        @* CARD HEADER *@
         <div class="individual-adventure-header">
             <h5 class="pt-4 px-3">@Adventure.Title</h5>
             <p class="pb-3 px-3"><i>@Adventure.Author</i></p>
         </div>
 
+        @* CARD IMAGE *@
         @if (Adventure.Image != null)
         {
-            <a>
+            <a @onclick="NavAdventureDetails">
                 <img src="@Adventure.Image"
                      class="adventure-image" />
             </a>
         }
 
+        @* CARD DESCRIPTION *@
         <p class="px-3">@Adventure.Description</p>
+
     </div>
+
     <div>
         <div class="px-3 pb-3">
-            <a class="btn btn-success" @onclick="NavPlay"><span class="oi oi-media-play" aria-hidden="true"></span></a>
 
+            @* PLAY BUTTON *@
+            <a class="btn btn-success" @onclick="NavPlay">
+                <span class="oi oi-media-play" aria-hidden="true" />
+            </a>
+
+            @* ADD TO LIBRARY BUTTON *@
             <AuthorizeView>
                 <Authorized>
+
                     @if (ContextString == "adventures")
                     {
-                        <a class="btn btn-info" @onclick="AddToLibrary"><span class="oi oi-plus" aria-hidden="true"></span></a>
+                        <a class="btn btn-info"@onclick="AddToLibrary" 
+                           data-toggle="tooltip" title="Add @Adventure.Title to your library"
+                        >
+                            <span class="oi oi-plus" aria-hidden="true" />
+                        </a>
                     }
+
                 </Authorized>
             </AuthorizeView>
 
-
+            @* DELETE FROM LIBRARY BUTTON *@
             @if (ContextString == "mylibrary")
             {
-                <a class="btn btn-warning" @onclick="@(() => DeleteFromLibrary.InvokeAsync(Adventure.ID))"><span class="oi oi-minus" aria-hidden="true"></span></a>
+                <a class="btn btn-warning" @onclick="@(() => DeleteFromLibrary.InvokeAsync(Adventure.ID))">
+                    <span class="oi oi-minus" aria-hidden="true" />
+                </a>
             }
 
-
+            @* TODO: Work out what my thinking was here. *@
             @if (ContextString == "myprojects")
             {
 
             }
 
+            @* PROJECT BUTTONS *@
             <AuthorizeView>
                 <Authorized>
 
                     @if (ContextString == "myprojects")
                     {
-                        @if (userEmail == Adventure.Author)
+                        @if (_UserEmail == Adventure.Author)
                         {
                             <div class="float-right">
-                                <a class="btn btn-warning" @onclick="NavEditProject"><span class="oi oi-pencil" aria-hidden="true" /></a>
-                                <button type="button"
-                                        class="btn btn-danger"
-                                        @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))">
+
+                                @* EDIT PROJECT BUTTON *@
+                                <a class="btn btn-warning" @onclick="NavEditProject">
+                                    <span class="oi oi-pencil" aria-hidden="true" />
+                                </a>
+
+                                @* DELETE PROJECT BUTTON *@
+                                <button type="button"class="btn btn-danger" @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))" 
+                                        data-toggle="tooltip" title="Edit @Adventure.Title"
+                                >
                                     <span class="oi oi-trash" aria-hidden="true" />
                                 </button>
+
                             </div>
                         }
                     }
@@ -68,62 +99,55 @@
 
         </div>
     </div>
+
 </div>
 
 @code {
 
     #region ##### HEAD #####
-    private string userEmail = "";
 
     [Parameter] public string ContextString { get; set; }
-
     [Parameter] public Adventure Adventure { get; set; }
     [Parameter] public EventCallback<Adventure> DeleteAdventure { get; set; }
     [Parameter] public EventCallback<int> DeleteFromLibrary { get; set; }
 
+    private string _UserEmail = "";
+
     #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected override async Task OnInitializedAsync()
     {
+        //TODO: ugly.
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        userEmail = authState.User.Identity.Name;
+        _UserEmail = authState.User.Identity.Name;
     }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
 
     private async Task AddToLibrary()
     {
+        UserFavourite userFavourite = new UserFavourite()
+        {
+            UserID = _UserEmail,
+            AdventureID = Adventure.ID
+        };
+
         try
         {
-            UserFavourite userFavourite = new UserFavourite()
-            {
-                UserID = userEmail,
-                AdventureID = Adventure.ID
-            };
-
             await userFavouriteRepository.CreateUserFavourite(userFavourite);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ADC001: Unable Add Adventure to Library.");
         }
     }
 
-    //private async Task DeleteFromLibrary()
-    //{
-    //    try
-    //    {
-    //        UserFavourite userFavourite = new UserFavourite()
-    //        {
-    //            UserID = userEmail,
-    //            AdventureID = Adventure.ID
-    //        };
-
-    //        await userFavouriteRepository.DeleteUserFavourite(userFavourite);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Console.WriteLine(ex.Message);
-    //    }
-    //}
+    #endregion
 
     #region ##### NAVIGATION #####
 
@@ -132,12 +156,16 @@
         navigationManager.NavigateTo($"play/{Adventure.ID}");
     }
 
+    private void NavAdventureDetails()
+    {
+        navigationManager.NavigateTo($"details/{Adventure.ID}");
+    }
+
     private void NavEditProject()
     {
         navigationManager.NavigateTo($"editproject/{Adventure.ID}");
     }
 
     #endregion
-
 
 }

@@ -1,72 +1,123 @@
 ﻿@page "/editlink/{AdventureID:int}/{LinkID:int}"
+
 @inject ILinkRepository linkRepository
 @inject IChapterRepository chapterRepository
+
 @attribute [Authorize]
 
 <div class="row">
+
+    @* LEFT COLUMN *@
     <div class="left-column">
-        @if (link == null)
-        {
-            <p>Loading...</p>
-        }
-        else
+        @if (_Link != null)
         {
             <h3>Edit Link</h3>
-
-            <LinkForm Link="link" OnValidSubmit="SaveLink" />
+            <LinkForm Link="_Link" OnValidSubmit="SaveLink" />
         }
     </div>
+
+    @* RIGHT COLUMN *@
     <div class="right-column">
         <div class="form-group">
 
-            @if (chapters == null)
+            @* CHAPTER LIST *@
+            @if (_Chapters != null)
             {
-                <p>Loading...</p>
-            }
-            else
-            {
-                @foreach (var chapter in chapters)
+                @foreach (var chapter in _Chapters)
                 {
-                    @if (link.Target == chapter.ID)
+                    @* SET TARGET BUTTON *@
+                    @if (_Link.Target == chapter.ID)
                     {
-                        <a class="btn btn-primary btn-block" @onclick="(() => SetTarget(chapter.ID))">Set <b>@chapter.Title</b> as Target</a>
+                        @* CURRENT TARGETTED BUTTON *@
+                        <a class="btn btn-primary btn-block">Current Target <b>@chapter.Title</b></a>
                     }
                     else
                     {
+                        @* SELECTABLE BUTTONS *@
                         <a class="btn btn-warning btn-block" @onclick="(() => SetTarget(chapter.ID))">Set <b>@chapter.Title</b> as Target</a>
                     }
-
                 }
             }
-
         </div>
     </div>
+
 </div>
 
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public int AdventureID { get; set; }
     [Parameter] public int LinkID { get; set; }
 
-    private List<Chapter> chapters;
+    private List<Chapter> _Chapters;
+    public Link _Link;
 
-    public Link link;
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected async override Task OnInitializedAsync()
     {
-        link = await linkRepository.GetLink(LinkID);
-        chapters = await chapterRepository.GetChapters(AdventureID);
+        await GetLink();
+        await GetChapters();
+    }
+
+    #endregion
+
+    #region ##### GENERAL METHODS #####
+
+    private void SetTarget(int chapterID)
+    {
+        _Link.Target = chapterID;
+        SaveLink();
+    }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
+
+    private async Task GetLink()
+    {
+        try
+        {
+            _Link = await linkRepository.GetLink(LinkID);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ELK001: Unable to Retrieve Link.");
+        }
+    }
+
+    private async Task GetChapters()
+    {
+        try
+        {
+            _Chapters = await chapterRepository.GetChapters(AdventureID);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ELK000: Unable to Retrieve Chapters.");
+        }
     }
 
     private async void SaveLink()
     {
-        await linkRepository.UpdateLink(link);
-        link = await linkRepository.GetLink(LinkID);
+        try
+        {
+            await linkRepository.UpdateLink(_Link);
+            await GetLink();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ELK002: Unable to Save Link.");
+        }
     }
 
-    private void SetTarget(int chapterID)
-    {
-        link.Target = chapterID;
-        SaveLink();
-    }
+    #endregion
+
 }

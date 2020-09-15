@@ -1,41 +1,76 @@
 ﻿@page "/play/{adventureID:int}"
+
 @inject IAdventureRepository adventureRepository
 
-@if (adventureDTO != null)
+@if (_AdventureDTO != null)
 {
     <div class="play mb-3">
-        <h4>@adventureDTO.ChapterList[currentChapter].Title</h4>
 
-        <img class="my-3" src="@adventureDTO.ChapterList[currentChapter].Image" />
+        @* CHAPTER TITLE *@
+        <h4>@_AdventureDTO.ChapterList[_CurrentChapter].Title</h4>
 
-        <p>@adventureDTO.ChapterList[currentChapter].Description</p>
+        @* CHAPTER IMAGE *@
+        <img class="my-3" src="@_AdventureDTO.ChapterList[_CurrentChapter].Image" />
 
-        <p><i>@adventureDTO.ChapterList[currentChapter].Event</i></p>
+        @* CHAPTER DESCRIPTION *@
+        <p>@_AdventureDTO.ChapterList[_CurrentChapter].Description</p>
 
-        @foreach (var link in @adventureDTO.ChapterList[currentChapter].Links)
+        @* CHAPTER EVENT *@
+        <p><i>@_AdventureDTO.ChapterList[_CurrentChapter].Event</i></p>
+
+        @* CHAPTER LINKS *@
+        @foreach (var link in _AdventureDTO.ChapterList[_CurrentChapter].Links)
         {
+            @* LINK BUTTON *@
             <button class="btn btn-primary btn-block" @onclick="(() => GoToChapter(link.Target))">@link.Target @link.Description</button>
         }
+
     </div>
 }
 else
 {
+    @* TODO: Handle errors *@
     <p>something's wrong</p>
 }
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public int adventureID { get; set; }
-    AdventureDTO adventureDTO;
-    int currentChapter = 0;
+
+    private AdventureDTO _AdventureDTO;
+    private int _CurrentChapter = 0;
+
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected async override Task OnInitializedAsync()
     {
-        adventureDTO = await adventureRepository.GetAdventureDTO(adventureID);
+        // TODO: Move to CRUD METHODS (necessary?)
+        try
+        {
+            _AdventureDTO = await adventureRepository.GetAdventureDTO(adventureID);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("PLY001: Unable to Retrieve Adventure.");
+        }
     }
+
+    #endregion
+
+    #region ##### GENERAL METHODS #####
 
     public void GoToChapter(int target)
     {
-        target = adventureDTO.ChapterList.FindIndex(x => x.ID == target);
-        currentChapter = target;
+        // Find the target chapters index in the the _Adventure.ChapterList
+        target = _AdventureDTO.ChapterList.FindIndex(x => x.ID == target);
+        _CurrentChapter = target;
     }
+
+    #endregion
+
 }

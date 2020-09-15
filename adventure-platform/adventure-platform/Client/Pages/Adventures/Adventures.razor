@@ -4,21 +4,22 @@
 
 <AdventureFilter OnSubmit="FilterAdventures" />
 
-<AdventureList Adventures="adventures" ContextString="@contextString" />
+<AdventureList Adventures="_Adventures" ContextString="@CONTEXT_STRING" />
 
-@if (numPages > 1)
+@if (_NumPages > 1)
 {
-    <Pagination CurrentPage="@adventureFilterDTO.Page" NumPages="numPages" SelectPage="SelectPage" />
+    <Pagination CurrentPage="@_AdventureFilterDTO.Page" NumPages="_NumPages" SelectPage="SelectPage" />
 }
 
 @code {
 
     #region ##### HEAD #####
-    private const string contextString = "adventures";
 
-    private AdventureFilterDTO adventureFilterDTO = new AdventureFilterDTO();
-    private List<Adventure> adventures;
-    private int numPages; // Returned from paginatedResponse calculation;
+    private const string CONTEXT_STRING = "adventures";
+
+    private AdventureFilterDTO _AdventureFilterDTO = new AdventureFilterDTO();
+    private List<Adventure> _Adventures;
+    private int _NumPages; // Returned from paginatedResponse calculation;
 
     #endregion
 
@@ -31,29 +32,34 @@
 
     #endregion
 
-    #region ##### CALLBACK METHODS #####
+    #region ##### GENERAL METHODS
 
     private async Task SelectPage(int page)
     {
-        adventureFilterDTO.Page = page;
+        _AdventureFilterDTO.Page = page;
+
+        await FilterAdventures(_AdventureFilterDTO);
+    }
+
+    #endregion
+
+    #region ##### CRUD METHODS #####
+
+    public async Task FilterAdventures(AdventureFilterDTO adventureFilterDTO)
+    {
+        _AdventureFilterDTO = adventureFilterDTO;
 
         try
         {
-            await FilterAdventures(adventureFilterDTO);
+            var paginatedResponse = await adventureRepository.GetFilteredAdventures(_AdventureFilterDTO);
+            _Adventures = paginatedResponse.Response;
+            _NumPages = paginatedResponse.NumPages;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("ACC001: Unable to Retrieve Adventures");
         }
-    }
-
-    public async Task FilterAdventures(AdventureFilterDTO prAdventureFilterDTO)
-    {
-        adventureFilterDTO = prAdventureFilterDTO;
-
-        var paginatedResponse = await adventureRepository.GetFilteredAdventures(adventureFilterDTO);
-        adventures = paginatedResponse.Response;
-        numPages = paginatedResponse.NumPages;
     }
 
     #endregion

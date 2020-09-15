@@ -10,10 +10,18 @@
         </div>
     </div>
 
+    @* SUBMIT BUTTON *@
     <button class="btn btn-success" type="submit">Create Genre</button>
+
 </EditForm>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public Genre Genre { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    #endregion
+
 }

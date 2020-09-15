@@ -21,13 +21,19 @@
             <p>@Link.Target</p>
         }
 
-
     </div>
 
     <button class="btn btn-success" type="submit">Save Link</button>
+
 </EditForm>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public Link Link { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    #endregion
+
 }

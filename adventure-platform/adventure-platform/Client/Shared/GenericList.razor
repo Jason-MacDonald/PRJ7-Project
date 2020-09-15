@@ -1,5 +1,5 @@
 ﻿@typeparam TItem
-
+@* WHEN LIST IS NULL *@
 @if (List == null)
 {
     @if (NullTemplate != null)
@@ -9,9 +9,10 @@
     else
     {
         @*<img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" />*@
-        <Loading/>
+        <Loading />
     }
 }
+@* WHEN LIST IS EMPTY *@
 else if (List.Count == 0)
 {
     @if (EmptyTemplate != null)
@@ -23,6 +24,7 @@ else if (List.Count == 0)
         <p>There are no records to show.</p>
     }
 }
+@* WHEN LIST IS HAS ELEMENTS *@
 else
 {
     @if (ElementTemplate != null)
@@ -39,10 +41,16 @@ else
 }
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public RenderFragment NullTemplate { get; set; }
     [Parameter] public RenderFragment EmptyTemplate { get; set; }
     [Parameter] public RenderFragment<TItem> ElementTemplate { get; set; }
     [Parameter] public RenderFragment ListTemplate { get; set; }
 
     [Parameter] public List<TItem> List { get; set; }
+
+    #endregion
+
 }

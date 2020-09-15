@@ -1,57 +1,81 @@
 ﻿@page "/createproject"
-@inject NavigationManager navigationManager
+
 @inject IAdventureRepository adventureRepository
 @inject IGenreRepository genreRepository
+
+@inject NavigationManager navigationManager
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
-@if (NotSelectedGenres != null)
+@if (_NotSelectedGenres != null)
 {
     <div class="row">
+
+        @* LEFT COLUMN *@
         <div class="left-column">
+
             <h3>Create Project</h3>
-            <ProjectForm Project="project" OnValidSubmit="SaveProject" NotSelectedGenres="NotSelectedGenres" />
+            <ProjectForm Project="_Project" OnValidSubmit="SaveProject" NotSelectedGenres="_NotSelectedGenres" />
+
         </div>
 
         <div class="right-column">
-            <h3>Chapters</h3>
-            <div class="form-group">
-                <a class="btn btn-info btn-block" @onclick="NavCreateChapter">Create New Chapter</a>
-            </div>
+            @* TODO: Information about Chapters when creating a new project ie: "Chapters will be shown here..." *@
+
+            @*<h3>Chapters</h3>
+                <div class="form-group">
+                    <a class="btn btn-info btn-block" @onclick="NavCreateChapter">Create New Chapter</a>
+                </div>*@
         </div>
     </div>
 }
 
 @code {
-    private Adventure project = new Adventure();
-    private List<Genre> NotSelectedGenres;
+
+    #region ##### HEAD #####
+
+    private Adventure _Project = new Adventure();
+    private List<Genre> _NotSelectedGenres;
+
+    #endregion
 
     #region ##### LIFE CYCLE #####
 
     protected override async Task OnInitializedAsync()
     {
-        NotSelectedGenres = await genreRepository.GetGenres();
+        try
+        {
+            _NotSelectedGenres = await genreRepository.GetGenres();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("CPT001: Unable to Retrieve Genres.");
+        }
     }
 
     #endregion
 
-    #region ##### CRUD #####
+    #region ##### CRUD METHODS #####
 
     private async Task SaveProject()
     {
+        // Find better way to get auth state. Update: Cascading Parameter?
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
-        project.Author = user.Identity.Name.ToString();
+        _Project.Author = user.Identity.Name.ToString();
 
         try
         {
-            var projectID = await adventureRepository.CreateAdventure(project);
+            var projectID = await adventureRepository.CreateAdventure(_Project);
             NavEditProject(projectID);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("CPT002: Unable to Save Project.");
         }
     }
 
@@ -61,7 +85,7 @@
 
     public void NavCreateChapter()
     {
-        navigationManager.NavigateTo($"createchapter/{project.ID}");
+        navigationManager.NavigateTo($"createchapter/{_Project.ID}");
     }
 
     public void NavEditProject(int projectID)

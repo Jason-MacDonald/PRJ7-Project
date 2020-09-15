@@ -4,22 +4,30 @@
 @attribute [Authorize]
 
 <div class="row">
+
+    @* LEFT COLUMN *@
     <div class="left-column">
 
+        @* TITLE *@
         <h3>Create Chapter</h3>
 
-        <ChapterForm Chapter="chapter" OnValidSubmit="SaveChapter" />
+        @* CHAPTER FORM *@
+        <ChapterForm Chapter="_Chapter" OnValidSubmit="SaveChapter" />
 
     </div>
+
     <div class="right-column">
 
-        <h3>Links</h3>
+        @* TODO: Information about links when creating a new chapter ie: "Links will be shown here..." *@
+
+        @*<h3>Links</h3>
 
         <div class="form-group">
             <a class="btn btn-info btn-block" @onclick="NavCreateLink">Create New Link</a>
-        </div>
+        </div>*@
 
     </div>
+
 </div>
 
 
@@ -29,7 +37,7 @@
 
     [Parameter] public int AdventureID { get; set; }
 
-    private Chapter chapter = new Chapter();
+    private Chapter _Chapter = new Chapter();
 
     #endregion
 
@@ -37,17 +45,17 @@
 
     private async Task SaveChapter()
     {
-        chapter.AdventureID = AdventureID;
+        _Chapter.AdventureID = AdventureID;
 
         try
         {
-            var chapterID = await chapterRepository.CreateChapter(chapter);
+            var chapterID = await chapterRepository.CreateChapter(_Chapter);
             NavEditChapter(chapterID);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-
+            Console.WriteLine(ex.GetBaseException().ToString());
+            Console.WriteLine("CCF001: Unable to Create Chapter.");
         }
     }
 
@@ -57,7 +65,7 @@
 
     private void NavCreateLink()
     {
-        navigationManager.NavigateTo($"createlink/{AdventureID}/{chapter.ID}");
+        navigationManager.NavigateTo($"createlink/{AdventureID}/{_Chapter.ID}");
     }
 
     private void NavEditChapter(int chapterID)
