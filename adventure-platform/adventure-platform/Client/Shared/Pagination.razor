@@ -2,7 +2,9 @@
 
     <nav>
         <ul class="pagination justify-content-center">
-            @foreach (var link in links)
+
+            @* PAGINATION PAGE BUTTONS *@
+            @foreach (var link in _Links)
             {
                 <li @onclick="(() => SelectedPageInternal(link))"
                     style="cursor: pointer;"
@@ -14,12 +16,19 @@
     </nav>
 
 @code {
+
+    #region ##### HEAD #####
+
     [Parameter] public int CurrentPage { get; set; } = 1;
     [Parameter] public int NumPages { get; set; }
     [Parameter] public int Radius { get; set; } = 3; // Number of page buttons to show.
     [Parameter] public EventCallback<int> SelectPage { get; set; }
 
-    List<LinkModel> links;
+    List<LinkModel> _Links;
+
+    #endregion
+
+    #region ##### LIFECYCLE METHODS #####
 
     protected override void OnParametersSet()
     {
@@ -27,22 +36,26 @@
         base.OnParametersSet();
     }
 
+    #endregion
+
+    #region ##### GENERAL METHODS #####
+
     private void LoadPages()
     {
         var isPreviousPageLinkEnabled = CurrentPage != 1;
         var previousPage = CurrentPage - 1;
 
-        links = new List<LinkModel>();
+        _Links = new List<LinkModel>();
 
         // Adds [previous] link.
-        links.Add(new LinkModel(previousPage, isPreviousPageLinkEnabled, "Previous"));
+        _Links.Add(new LinkModel(previousPage, isPreviousPageLinkEnabled, "Previous"));
 
         // Adds links within radius.
         for (int i = 1; i <= NumPages; i++)
         {
             if(i >= CurrentPage - Radius && i <= CurrentPage + Radius)
             {
-                links.Add(new LinkModel(i)
+                _Links.Add(new LinkModel(i)
                 {
                     Active = CurrentPage == i
                 });
@@ -53,7 +66,7 @@
         var isNextPageLinkEnabled = CurrentPage != NumPages;
         var nextPage = CurrentPage + 1;
 
-        links.Add(new LinkModel(nextPage, isNextPageLinkEnabled, "Next"));
+        _Links.Add(new LinkModel(nextPage, isNextPageLinkEnabled, "Next"));
 
     }
 
@@ -67,6 +80,10 @@
         CurrentPage = link.Page;
         await SelectPage.InvokeAsync(link.Page);
     }
+
+    #endregion
+
+    #region ##### LINK MODEL CLASS #####
 
     class LinkModel
     {
@@ -86,4 +103,7 @@
             Enabled = enabled;
         }
     }
+
+    #endregion
+
 }
