@@ -10,6 +10,7 @@ namespace adventureplatform.Shared.Entities
         // BASE PROPERTIES
         public int ID { get; set; }
         [Required]
+        [StringLength(25, ErrorMessage = "Genre too long (25 character limit).")]
         public string Name { get; set; }
 
         // NAVIGATIONAL PROPERTIES

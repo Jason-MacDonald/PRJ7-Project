@@ -40,6 +40,9 @@
         </div>
     </div>
 
+    @* BACK BUTTON *@
+    <button class="btn btn-danger" @onclick="Back">Back</button>
+
     <button class="btn btn-success" type="submit">Save Chapter</button>
 </EditForm>
 
@@ -49,6 +52,7 @@
 
     [Parameter] public Chapter Chapter { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public EventCallback Back { get; set; }
 
     private string _ImageURL;
 

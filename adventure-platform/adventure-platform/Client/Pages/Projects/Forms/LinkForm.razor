@@ -1,6 +1,6 @@
 ﻿<EditForm Model="Link" OnSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-    
+
     <div class="form-group">
 
         @* LINK DESCRIPTION *@
@@ -23,6 +23,9 @@
 
     </div>
 
+    @* BACK BUTTON *@
+    <button class="btn btn-danger" @onclick="Back">Back</button>
+
     <button class="btn btn-success" type="submit">Save Link</button>
 
 </EditForm>
@@ -33,6 +36,7 @@
 
     [Parameter] public Link Link { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public EventCallback Back { get; set; }
 
     #endregion
 

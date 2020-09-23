@@ -16,7 +16,7 @@
         <div class="left-column">
 
             <h3>Create Project</h3>
-            <ProjectForm Project="_Project" OnValidSubmit="SaveProject" NotSelectedGenres="_NotSelectedGenres" />
+            <ProjectForm Project="_Project" OnValidSubmit="SaveProject" NotSelectedGenres="_NotSelectedGenres" Back="NavMyProjects"/>
 
         </div>
 
@@ -91,6 +91,11 @@
     public void NavEditProject(int projectID)
     {
         navigationManager.NavigateTo($"editproject/{projectID}");
+    }
+
+    public void NavMyProjects()
+    {
+        navigationManager.NavigateTo($"myprojects");
     }
 
     #endregion

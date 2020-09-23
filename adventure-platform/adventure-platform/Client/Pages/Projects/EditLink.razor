@@ -3,6 +3,8 @@
 @inject ILinkRepository linkRepository
 @inject IChapterRepository chapterRepository
 
+@inject NavigationManager navigationManager
+
 @attribute [Authorize]
 
 <div class="row">
@@ -12,7 +14,7 @@
         @if (_Link != null)
         {
             <h3>Edit Link</h3>
-            <LinkForm Link="_Link" OnValidSubmit="SaveLink" />
+            <LinkForm Link="_Link" OnValidSubmit="SaveLink" Back="NavEditChapter"/>
         }
     </div>
 
@@ -116,6 +118,15 @@
             Console.WriteLine(ex.GetBaseException().ToString());
             Console.WriteLine("ELK002: Unable to Save Link.");
         }
+    }
+
+    #endregion
+
+    #region ##### NAVIGATION #####
+
+    private void NavEditChapter()
+    {
+        navigationManager.NavigateTo($"editchapter/{_Link.ChapterID}");
     }
 
     #endregion

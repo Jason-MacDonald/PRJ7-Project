@@ -10,6 +10,7 @@ namespace adventureplatform.Shared.Entities
         // BASE PROPERTIES
         public int ID { get; set; }
         [Required]
+        [StringLength(100, ErrorMessage = "Description too long (100 character limit).")]
         public string Description { get; set; }
         public int Target { get; set; } = 0;
 

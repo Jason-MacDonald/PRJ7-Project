@@ -12,7 +12,7 @@
         <h3>Create Chapter</h3>
 
         @* CHAPTER FORM *@
-        <ChapterForm Chapter="_Chapter" OnValidSubmit="SaveChapter" />
+        <ChapterForm Chapter="_Chapter" OnValidSubmit="SaveChapter" Back="NavEditProject"/>
 
     </div>
 
@@ -71,6 +71,11 @@
     private void NavEditChapter(int chapterID)
     {
         navigationManager.NavigateTo($"editchapter/{chapterID}");
+    }
+
+    public void NavEditProject()
+    {
+        navigationManager.NavigateTo($"editproject/{AdventureID}");
     }
 
     #endregion

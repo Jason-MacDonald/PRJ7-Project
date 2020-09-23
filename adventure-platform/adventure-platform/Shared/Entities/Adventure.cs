@@ -11,8 +11,10 @@ namespace adventureplatform.Shared.Entities
         public int ID { get; set; }
         public string Author { get; set; }
         [Required]
+        [StringLength(100, ErrorMessage = "Title too long (100 character limit).")]
         public string Title { get; set; }
         [Required]
+        [StringLength(500, ErrorMessage = "Description too long (500 character limit).")]
         public string Description { get; set; }
         public string Image { get; set; }
         public DateTime ReleaseDate { get; set; }

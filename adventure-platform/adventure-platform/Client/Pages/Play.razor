@@ -21,10 +21,16 @@
         @* CHAPTER LINKS *@
         @foreach (var link in _AdventureDTO.ChapterList[_CurrentChapter].Links)
         {
-            @* LINK BUTTON *@
-            <button class="btn btn-primary btn-block" @onclick="(() => GoToChapter(link.Target))">@link.Target @link.Description</button>
+            @if (link.Target != 0)
+            {
+                @* LINK BUTTON *@
+                <button class="btn btn-primary btn-block" @onclick="(() => GoToChapter(link.Target))">@link.Target @link.Description</button>
+            }
+            else
+            {
+                <button class="btn btn-outline-primary btn-block">No target has been assigned for this link</button>   
+            }
         }
-
     </div>
 }
 else

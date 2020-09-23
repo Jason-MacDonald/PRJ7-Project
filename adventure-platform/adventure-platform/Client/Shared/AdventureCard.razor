@@ -19,7 +19,9 @@
         @* CARD IMAGE *@
         @if (Adventure.Image != null)
         {
-            <a @onclick="NavAdventureDetails">
+            <a @onclick="NavAdventureDetails"
+                data-toggle="tooltip" title="Find out more"   
+            >
                 <img src="@Adventure.Image"
                      class="adventure-image" />
             </a>
@@ -34,7 +36,9 @@
         <div class="px-3 pb-3">
 
             @* PLAY BUTTON *@
-            <a class="btn btn-success" @onclick="NavPlay">
+            <a class="btn btn-success" @onclick="NavPlay"
+               data-toggle="tooltip" title="Play @Adventure.Title"
+            >
                 <span class="oi oi-media-play" aria-hidden="true" />
             </a>
 
@@ -57,7 +61,9 @@
             @* DELETE FROM LIBRARY BUTTON *@
             @if (ContextString == "mylibrary")
             {
-                <a class="btn btn-warning" @onclick="@(() => DeleteFromLibrary.InvokeAsync(Adventure.ID))">
+                <a class="btn btn-warning" @onclick="@(() => DeleteFromLibrary.InvokeAsync(Adventure.ID))"
+                   data-toggle="tooltip" title="Delete @Adventure.Title from your library"
+                >
                     <span class="oi oi-minus" aria-hidden="true" />
                 </a>
             }
@@ -79,7 +85,9 @@
                             <div class="float-right">
 
                                 @* EDIT PROJECT BUTTON *@
-                                <a class="btn btn-warning" @onclick="NavEditProject">
+                                <a class="btn btn-warning" @onclick="NavEditProject"
+                                   data-toggle="tooltip" title="Edit @Adventure.Title"
+                                >
                                     <span class="oi oi-pencil" aria-hidden="true" />
                                 </a>
 

@@ -14,7 +14,7 @@
 
         <h3>CreateLink</h3>
 
-        <LinkForm Link="_Link" OnValidSubmit="SaveLink" />
+        <LinkForm Link="_Link" OnValidSubmit="SaveLink" Back="NavEditChapter"/>
 
     </div>
 
@@ -82,6 +82,15 @@
             Console.WriteLine(ex.GetBaseException().ToString());
             Console.WriteLine("CLK001: Unable to Save Link.");
         }
+    }
+
+    #endregion
+
+    #region ##### NAVIGATION #####
+
+    public void NavEditChapter()
+    {
+        navigationManager.NavigateTo($"editchapter/{ChapterID}");
     }
 
     #endregion

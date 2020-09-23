@@ -18,7 +18,7 @@
 
         @* LEFT COLUMN *@
         <div class="left-column">
-            <ProjectForm Project="_Adventure" OnValidSubmit="SaveProject" NotSelectedGenres="_NotSelectedGenreList" SelectedGenres="_SelectedGenreList" />
+            <ProjectForm Project="_Adventure" OnValidSubmit="SaveProject" NotSelectedGenres="_NotSelectedGenreList" SelectedGenres="_SelectedGenreList" Back="NavMyProjects"/>
         </div>
 
         @* RIGHT COLUMN *@
@@ -134,6 +134,11 @@
     private void NavEditChapter(int id)
     {
         navigationManager.NavigateTo($"editchapter/{id}");
+    }
+
+    private void NavMyProjects()
+    {
+        navigationManager.NavigateTo($"myprojects");
     }
 
     #endregion

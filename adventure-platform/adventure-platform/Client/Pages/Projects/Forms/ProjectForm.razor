@@ -14,7 +14,7 @@
     <div class="form-group">
         <label>Genres:</label>
         <div>
-            <MultipleSelector Selected="Selected" NotSelected="NotSelected"/>
+            <MultipleSelector Selected="Selected" NotSelected="NotSelected" />
         </div>
     </div>
 
@@ -35,6 +35,9 @@
             <InputMarkdown Label="Description" For="@(() => Project.Description)" @bind-Value="@Project.Description" />
         </div>*@
 
+    @* BACK BUTTON *@
+    <button class="btn btn-danger" @onclick="Back">Back</button>
+
     @* SUBMIT BUTTON *@
     <button class="btn btn-success" type="submit">Save Project</button>
 
@@ -46,6 +49,7 @@
 
     [Parameter] public Adventure Project { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public EventCallback Back { get; set; }
 
     [Parameter] public List<Genre> NotSelectedGenres { get; set; } = new List<Genre>();
     [Parameter] public List<Genre> SelectedGenres { get; set; } = new List<Genre>();

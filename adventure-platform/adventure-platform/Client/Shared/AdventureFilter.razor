@@ -7,7 +7,7 @@
             <div class="row">
 
                 @* TAG INPUT *@
-                <div class="col-sm-12 col-lg-4">
+                @*<div class="col-sm-12 col-lg-4">
                     <div class="form-group">
 
                         <label for="tags" class="sr-only">Tags</label>
@@ -17,7 +17,7 @@
                                @onkeypress="@((KeyboardEventArgs e) => TagsKeyPress(e))" />
 
                     </div>
-                </div>
+                </div>*@
 
                 @* GENRE SELECT *@
                 <div class="col-sm-12 col-lg-4">
@@ -103,6 +103,7 @@
         private void Clear()
         {
             _AdventureFilterDTO.GenreID = 0;
+            Filter();
         }
 
         #endregion
