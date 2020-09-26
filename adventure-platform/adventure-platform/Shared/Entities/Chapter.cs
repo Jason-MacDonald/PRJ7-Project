@@ -14,11 +14,11 @@ namespace adventureplatform.Shared.Entities
         public string Title { get; set; }
         public string Image { get; set; }
         [Required]
-        [StringLength(500, ErrorMessage = "Description too long (500 character limit).")]
+        [StringLength(5000, ErrorMessage = "Chapter description too long (5000 character limit).")]
         public string Description { get; set; }
-        [StringLength(500, ErrorMessage = "Event too long (500 character limit).")]
+        [StringLength(5000, ErrorMessage = "Chapter event too long (5000 character limit).")]
         public string Event { get; set; }
-        [StringLength(500, ErrorMessage = "Help too long (500 character limit).")]
+        [StringLength(5000, ErrorMessage = "Chapter help too long (5000 character limit).")]
         public string Help { get; set; }
 
         // NAVIGATIONAL PROPERTIES
