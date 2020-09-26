@@ -6,6 +6,10 @@
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
+    <Confirmation @ref="_Confirmation" OnConfirm="@OnConfirm" OnCancel="@OnCancel">
+        <div>Are you sure you want to delete @_SelectedAdventure.Title?</div>
+    </Confirmation>
+
     <div class="adventures-container">
 
         @* CREATE PROJECT BUTTON *@
@@ -18,7 +22,7 @@
         <GenericList List="Adventures">
 
             <ElementTemplate>
-                <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventureModal" ContextString="@ContextString" DeleteFromLibrary="DeleteFromLibrary" />
+                <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" ContextString="@ContextString" DeleteFromLibrary="DeleteFromLibrary" />
             </ElementTemplate>
 
             @* Fragment defines what to show if there are no projects. *@
@@ -33,41 +37,51 @@
 
     #region ##### HEAD #####
 
+    private Confirmation _Confirmation;
+
     [Parameter] public EventCallback<int> Refresh { get; set; }
     [Parameter] public string ContextString { get; set; }
     [Parameter] public List<Adventure> Adventures { get; set; }
     [Parameter] public bool ProjectContext { get; set; }
 
+    private Adventure _SelectedAdventure;
+
     #endregion
 
     #region ##### GENERAL METHODS #####
 
-    public async Task DeleteAdventureModal(Adventure adventure)
-    {
-        var confirm = await js.Confirm($"Are you sure you want to delete {adventure.Title}?");
-
-        if (confirm == true)
-        {
-            await DeleteAdventure(adventure);
-        }
-    }
 
     #endregion
 
     #region ##### CRUD METHODS #####
 
-    private async Task DeleteAdventure(Adventure adventure)
+    private void DeleteAdventure(Adventure adventure)
+    {
+        _SelectedAdventure = adventure;
+        _Confirmation.Show();
+    }
+
+    private async Task OnConfirm()
     {
         try
         {
-            await adventureRepository.DeleteAdventure(adventure.ID);
-            Adventures.Remove(adventure);
+            await adventureRepository.DeleteAdventure(_SelectedAdventure.ID);
+            Adventures.Remove(_SelectedAdventure);
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.GetBaseException().ToString());
             Console.WriteLine("ADL001: Unable to Delete Adventure User.");
         }
+
+        _Confirmation.Hide();
+        _SelectedAdventure = null;
+    }
+
+    private void OnCancel()
+    {
+        _Confirmation.Hide();
+        _SelectedAdventure = null;
     }
 
     private async Task DeleteFromLibrary(int adventureID)
