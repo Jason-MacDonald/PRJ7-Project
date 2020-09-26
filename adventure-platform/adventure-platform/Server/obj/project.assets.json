@@ -29,6 +29,26 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "Blazored.Toast/3.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.4",
+          "Microsoft.AspNetCore.Components.Web": "3.1.4",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazored.Toast.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazored.Toast.dll": {}
+        },
+        "build": {
+          "buildTransitive/Blazored.Toast.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Blazored.Toast.props": {}
+        }
+      },
       "Markdig/0.20.0": {
         "type": "package",
         "compile": {
@@ -1812,6 +1832,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "Blazored.Toast": "3.1.2",
           "Markdig": "0.20.0",
           "Microsoft.AspNetCore.Components.WebAssembly": "3.2.0",
           "Microsoft.AspNetCore.Components.WebAssembly.Authentication": "3.2.1",
@@ -1831,6 +1852,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "Blazored.Toast": "3.1.2",
           "System.ComponentModel.Annotations": "4.7.0"
         },
         "compile": {
@@ -1870,6 +1892,24 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "Blazored.Toast/3.1.2": {
+      "sha512": "EDwxOEeqcT8vNIqn+sCYv/Maouu223UfMCuBxtlUpqPsVHql6OmhZgpo3j9GssIkGU1utKKdi4NaAoUoXDKWSQ==",
+      "type": "package",
+      "path": "blazored.toast/3.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blazored.toast.3.1.2.nupkg.sha512",
+        "blazored.toast.nuspec",
+        "build/Blazored.Toast.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/Blazored.Toast.props",
+        "buildTransitive/Blazored.Toast.props",
+        "lib/netstandard2.0/Blazored.Toast.dll",
+        "staticwebassets/blazored-toast.css",
+        "staticwebassets/blazored-toast.min.css"
       ]
     },
     "Markdig/0.20.0": {
@@ -6375,6 +6415,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.0.1",
+      "Blazored.Toast >= 3.1.2",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.1.7",
       "Microsoft.AspNetCore.Components.WebAssembly.Server >= 3.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.7",
@@ -6440,6 +6481,10 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[8.0.1, )"
+          },
+          "Blazored.Toast": {
+            "target": "Package",
+            "version": "[3.1.2, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",

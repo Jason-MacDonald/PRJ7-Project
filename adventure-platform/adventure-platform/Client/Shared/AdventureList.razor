@@ -3,35 +3,36 @@
 
 @inject IJSRuntime js
 @inject NavigationManager navigationManager
+@inject IToastService toastService
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-    <Confirmation @ref="_Confirmation" OnConfirm="@OnConfirm" OnCancel="@OnCancel">
-        <div>Are you sure you want to delete @_SelectedAdventure.Title?</div>
-    </Confirmation>
+<Confirmation @ref="_Confirmation" OnConfirm="@OnConfirm" OnCancel="@OnCancel">
+    <div>Are you sure you want to delete @_SelectedAdventure.Title?</div>
+</Confirmation>
 
-    <div class="adventures-container">
+<div class="adventures-container">
 
-        @* CREATE PROJECT BUTTON *@
-        @if (ProjectContext)
-        {
-            <button class="btn btn-info mr-3 create-project-button" @onclick="NavCreateProject">Create New Project</button>
-        }
+    @* CREATE PROJECT BUTTON *@
+    @if (ProjectContext)
+    {
+        <button class="btn btn-info mr-3 create-project-button" @onclick="NavCreateProject">Create New Project</button>
+    }
 
-        @* ADVENTURE LIST *@
-        <GenericList List="Adventures">
+    @* ADVENTURE LIST *@
+    <GenericList List="Adventures">
 
-            <ElementTemplate>
-                <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" ContextString="@ContextString" DeleteFromLibrary="DeleteFromLibrary" />
-            </ElementTemplate>
+        <ElementTemplate>
+            <AdventureCard @key="context.ID" Adventure="context" DeleteAdventure="DeleteAdventure" ContextString="@ContextString" DeleteFromLibrary="DeleteFromLibrary" />
+        </ElementTemplate>
 
-            @* Fragment defines what to show if there are no projects. *@
-            <EmptyTemplate>
-                <p>There are no projects to show.</p>
-            </EmptyTemplate>
+        @* Fragment defines what to show if there are no projects. *@
+        <EmptyTemplate>
+            <p>There are no projects to show.</p>
+        </EmptyTemplate>
 
-        </GenericList>
-    </div>
+    </GenericList>
+</div>
 
 @code {
 
@@ -45,11 +46,6 @@
     [Parameter] public bool ProjectContext { get; set; }
 
     private Adventure _SelectedAdventure;
-
-    #endregion
-
-    #region ##### GENERAL METHODS #####
-
 
     #endregion
 
@@ -107,6 +103,8 @@
         }
 
         await Refresh.InvokeAsync(1);
+
+        toastService.ShowInfo("Adventure has been removed from library.");
     }
 
     #endregion

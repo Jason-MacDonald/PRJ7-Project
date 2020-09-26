@@ -2,9 +2,9 @@
 @inject IAdventureRepository adventureRepository
 
 @inject NavigationManager navigationManager
+@inject IToastService toastService
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
-
 @* CARD CONTAINER *@
 <div class="individual-adventure-container shadow mb-4 bg-white">
 
@@ -20,8 +20,7 @@
         @if (Adventure.Image != null)
         {
             <a @onclick="NavAdventureDetails"
-                data-toggle="tooltip" title="Find out more"   
-            >
+               data-toggle="tooltip" title="Find out more">
                 <img src="@Adventure.Image"
                      class="adventure-image" />
             </a>
@@ -37,8 +36,7 @@
 
             @* PLAY BUTTON *@
             <a class="btn btn-success" @onclick="NavPlay"
-               data-toggle="tooltip" title="Play @Adventure.Title"
-            >
+               data-toggle="tooltip" title="Play @Adventure.Title">
                 <span class="oi oi-media-play" aria-hidden="true" />
             </a>
 
@@ -48,9 +46,8 @@
 
                     @if (ContextString == "adventures")
                     {
-                        <a class="btn btn-info"@onclick="AddToLibrary" 
-                           data-toggle="tooltip" title="Add @Adventure.Title to your library"
-                        >
+                        <a class="btn btn-info" @onclick="AddToLibrary"
+                           data-toggle="tooltip" title="Add @Adventure.Title to your library">
                             <span class="oi oi-plus" aria-hidden="true" />
                         </a>
                     }
@@ -62,8 +59,7 @@
             @if (ContextString == "mylibrary")
             {
                 <a class="btn btn-warning" @onclick="@(() => DeleteFromLibrary.InvokeAsync(Adventure.ID))"
-                   data-toggle="tooltip" title="Delete @Adventure.Title from your library"
-                >
+                   data-toggle="tooltip" title="Delete @Adventure.Title from your library">
                     <span class="oi oi-minus" aria-hidden="true" />
                 </a>
             }
@@ -86,15 +82,13 @@
 
                                 @* EDIT PROJECT BUTTON *@
                                 <a class="btn btn-warning" @onclick="NavEditProject"
-                                   data-toggle="tooltip" title="Edit @Adventure.Title"
-                                >
+                                   data-toggle="tooltip" title="Edit @Adventure.Title">
                                     <span class="oi oi-pencil" aria-hidden="true" />
                                 </a>
 
                                 @* DELETE PROJECT BUTTON *@
-                                <button type="button"class="btn btn-danger" @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))" 
-                                        data-toggle="tooltip" title="Edit @Adventure.Title"
-                                >
+                                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteAdventure.InvokeAsync(Adventure))"
+                                        data-toggle="tooltip" title="Edit @Adventure.Title">
                                     <span class="oi oi-trash" aria-hidden="true" />
                                 </button>
 
@@ -153,7 +147,9 @@
             Console.WriteLine(ex.GetBaseException().ToString());
             Console.WriteLine("ADC001: Unable Add Adventure to Library.");
         }
-    }
+
+        toastService.ShowInfo("Adventure has been added to library.");
+}
 
     #endregion
 

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "RYM+r0FJW480LmoJm5hhB9PII2BLhDtvP08v8YdZ7bE/NLQKOzCspvTPZIWl5KosQk+2SH9Z6ZtSKB0L6B44/Q==",
+  "dgSpecHash": "g4gNQSt8lka+7kdxf8d8V9pK9JDUAtyOhcAQJxzyYOz7/664N14xT6gpPUThiNZ9w1REAWUi89KQeJVaoHBKng==",
   "success": true,
   "projectFilePath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Client\\adventureplatform.Client.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\64221\\.nuget\\packages\\blazored.toast\\3.1.2\\blazored.toast.3.1.2.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\markdig\\0.20.0\\markdig.0.20.0.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.6\\microsoft.aspnetcore.authorization.3.1.6.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.aspnetcore.components\\3.1.6\\microsoft.aspnetcore.components.3.1.6.nupkg.sha512",

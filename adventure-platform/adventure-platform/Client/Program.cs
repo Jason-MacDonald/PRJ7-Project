@@ -13,6 +13,7 @@ using adventureplatform.Client.Repository;
 using Microsoft.AspNetCore.Components.Authorization;
 using adventureplatform.Client.Auth;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Blazored.Toast;
 
 namespace adventureplatform.Client
 {
@@ -48,6 +49,8 @@ namespace adventureplatform.Client
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserFavouriteRepository, UserFavouriteRepository>();
+
+            builder.Services.AddBlazoredToast();
 
             await builder.Build().RunAsync();
         }

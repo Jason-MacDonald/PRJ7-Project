@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KVdgyOawlNBswBV6Wr2fdGoaJjvU0QEyVhedZ6tzcaTfLjypy9qJGGjVzaIP2C4r79Sx+rQox3OcmBYakpIpEA==",
+  "dgSpecHash": "4N4abm8pBVPm+SwdEsy2hDqC/jpuZ0+rB7FxCruy9MjQbZNc7ClKvoPpYbL7cLtihQYmaVtSXTZh42169vm7Cw==",
   "success": true,
   "projectFilePath": "C:\\Users\\64221\\Documents\\PRJ7-Project\\adventure-platform\\adventure-platform\\Server\\adventureplatform.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\64221\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
+    "C:\\Users\\64221\\.nuget\\packages\\blazored.toast\\3.1.2\\blazored.toast.3.1.2.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\markdig\\0.20.0\\markdig.0.20.0.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.7\\microsoft.aspnetcore.authentication.jwtbearer.3.1.7.nupkg.sha512",
     "C:\\Users\\64221\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.6\\microsoft.aspnetcore.authorization.3.1.6.nupkg.sha512",

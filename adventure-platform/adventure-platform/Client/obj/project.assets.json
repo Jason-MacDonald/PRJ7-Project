@@ -2,6 +2,26 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.1": {
+      "Blazored.Toast/3.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.4",
+          "Microsoft.AspNetCore.Components.Web": "3.1.4",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazored.Toast.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazored.Toast.dll": {}
+        },
+        "build": {
+          "buildTransitive/Blazored.Toast.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Blazored.Toast.props": {}
+        }
+      },
       "Markdig/0.20.0": {
         "type": "package",
         "compile": {
@@ -508,6 +528,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "Blazored.Toast": "3.1.2",
           "System.ComponentModel.Annotations": "4.7.0"
         },
         "compile": {
@@ -520,6 +541,24 @@
     }
   },
   "libraries": {
+    "Blazored.Toast/3.1.2": {
+      "sha512": "EDwxOEeqcT8vNIqn+sCYv/Maouu223UfMCuBxtlUpqPsVHql6OmhZgpo3j9GssIkGU1utKKdi4NaAoUoXDKWSQ==",
+      "type": "package",
+      "path": "blazored.toast/3.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blazored.toast.3.1.2.nupkg.sha512",
+        "blazored.toast.nuspec",
+        "build/Blazored.Toast.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/Blazored.Toast.props",
+        "buildTransitive/Blazored.Toast.props",
+        "lib/netstandard2.0/Blazored.Toast.dll",
+        "staticwebassets/blazored-toast.css",
+        "staticwebassets/blazored-toast.min.css"
+      ]
+    },
     "Markdig/0.20.0": {
       "sha512": "49Kuof5GSRdTnXlDvZ/+ucABl9l5oPA/jpIkFK8Zcnc0NiETj+rf5f4xoNr52a4Hs1DlcJmrRHv4xvZHMxnDFQ==",
       "type": "package",
@@ -1638,6 +1677,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
+      "Blazored.Toast >= 3.1.2",
       "Markdig >= 0.20.0",
       "Microsoft.AspNetCore.Components.WebAssembly >= 3.2.0",
       "Microsoft.AspNetCore.Components.WebAssembly.Authentication >= 3.2.1",
@@ -1697,6 +1737,10 @@
     "frameworks": {
       "netstandard2.1": {
         "dependencies": {
+          "Blazored.Toast": {
+            "target": "Package",
+            "version": "[3.1.2, )"
+          },
           "Markdig": {
             "target": "Package",
             "version": "[0.20.0, )"

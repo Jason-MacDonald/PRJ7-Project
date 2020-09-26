@@ -144,6 +144,7 @@ C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Serv
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
+C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Blazored.Toast.dll
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\obj\Debug\netcoreapp3.1\adventureplatform.Server.csproj.CoreCompileInputs.cache
 C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\obj\Debug\netcoreapp3.1\adventureplatform.Server.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\64221\Documents\PRJ7-Project\adventure-platform\adventure-platform\Server\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
