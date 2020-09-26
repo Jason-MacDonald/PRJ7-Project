@@ -1,0 +1,35 @@
+﻿@if (_Display)
+{
+    <div class="alert alert-@alert.Type" role="alert">
+        @alert.Message
+        <button @onclick="OnCancel" type="button" class="close">
+            <span aria-hidden="true">&times</span>
+        </button>
+    </div>
+}
+
+@code {
+
+
+    #region ##### HEAD #####
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+
+    private Alert alert;
+    private bool _Display = false;
+
+    #endregion
+
+    #region ##### GENERAL METHODS #####
+
+    public void Show(Alert alert)
+    {
+        this.alert = alert;
+        _Display = true;
+    }
+
+    public void Hide() => _Display = false;
+
+    #endregion
+
+}
